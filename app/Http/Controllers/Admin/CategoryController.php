@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\category;
 use App\Components\Recursive;
+use Illuminate\Support\Str;
+use DateTime;
 
 class CategoryController extends Controller
 {
@@ -23,7 +25,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.modules.category.index');
+        $getcategory = $this->category->all();
+        return view('admin.modules.category.index',\compact('getcategory'));
     }
 
     /**
@@ -33,9 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data = $this->category->all();
-        $recursive = new Recursive($data);
-        $htmlOption = $recursive->categoryRecursive();
+        $htmlOption = $this->getCategory($parent_id = '');
         return view('admin.modules.category.create',compact('htmlOption'));
     }
 
@@ -47,18 +48,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->category->create([
+            'name' =>$request->name,
+            'parent_id' =>$request->parent_id,
+            'slug' => Str::slug($request->name)
+        ]);
+
+        return back()->with('message','Insertd Success');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function getCategory($parent_id) {
+        $data = $this->category->all();
+        $recursive = new Recursive($data);
+        $htmlOption = $recursive->categoryRecursive($parent_id);
+        return $htmlOption;
     }
 
     /**
@@ -69,7 +72,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $category = $this->category->find($id);
+        $htmlOption = $this->getCategory($category->parent_id);
+        return view('admin.modules.category.edit',\compact('category','htmlOption'));
     }
 
     /**
@@ -81,7 +87,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->category->find($id)->update([
+            'name' =>$request->name,
+            'parent_id' =>$request->parent_id,
+            'slug' => Str::slug($request->name)
+        ]);
+
+       return \redirect()->route('admin.category.index'); 
+
     }
 
     /**
@@ -92,6 +105,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->category->find($id)->delete();
+        return \redirect()->route('admin.category.index'); 
     }
 }
