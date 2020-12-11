@@ -30,6 +30,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','CategoryController@update')->name('update');
         Route::get('destroy/{id}','CategoryController@destroy')->name('destroy');
     });
+
+    Route::prefix('brand')->name('brand.')->group(function() {
+        Route::get('index','BrandController@index')->name('index');
+        Route::get('create','BrandController@create')->name('create');
+        Route::post('store','BrandController@store')->name('store');
+        Route::get('edit/{id}','BrandController@edit')->name('edit');
+        Route::post('update/{id}','BrandController@update')->name('update');
+        Route::get('destroy/{id}','BrandController@destroy')->name('destroy');
+    });
 });
 
 
