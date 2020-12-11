@@ -16,3 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+/*--------------------------------- phần Admin------------------------------------------*/
+
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('category')->name('category.')->group(function() {
+        Route::get('index','CategoryController@index')->name('index');
+        Route::get('create','CategoryController@create')->name('create');
+        Route::post('store','CategoryController@store')->name('store');
+        Route::get('edit','CategoryController@edit')->name('edit');
+        Route::post('update','CategoryController@update')->name('update');
+        Route::post('destroy','CategoryController@destroy')->name('destroy');
+    });
+});
+
+
