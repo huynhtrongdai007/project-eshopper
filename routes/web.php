@@ -22,6 +22,17 @@ Route::get('/', function () {
 
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('login','UserController@login')->name('login');
+    Route::post('progressLogin','UserController@progressLogin')->name('progressLogin');
+    Route::get('logout','UserController@logout')->name('logout');
+ 
+ Route::middleware('check_login')->group(function() {
+     
+    Route::get('dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
     Route::prefix('category')->name('category.')->group(function() {
         Route::get('index','CategoryController@index')->name('index');
         Route::get('create','CategoryController@create')->name('create');
@@ -39,6 +50,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','BrandController@update')->name('update');
         Route::get('destroy/{id}','BrandController@destroy')->name('destroy');
     });
+
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::get('index','UserController@index')->name('index');
+        Route::get('create','UserController@create')->name('create');
+        Route::post('store','UserController@store')->name('store');
+        Route::get('edit/{id}','UserController@edit')->name('edit');
+        Route::post('update/{id}','UserController@update')->name('update');
+        Route::get('destroy/{id}','UserController@destroy')->name('destroy');
+    });
+ });
+
+    
 });
 
 
