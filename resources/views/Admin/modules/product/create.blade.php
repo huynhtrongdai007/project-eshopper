@@ -12,7 +12,7 @@
             @if (isset($message))
                 <div class="alert alert-success">{{$message}}</div>               
             @endif
-            <form action="{{ route('admin.category.store') }}" method="POST">
+            <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Name</label>
@@ -25,15 +25,17 @@
                 <div class="mb-3">
                     <label>Catgory</label>
                     <select name="category_id" class="form-control">
-                      <option value="">Danh Mục</option>
-                      
+                      <option value="0">Chon Danh Mục</option>
+                       {!!$htmlOption!!}
                     </select>
                 </div>
                 <div class="mb-3">
                     <label>Brand</label>
                     <select name="brand_id" class="form-control">
                       <option value="">Chon thuong hieu</option>
-                      
+                      @foreach ($brands as $item)
+                      <option value="{{$item->id}}">{{$item->name}}</option>
+                      @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
@@ -59,7 +61,7 @@
                 <div class="mb-3">
                    <div class="form-group">
                     <label>detailed photo</label>
-                    <input type="file" name="feature_image"  class="form-control">
+                    <input type="file" multiple name="image_path[]"  class="form-control">
                    </div>
                 </div>
                 <div class="mb-3">
@@ -83,7 +85,7 @@
  $(function(){
     $(".tags_select").select2({
     tags: true,
-    tokenSeparators: [',', ' ']
+    tokenSeparators: [',']
   });
  });
 </script>
