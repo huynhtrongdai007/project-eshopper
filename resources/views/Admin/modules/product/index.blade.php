@@ -42,8 +42,8 @@
       <td>{{$items->id}}</td>
       <td><img height="80" src="{{$items->feature_image_path}}"></td>
       <td>{{$items->name}} </td>
-      <td>{{$items->price}}</td>
-      <td>{{$items->category->name}}</td>
+      <td>{{number_format($items->price) }}</td>
+      <td>{{optional($items->category)->name}}</td>
       <td>{{$items->brand->name}}</td>
       <td>{{$items->user->name}}</td>
       <td>{{$items->number_of_view}}</td>
@@ -54,7 +54,8 @@
         <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
-      <td><a href="{{ route('admin.category.edit',['id'=>$items->id]) }}">Edit</a> | <a href="{{ route('admin.category.destroy',['id'=>$items->id]) }}">Delete</a></td>
+      <td><a href="{{ route('admin.product.edit',['id'=>$items->id]) }}">Edit</a> 
+        | <a class="action_delete" data-url="{{ route('admin.product.destroy',['id'=>$items->id]) }}" href="">Delete</a></td>
    </tr>
   @endforeach
   

@@ -17,7 +17,8 @@
 <script src="{{asset('dist/js/select2.min.js') }}"></script>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script src="{{ asset('public/TinyMCE4/TinyMCE4.js') }}"></script>
-@yield('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{asset('dist/js/main.js') }}"></script>
 <script>
     $(function () {
       $("#example1").DataTable({
