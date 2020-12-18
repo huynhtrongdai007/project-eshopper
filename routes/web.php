@@ -77,6 +77,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','ProductController@update')->name('update');
         Route::get('destroy/{id}','ProductController@destroy')->name('destroy');
     });
+
+    Route::prefix('setting')->name('setting.')->group(function() {
+        Route::get('index','SettingController@index')->name('index');
+        Route::get('create','SettingController@create')->name('create');
+        Route::post('store','SettingController@store')->name('store');
+        Route::get('edit/{id}','SettingController@edit')->name('edit');
+        Route::post('update/{id}','SettingController@update')->name('update');
+        Route::get('destroy/{id}','SettingController@destroy')->name('destroy');
+    });
  });
 
     
