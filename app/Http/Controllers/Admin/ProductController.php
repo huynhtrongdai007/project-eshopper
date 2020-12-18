@@ -17,6 +17,7 @@ use App\Models\ProductImage;
 use App\Models\Tag;
 use App\Models\ProductTag;
 use DB;
+use App\Http\Requests\ProductAddRequest;
 
 class ProductController extends Controller
 {
@@ -58,7 +59,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view ('admin.modules.product.create');
+        $htmlOption = $this->getCategory($parent_id = '');
+
+        return view ('admin.modules.product.create',\compact('htmlOption'));
     }
 
     public function getCategory($parent_id) {
@@ -73,7 +76,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductAddRequest $request)
     {
       
         try{

@@ -16,11 +16,17 @@
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Name</label>
-                  <input type="text" name="name" class="form-control" placeholder="Enter name Product">
+                  <input type="text" name="name" value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name Product">
+                  @error('name')
+                      <div class="text-danger">{{$message}}</div>
+                  @enderror
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">price</label>
-                    <input type="text" name="price" class="form-control" placeholder="Enter price">
+                    <input type="text" name="price" value="{{old('price')}}" class="form-control @error('price') is-invalid @enderror" placeholder="Enter price">
+                    @error('price')
+                    <div class="text-danger">{{$message}}</div>
+                   @enderror
                   </div>
                 <div class="mb-3">
                     <label>Catgory</label>
@@ -31,32 +37,48 @@
                 </div>
                 <div class="mb-3">
                     <label>Brand</label>
-                    <select name="brand_id" class="form-control">
+                    <select name="brand_id" class="form-control @error('brand_id') is-invalid @enderror">
                       <option value="">Chon thuong hieu</option>
                       @foreach ($brands as $item)
                       <option value="{{$item->id}}">{{$item->name}}</option>
                       @endforeach
                     </select>
+                    @error('brand_id')
+                    <div class="text-danger">{{$message}}</div>
+                   @enderror
                 </div>
                 <div class="mb-3">
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea type="text" name="description" class="form-control tinymce_editor_init" cols="30" rows="10" placeholder="Enter Description"></textarea>
+                    <textarea type="text" name="description"  class="form-control tinymce_editor_init @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Description">
+                      {{old('description')}}
+                    </textarea>
+                    @error('description')
+                    <div class="text-danger">{{$message}}</div>
+                   @enderror
                   </div>
                     
                 </div>
                 <div class="mb-3">
                     <div class="form-group">
                       <label>Content</label>
-                      <textarea type="text" name="content" class="form-control tinymce_editor_init" cols="30" rows="10" placeholder="Enter Content"></textarea>
+                      <textarea type="text" name="content" class="form-control tinymce_editor_init @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Content">
+                        {{old('content')}}
+                      </textarea>
                     </div>
-                      
+                    @error('content')
+                    <div class="text-danger">{{$message}}</div>
+                   @enderror
                   </div>
                 <div class="mb-3">
                   <div class="form-group">
                     <label>Image</label>
-                    <input type="file" name="feature_image" class="form-control">
+                    <input type="file" name="feature_image" class="form-control @error('name') is-invalid @enderror">
+                    @error('feature_image')
+                    <div class="text-danger">{{$message}}</div>
+                 @enderror
                   </div>
+                
                 </div>
                 <div class="mb-3">
                    <div class="form-group">
@@ -68,7 +90,6 @@
                     <div class="form-group">
                         <label>Tags</label>
                        <select name="tags[]" class="form-control tags_select" multiple="multiple">
-
                        </select>
                     </div>
                 </div>

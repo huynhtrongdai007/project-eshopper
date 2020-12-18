@@ -16,14 +16,14 @@
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Name</label>
-                  <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Enter name">
+                  <input type="text" name="name" value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name">
                   @error('name')
                       <div class="text-danger">{{$message}}</div>
                   @enderror
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">Description</label>
-                    <textarea name="description" placeholder="Enter Description" class="form-control" cols="30" rows="10"></textarea>
+                    <textarea name="description" placeholder="Enter Description" class="form-control tinymce_editor_init  @error('description') is-invalid @enderror" cols="30" rows="10"></textarea>
                     @error('description')
                     <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -31,10 +31,10 @@
                 <div class="mb-3">
                     <div class="form-group">
                         <label>Image</label>
-                        <input type="file" class="form-control" name="image">
-                        @error('image')
+                        <input type="file" class="form-control" name="image_path">
+                        @error('image_path')
                         <div class="text-danger">{{$message}}</div>
-                    @enderror
+                        @enderror
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
