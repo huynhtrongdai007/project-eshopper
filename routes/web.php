@@ -86,6 +86,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','SettingController@update')->name('update');
         Route::get('destroy/{id}','SettingController@destroy')->name('destroy');
     });
+
+    Route::prefix('role')->name('role.')->group(function() {
+        Route::get('index','RoleController@index')->name('index');
+        Route::get('create','RoleController@create')->name('create');
+        Route::post('store','RoleController@store')->name('store');
+        Route::get('edit/{id}','RoleController@edit')->name('edit');
+        Route::post('update/{id}','RoleController@update')->name('update');
+        Route::get('destroy/{id}','RoleController@destroy')->name('destroy');
+    });
  });
 
     

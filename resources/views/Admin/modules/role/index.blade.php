@@ -1,9 +1,9 @@
 @extends('admin.master_layout')
-@section('title','Danh Sách Thể Loại')
+@section('title','Danh Sách Vai Tro')
 @section('content')
 <div class="card">
      <div class="card-header">
-       <h3 class="card-title">Danh Sách Thể Loại</h3>
+       <h3 class="card-title">Danh Sách Vai Tro</h3>
       <?php
        $message = Session::get('message');
          if($message)
@@ -25,8 +25,8 @@
 <thead>
    <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Display name</th>
+      <th>Config Key</th>
+      <th>Config Value</th>
       <th>Actions</th>
    </tr>
 </thead>

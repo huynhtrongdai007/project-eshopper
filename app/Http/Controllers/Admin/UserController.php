@@ -5,16 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DateTime;
-use  App\User;
+use App\User;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use App\Http\Requests\addUserRequests;
+use Illuminate\Support\Facades\Log;
+use App\Traits\DeleteModelTraits;
 
 class UserController extends Controller
 {
     private $user;
+    private $role;
+    use DeleteModelTraits;
 
-    public function __construct(User $user) {
+    public function __construct(User $user,Role $role) {
         $this->user = $user;
+        $this->role = $role;
+
     }
 
     /**
@@ -35,7 +44,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.modules.user.create');
+        $roles = $this->role->all();
+        return view('admin.modules.user.create',\compact('roles'));
     }
 
     /**
@@ -44,32 +54,39 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(addUserRequests $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'password' => 'required',
-            're_password'=>'required|same:password',
-            'email'=>'required|email'
-        ]);
-
-        $data = $request->except('_token','re_password');
-        $file = $request->file('image');
-        $data['password'] = bcrypt($request->password);
-        $data['created_at'] = new DateTime;
-
-        if ($file) {
-            $name = $file->getClientOriginalName();
-            $image = Str::random(4)."_".$name;
-            while(file_exists("public/uploads/users/".$image)) {
-                $image = Str::random(4)."_".$name;
-            }
-            $file->move('public/uploads/users/',$image);
-            $data['image'] = $image;
-        }else{
-            $data['image'] = '';
+    
+        try {
+            DB::beginTransaction();
+            $user = $this->user->create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' =>bcrypt($request->password)
+            ]);
+    
+    
+            $user->roles()->attach($request->role_id);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
         }
-        $this->user->insert($data);
+
+
+        // $file = $request->file('image');
+         
+        // if ($file) {
+        //     $name = $file->getClientOriginalName();
+        //     $image = Str::random(4)."_".$name;
+        //     while(file_exists("public/uploads/users/".$image)) {
+        //         $image = Str::random(4)."_".$name;
+        //     }
+        //     $file->move('public/uploads/users/',$image);
+        //     $data['image'] = $image;
+        // }else{
+        //     $data['image'] = '';
+        // }
         return redirect()->route('admin.user.index')->with('message','Insertd User SuccessFully');
     }
 
@@ -93,7 +110,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->user->find($id);
-        return view('admin.modules.user.edit',\compact('user'));
+        $roles = $this->role->all();
+        $roleOfUser = $user->roles;
+        return view('admin.modules.user.edit',\compact('user','roles','roleOfUser'));
     }
 
     /**
@@ -105,31 +124,53 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
-        $hinh = $this->user->find($id);
-        $data = $request->except('_token','re_password','changePassword');
-        $file = $request->file('image');
-        $data['updated_at'] = new DateTime;
-        if($request->changePassword=="on") {
+     
+        try {
+            DB::beginTransaction();
+             if($request->changePassword=="on") {
             $validatedData = $request->validate([
                 'password'=>'required|max:8',
                 're_password'=>'required|same:password'        
                 ]);
-            $data['password'] = Bcrypt($request->password);
+             Bcrypt($request->password);
         }
-        if ($file) {
-            $name = $file->getClientOriginalName();
-            $image = Str::random(4)."_".$name;
-            while(file_exists("public/uploads/users/".$image)) {
-                $image = Str::random(4)."_".$name;
-            }
-            $file->move('public/uploads/users/',$image);
-            unlink("public/uploads/users/".$hinh->image);
-            $data['image'] = $image;
+            $this->user->find($id)->update([
+                'name' => $request->name    
+            ]);
+    
+            $user = $this->user->find($id);
+            $user->roles()->sync($request->role_id);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
         }
-        $this->user->where('id',$id)->update($data);
+
+
+        return redirect()->route('admin.user.index')->with('message','Updated User SuccessFully');
+
+        // $hinh = $this->user->find($id);
+        // $data = $request->except('_token','re_password','changePassword');
+        // $file = $request->file('image');
+        // $data['updated_at'] = new DateTime;
+        // if($request->changePassword=="on") {
+        //     $validatedData = $request->validate([
+        //         'password'=>'required|max:8',
+        //         're_password'=>'required|same:password'        
+        //         ]);
+        //     $data['password'] = Bcrypt($request->password);
+        // }
+        // if ($file) {
+        //     $name = $file->getClientOriginalName();
+        //     $image = Str::random(4)."_".$name;
+        //     while(file_exists("public/uploads/users/".$image)) {
+        //         $image = Str::random(4)."_".$name;
+        //     }
+        //     $file->move('public/uploads/users/',$image);
+        //     unlink("public/uploads/users/".$hinh->image);
+        //     $data['image'] = $image;
+        // }
+        // $this->user->where('id',$id)->update($data);
         return redirect()->route('admin.user.index')->with('message','Updated User SuccessFully');
     }
 
@@ -141,8 +182,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->user->where('id',$id)->delete();
-        return redirect()->route('admin.user.index');
+       return $this->deleteModelTraits($id,$this->user);
     }
 
     public function login() {

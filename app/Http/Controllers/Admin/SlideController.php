@@ -127,19 +127,6 @@ class SlideController extends Controller
      */
     public function destroy($id)
     {
-        try {
-           $this->slide->find($id)->delete();
-           return response()->json([
-            'code' => 200,
-            'message' => 'success'
-        ],200);
-
-        } catch (\Throwable $th) {
-            Log::error('Message:'.$th->getMessage().'  Line : ' . $th->getLine());
-            return response()->json([
-                'code' => 500,
-                'message' => 'fail'
-            ],500);
-        }
+     
     }
 }

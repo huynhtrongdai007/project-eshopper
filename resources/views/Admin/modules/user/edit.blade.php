@@ -50,6 +50,21 @@
                      @enderror
                   </div>
                 </div>
+                <div class="mb-3">
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select name="role_id[]" class="form-control select2_init" multiple>
+                            <option value=""></option>
+                            @foreach ($roles as $item)
+                           
+                              <option 
+                              {{$roleOfUser->contains('id',$item->id) ? 'selected' : ''}}
+                              value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach 
+                        </select>
+                    </div>
+                
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
         </div>
