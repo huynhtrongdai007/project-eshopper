@@ -36,8 +36,8 @@
     <td>{{$item->id}}</td>
     <td>{{$item->name}}</td>
     <td>{{$item->display_name}}</td>
-    <td><a href="{{ route('admin.role.edit',['id'=>$item->id]) }}">Edit</a> | 
-      <a class="action_delete" data-url="{{ route('admin.role.destroy',['id'=>$item->id]) }}" href="">Delete</a></td>
+    <td><a class="btn btn-info btn-info" href="{{ route('admin.role.edit',['id'=>$item->id]) }}">Edit</a> | 
+      <a class="action_delete btn btn-info btn-danger" data-url="{{ route('admin.role.destroy',['id'=>$item->id]) }}" href="">Delete</a></td>
    </tr>
 
   @endforeach

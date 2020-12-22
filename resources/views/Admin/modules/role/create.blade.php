@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">Display Name</label>
-                  <textarea name="display_name" role="10" rows="10" class="form-control @error('config_value') is-invalid @enderror" placeholder="Enter Display Name"></textarea>
+                  <textarea name="display_name" {{old('display_name')}} role="10" rows="10" class="form-control @error('config_value') is-invalid @enderror" placeholder="Enter Display Name"></textarea>
                   @error('config_value')
                      <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
@@ -31,32 +31,29 @@
 
              <div class="row">
                 <div class="col-md-12">
+                    <input type="checkbox" class="checkall"> CheckAll
+                    @foreach ($permissions as $permissionsParentItem)
                     <div class="card">
                         <div class="card-header alert alert-success">
                             <label for="">
-                                <input type="checkbox">
-                                Module San pham
+                                <input type="checkbox" class="checkbox_wapper"> 
+                                Module {{$permissionsParentItem->name}}
                             </label>
                         </div>
-                      
                         <div class="card-body">
                            <div class="row">
-                               @for ($i = 0; $i < 4; $i++)
+                              @foreach ($permissionsParentItem->permissionsChildrent as $permissionsChildrent)
                                <div class="col-md-3">
                                     <label for="">
-                                        <input type="checkbox">
-                                        Thêm sản phẩm
+                                        <input type="checkbox" class="checkbox_chilrent" name="permission_id[]" value="{{$permissionsChildrent->id}}">
+                                        {{$permissionsChildrent->name}}
                                     </label>
                                  </div>
-                            
-                               @endfor
-                          
-                           
-                           </div>
-                          
+                              @endforeach
+                           </div>  
                         </div>
                     </div>
-    
+                    @endforeach
                 </div>
              </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -66,4 +63,10 @@
 
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+
+</script>
+    
 @endsection

@@ -39,3 +39,15 @@ function actionDelete(event) {
   $(function() {
     $(document).on('click','.action_delete',actionDelete);
 });
+
+$(function() {
+  $('.checkbox_wapper').on('click',function() {
+    $(this).parents('.col-md-3').find('.checkbox_chilrent').prop('checked',$(this).prop('checked'));
+  });
+  
+  $('.checkall').on('click',function() {
+    $(this).parents().find('.checkbox_chilrent').prop('checked',$(this).prop('checked'));
+    $(this).parents().find('.checkbox_wapper').prop('checked',$(this).prop('checked'));
+
+  });
+});

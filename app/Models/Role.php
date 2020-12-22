@@ -8,8 +8,7 @@ class Role extends Model
 {
     protected $guarded = [];
 
-    public function rolesChildrent() {
-        
-        return $this->hasMany(Role::class,'parent_id');
-    }
+   public function permissions() {
+       return $this->belongsToMany(Permission::class,'permission_role','permission_id','role_id');
+   }
 }
