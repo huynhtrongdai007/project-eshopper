@@ -1,9 +1,9 @@
 @extends('admin.master_layout')
-@section('title','Danh Sách Thể Loại')
+@section('title','Danh Sách User')
 @section('content')
 <div class="card">
      <div class="card-header">
-       <h3 class="card-title">Danh Sách Thể Loại</h3>
+       <h3 class="card-title">Danh Sách User</h3>
       <?php
        $message = Session::get('message');
          if($message)
@@ -26,18 +26,20 @@
    <tr>
       <th>#</th>
       <th>Name</th>
-      <th>Display name</th>
+      <th>Email</th>
+      <th>Image</th>
       <th>Actions</th>
    </tr>
 </thead>
 <tbody>
-  @foreach ($roles as $item)
+  @foreach ($users as $item)
   <tr>
     <td>{{$item->id}}</td>
     <td>{{$item->name}}</td>
-    <td>{{$item->display_name}}</td>
-    <td><a href="{{ route('admin.role.edit',['id'=>$item->id]) }}">Edit</a> | 
-      <a class="action_delete" data-url="{{ route('admin.role.destroy',['id'=>$item->id]) }}" href="">Delete</a></td>
+    <td>{{$item->email}}</td>
+    <td><img width="80" src="{{ asset("public/uploads/users/{$item->image}") }}" alt=""></td>
+    <td><a href="{{ route('admin.user.edit',['id'=>$item->id]) }}">Edit</a> | 
+      <a class="action_delete" data-url="{{ route('admin.user.destroy',['id'=>$item->id]) }}" href="">Delete</a></td>
    </tr>
 
   @endforeach

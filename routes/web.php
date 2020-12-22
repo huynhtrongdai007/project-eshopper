@@ -34,7 +34,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     })->name('dashboard');
 
     Route::prefix('category')->name('category.')->group(function() {
-        Route::get('index','CategoryController@index')->name('index');
+        Route::middleware('can:category-list')->group(function() {
+            Route::get('index','CategoryController@index')->name('index');
+        });
+      
         Route::get('create','CategoryController@create')->name('create');
         Route::post('store','CategoryController@store')->name('store');
         Route::get('edit/{id}','CategoryController@edit')->name('edit');
@@ -79,7 +82,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('setting')->name('setting.')->group(function() {
+        Route::middleware('can:setting-list')->group(function() {
         Route::get('index','SettingController@index')->name('index');
+       });
         Route::get('create','SettingController@create')->name('create');
         Route::post('store','SettingController@store')->name('store');
         Route::get('edit/{id}','SettingController@edit')->name('edit');
