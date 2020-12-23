@@ -100,6 +100,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','RoleController@update')->name('update');
         Route::get('destroy/{id}','RoleController@destroy')->name('destroy');
     });
+
+    Route::prefix('permission')->name('permission.')->group(function() {
+        Route::get('index','PermissionController@index')->name('index');
+        Route::get('create','PermissionController@create')->name('create');
+        Route::post('store','PermissionController@store')->name('store');
+        Route::get('edit/{id}','PermissionController@edit')->name('edit');
+        Route::post('update/{id}','PermissionController@update')->name('update');
+        Route::get('destroy/{id}','PermissionController@destroy')->name('destroy');
+    });
  });
 
     
