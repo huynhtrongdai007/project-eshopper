@@ -2,8 +2,8 @@
 
 return [
     'assess' => [
-        'list-category' => 'list_category'
-
+        'list-category' => 'category-list'
+        
     ],
     'table_module' => [
         'category',

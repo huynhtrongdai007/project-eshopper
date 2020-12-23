@@ -37,12 +37,17 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::middleware('can:category-list')->group(function() {
             Route::get('index','CategoryController@index')->name('index');
         });
-      
-        Route::get('create','CategoryController@create')->name('create');
+        Route::middleware('can:category-create')->group(function() {
+           Route::get('create','CategoryController@create')->name('create');
+        });
         Route::post('store','CategoryController@store')->name('store');
-        Route::get('edit/{id}','CategoryController@edit')->name('edit');
+        Route::middleware('can:category-update')->group(function() {
+             Route::get('edit/{id}','CategoryController@edit')->name('edit');
+        });
         Route::post('update/{id}','CategoryController@update')->name('update');
-        Route::get('destroy/{id}','CategoryController@destroy')->name('destroy');
+        Route::middleware('can:category-delete')->group(function() {
+             Route::get('destroy/{id}','CategoryController@destroy')->name('destroy');
+        });
     });
 
     Route::prefix('brand')->name('brand.')->group(function() {
