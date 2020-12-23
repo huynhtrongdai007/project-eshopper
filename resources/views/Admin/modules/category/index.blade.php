@@ -50,8 +50,15 @@
         <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
-      <td><a href="{{ route('admin.category.edit',['id'=>$items->id]) }}">Edit</a> | <a href="{{ route('admin.category.destroy',['id'=>$items->id]) }}">Delete</a></td>
-   </tr>
+      <td>
+        @can('category-update')
+         <a class="btn btn-info btn-small" href="{{ route('admin.category.edit',['id'=>$items->id]) }}">Edit</a>
+        @endcan
+         | 
+         @can('category-delete')
+         <a class="btn btn-danger btn-small" href="{{ route('admin.category.destroy',['id'=>$items->id]) }}">Delete</a></td>
+         @endcan
+        </tr>
   @endforeach
   
 
