@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Slide;
 class HomeController extends Controller
 {
     public function index() {
-        return view('pages.home');
+        $sliders = Slide::latest()->get();
+        return view('pages.home',\compact('sliders'));
     }
 
     public function login() {
