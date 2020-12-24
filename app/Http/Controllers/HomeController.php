@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slide;
+use App\Models\category;
+use App\Models\Brand;
 class HomeController extends Controller
 {
     public function index() {
         $sliders = Slide::latest()->get();
-        return view('pages.home',\compact('sliders'));
+        $categorys = category::where('parent_id',0)->get();
+        $brands = Brand::latest()->get();
+        return view('pages.home',\compact('sliders','categorys','brands'));
     }
 
     public function login() {
