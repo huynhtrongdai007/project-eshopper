@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
 
+Route::get('login','HomeController@login')->name('login');
+
+Route::get('cart','HomeController@cart')->name('cart');
+
+Route::get('checkout','HomeController@checkout')->name('checkout');
+
+Route::get('contact','HomeController@contact')->name('contact');
 
 /*--------------------------------- phần Admin------------------------------------------*/
 
