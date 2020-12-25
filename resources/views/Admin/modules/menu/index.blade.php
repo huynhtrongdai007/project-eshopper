@@ -25,23 +25,35 @@
 <thead>
    <tr>
       <th>#</th>
-      <th>Config Key</th>
-      <th>Config Value</th>
+      <th>Name Menu</th>
+      <th>Status</th>
       <th>Actions</th>
    </tr>
 </thead>
 <tbody>
-  @foreach ($settings as $item)
-  <tr>
-    <td>{{$item->id}}</td>
-    <td>{{$item->config_key}}</td>
-    <td>{{$item->config_value}}</td>
-    <td><a class="btn btn-info" href="{{ route('admin.setting.edit',['id'=>$item->id]) }}">Edit</a> | 
-      <a class="action_delete btn btn-danger" data-url="{{ route('admin.setting.destroy',['id'=>$item->id]) }}" href="">Delete</a></td>
-   </tr>
-
+  @foreach ($menus as $items)
+     <tr>
+      <td>{{$items->id}}</td>
+        <td>
+           {{$items->name}}
+       </td>
+      <td>
+        @if($items->category_status==1)
+       <input type="checkbox" class="category_status_off" id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+       @else
+        <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+       @endif
+       </td>
+      <td>
+        @can('category-update')
+         <a class="btn btn-info btn-small" href="{{ route('admin.menu.edit',['id'=>$items->id]) }}">Edit</a>
+        @endcan
+         | 
+         @can('category-delete')
+         <a class="btn btn-danger btn-small action_delete" data-url="{{ route('admin.menu.destroy',['id'=>$items->id]) }}">Delete</a></td>
+         @endcan
+        </tr>
   @endforeach
-   
   
 
 </table>

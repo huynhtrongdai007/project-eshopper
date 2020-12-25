@@ -6,15 +6,22 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
+                        @if ($category->categoryChildrent->count())
                         <a data-toggle="collapse" data-parent="#accordian" href="#sportswear_{{$category->id}}">
                             <span class="badge pull-right">
-                             @if ($category->categoryChildrent->count())
                              <i class="fa fa-plus"></i>
-                             @endif
+                             
                              
                             </span>
                           {{$category->name}}
                         </a>
+                        @else
+                        <a href="{{ route('category', ['slug'=>$categoryChildrentItem->slug,'id'=>$categoryChildrentItem->id]) }}">
+                            <span class="badge pull-right">
+                            </span>
+                          {{$category->name}}
+                        </a>
+                        @endif
                     </h4>
                 </div>
 
@@ -22,7 +29,7 @@
                     <div class="panel-body">
                         <ul>
                             @foreach ($category->categoryChildrent as $categoryChildrentItem)
-                            <li><a href="#">{{$categoryChildrentItem->name}} </a></li>
+                            <li><a href="{{ route('category', ['slug'=>$categoryChildrentItem->slug,'id'=>$categoryChildrentItem->id]) }}">{{$categoryChildrentItem->name}} </a></li>
 
                             @endforeach
                            
@@ -41,7 +48,7 @@
             <div class="brands-name">
                 <ul class="nav nav-pills nav-stacked">
                     @foreach ($brands as $brandItem)
-                    <li><a href="#"> <span class="pull-right"></span>{{$brandItem->name}}</a></li>
+                    <li><a href="{{ route('brand', ['slug'=>$brandItem->slug,'id'=>$brandItem->id]) }}"> <span class="pull-right"></span>{{$brandItem->name}}</a></li>
 
                     @endforeach
                 </ul>
@@ -57,7 +64,7 @@
         </div><!--/price-range-->
         
         <div class="shipping text-center"><!--shipping-->
-            <img src="images/home/shipping.jpg" alt="" />
+            <img src="{{ asset("frontend/images/home/shipping.jpg") }}" alt="" />
         </div><!--/shipping-->
     
     </div>

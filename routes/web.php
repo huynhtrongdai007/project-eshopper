@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/','HomeController@index');
+
+
 Route::get('home','HomeController@index')->name('home');
 
 Route::get('login','HomeController@login')->name('login');
@@ -21,6 +25,10 @@ Route::get('cart','HomeController@cart')->name('cart');
 Route::get('checkout','HomeController@checkout')->name('checkout');
 
 Route::get('contact','HomeController@contact')->name('contact-us');
+
+Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
+
+Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
 /*--------------------------------- phần Admin------------------------------------------*/
 
@@ -115,6 +123,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('edit/{id}','PermissionController@edit')->name('edit');
         Route::post('update/{id}','PermissionController@update')->name('update');
         Route::get('destroy/{id}','PermissionController@destroy')->name('destroy');
+    });
+
+    Route::prefix('menu')->name('menu.')->group(function() {
+        Route::get('index','MenuController@index')->name('index');
+        Route::get('create','MenuController@create')->name('create');
+        Route::post('store','MenuController@store')->name('store');
+        Route::get('edit/{id}','MenuController@edit')->name('edit');
+        Route::post('update/{id}','MenuController@update')->name('update');
+        Route::get('destroy/{id}','MenuController@destroy')->name('destroy');
     });
  });
 
