@@ -41,7 +41,7 @@
             <div class="brands-name">
                 <ul class="nav nav-pills nav-stacked">
                     @foreach ($brands as $brandItem)
-                    <li><a href="#"> <span class="pull-right">(50)</span>{{$brandItem->name}}</a></li>
+                    <li><a href="#"> <span class="pull-right"></span>{{$brandItem->name}}</a></li>
 
                     @endforeach
                 </ul>

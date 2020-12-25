@@ -112,14 +112,17 @@ class ProductController extends Controller
              }
     
              //insert tags for product
+             $tagIds = [];
              if(!empty($request->tags)) {
                 foreach($request->tags as $tagItem) {
                     // Insert to tags
                     $tagInstance = $this->tag->firstOrCreate(['name'=>$tagItem]);
                     $tagIds[] = $tagInstance->id;
                  }
+
              }
              $product->tags()->attach($tagIds);
+
              DB::commit();
              return back()->with('message','Insered SuccessFully');
         }catch(\Exception $exception){
@@ -197,6 +200,7 @@ class ProductController extends Controller
              }
     
              //insert tags for product
+             $tagIds = [];
              if(!empty($request->tags)) {
                 foreach($request->tags as $tagItem) {
                     // Insert to tags
@@ -204,6 +208,7 @@ class ProductController extends Controller
                     $tagIds[] = $tagInstance->id;
                  }
              }
+
              $product->tags()->sync($tagIds);
              DB::commit();
              return redirect()->route('admin.product.index')->with('message','Insered SuccessFully');

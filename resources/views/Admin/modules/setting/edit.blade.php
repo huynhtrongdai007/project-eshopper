@@ -23,7 +23,9 @@
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">Config Value</label>
-                  <input type="text" name="config_value" value="{{$setting->config_value}}" class="form-control @error('config_value') is-invalid @enderror" placeholder="Enter Config Value">
+                  <textarea name="config_value"  class="form-control @error('config_value') is-invalid @enderror" placeholder="Enter Config Value">
+                    {{$setting->config_value}}
+                  </textarea>
                   @error('config_value')
                      <div class="alert alert-danger">{{ $message }}</div>
                   @enderror

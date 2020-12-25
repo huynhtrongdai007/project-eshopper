@@ -24,6 +24,7 @@
 <table id="example2" class="table table-bordered table-hover text-center">
 <thead>
    <tr>
+      <th><input type="checkbox" class="selectall"></th>
       <th>#</th>
       <th>Image</th>
       <th>Name</th>
@@ -39,6 +40,7 @@
 <tbody>
   @foreach ($products as $items)
      <tr>
+      <td><input type="checkbox" name="id[]" class="selectbox" value="{{$items->id}}"></td>
       <td>{{$items->id}}</td>
       <td><img height="80" src="{{$items->feature_image_path}}"></td>
       <td>{{$items->name}} </td>
@@ -46,7 +48,7 @@
       <td>{{optional($items->category)->name}}</td>
       <td>{{$items->brand->name}}</td>
       <td>{{$items->user->name}}</td>
-      <td>{{$items->number_of_view}}</td>
+      <td>{{$items->number_of_views}}</td>
       <td>
         @if($items->status==1)
        <input type="checkbox" class="category_status_off" id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
@@ -54,8 +56,8 @@
         <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
-      <td><a href="{{ route('admin.product.edit',['id'=>$items->id]) }}">Edit</a> 
-        | <a class="action_delete" data-url="{{ route('admin.product.destroy',['id'=>$items->id]) }}" href="">Delete</a></td>
+      <td><a class="btn btn-info" href="{{ route('admin.product.edit',['id'=>$items->id]) }}">Edit</a> 
+        | <a class="action_delete btn btn-danger btn-small" data-url="{{ route('admin.product.destroy',['id'=>$items->id]) }}" href="">Delete</a></td>
    </tr>
   @endforeach
   

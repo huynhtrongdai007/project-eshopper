@@ -20,7 +20,7 @@ Route::get('cart','HomeController@cart')->name('cart');
 
 Route::get('checkout','HomeController@checkout')->name('checkout');
 
-Route::get('contact','HomeController@contact')->name('contact');
+Route::get('contact','HomeController@contact')->name('contact-us');
 
 /*--------------------------------- phần Admin------------------------------------------*/
 
@@ -91,9 +91,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('setting')->name('setting.')->group(function() {
-        Route::middleware('can:setting-list')->group(function() {
         Route::get('index','SettingController@index')->name('index');
-       });
         Route::get('create','SettingController@create')->name('create');
         Route::post('store','SettingController@store')->name('store');
         Route::get('edit/{id}','SettingController@edit')->name('edit');
