@@ -24,4 +24,17 @@ class CartController extends Controller
         return view('pages.cart',\compact('newCart'));
    }
 
+   public function DeleteItemCart(Request $request,$id) {
+   
+        $oldCart = Session('Cart') ? Session('Cart') : null;
+        $newCart = new Cart($oldCart);
+        $newCart->DeleteItemCart($id);
+        if(\count($newCart->products) > 0) {
+            $request->Session()->put('Cart',$newCart);
+        } else {
+            $request->Session()->forget('Cart');
+        }
+   }
+   
+
 }

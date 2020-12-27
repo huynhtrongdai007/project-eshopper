@@ -40,6 +40,7 @@
                 console.log(response);
                 $(".cart_info").empty();
                 $(".cart_info").html(response);
+                alertify.success('Success message');
             });
         }
     </script>

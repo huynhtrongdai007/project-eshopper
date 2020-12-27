@@ -20,7 +20,7 @@
                         <td></td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="change-cart">
                     @if(Session::has('Cart')!=null)
                     @foreach (Session::get('Cart')->products as $item)
                     <tr>
@@ -45,7 +45,7 @@
                             <p class="cart_total_price">{{number_format($item['price'])}}</p>
                         </td>
                         <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                            <a class="cart_quantity_delete" data-id="{{$item['productInfo']->id}}" href="javascript:"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -133,4 +133,19 @@
         </div>
     </div>
 </section><!--/#do_action-->
+@endsection
+@section('script')
+    <script>
+        $(".cart_delete").on("click",".cart_quantity_delete",function() {
+            $.ajax({
+                url:'Delete-Cart/'+$(this).data("id"),
+                type:'GET',
+                
+            }).done(function() { 
+                setTimeout(function(){// wait for 5 secs(2)
+                 location.reload(); // then reload the page.(3)
+             });
+            });
+        });
+    </script>
 @endsection

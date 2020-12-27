@@ -9,7 +9,15 @@
     <link href="{{ asset('frontend/css/price-range.css')}}" rel="stylesheet">
     <link href="{{ asset('frontend/css/animate.css')}}" rel="stylesheet">
 	<link href="{{ asset('frontend/css/main.css')}}" rel="stylesheet">
-	<link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet">
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

@@ -33,6 +33,8 @@ Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
 
 Route::get('/AddCart/{id}','CartController@AddCart')->name('AddCart');
+
+Route::get('Delete-Cart/{id}','CartController@DeleteItemCart')->name('DeleteCart');
 /*--------------------------------- phần Admin------------------------------------------*/
 
 
