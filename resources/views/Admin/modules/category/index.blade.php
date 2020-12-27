@@ -56,7 +56,7 @@
         @endcan
          | 
          @can('category-delete')
-         <a class="btn btn-danger btn-small" href="{{ route('admin.category.destroy',['id'=>$items->id]) }}">Delete</a></td>
+         <a class="btn btn-danger btn-small action_delete"  data-url="{{ route('admin.category.destroy',['id'=>$items->id]) }}">Delete</a></td>
          @endcan
         </tr>
   @endforeach

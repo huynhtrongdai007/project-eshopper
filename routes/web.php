@@ -30,6 +30,9 @@ Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 
 Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
+Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
+
+Route::get('/AddCart/{id}','CartController@AddCart')->name('AddCart');
 /*--------------------------------- phần Admin------------------------------------------*/
 
 

@@ -105,7 +105,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->category->find($id)->delete();
-        return \redirect()->route('admin.category.index'); 
+        try {
+            $this->category->find($id)->delete();
+             return response()->json([
+                 'code' => 200,
+                 'message' => 'success'
+             ]);
+         } catch (\Exception $exception) {
+             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+ 
+             return response()->json([
+                 'code' => 500,
+                 'message' => 'fail'
+             ]);
+         }
     }
 }
