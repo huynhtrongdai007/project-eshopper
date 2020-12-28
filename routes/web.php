@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@index')->name('/');
 
 
 Route::get('home','HomeController@index')->name('home');
@@ -31,10 +31,13 @@ Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
 Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
-
+/*--------------------------------- phần Cart------------------------------------------*/
 Route::get('/AddCart/{id}','CartController@AddCart')->name('AddCart');
-
+Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');
 Route::get('Delete-Cart/{id}','CartController@DeleteItemCart')->name('DeleteCart');
+Route::get('Save-Item-List-Cart/{id}/{quantity}','CartController@SaveItemCart')->name('SaveItemCart');
+Route::post('Save-All','CartController@SaveAllItemCart')->name('SaveItemCart');
+
 /*--------------------------------- phần Admin------------------------------------------*/
 
 

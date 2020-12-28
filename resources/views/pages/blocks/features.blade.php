@@ -24,24 +24,5 @@
                 </div>
             </div>
         </div>
-        @endforeach
-      
-
-        
+        @endforeach    
     </div><!--features_items-->
-@section('script')
-    <script>
-        function AddCart(id) {
-            $.ajax({
-                url:'AddCart/'+id, 
-                type:'GET',
-
-            }).done(function(response){
-                console.log(response);
-                $(".cart_info").empty();
-                $(".cart_info").html(response);
-                alertify.success('Success message');
-            });
-        }
-    </script>
-@endsection

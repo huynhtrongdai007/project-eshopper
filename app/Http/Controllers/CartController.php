@@ -34,7 +34,29 @@ class CartController extends Controller
         } else {
             $request->Session()->forget('Cart');
         }
+
+        return view('pages.cart',\compact('newCart'));
    }
    
+   public function SaveItemCart(Request $request,$id,$quantity) {
+        $oldCart = Session('Cart') ? Session('Cart') : null;
+        $newCart = new Cart($oldCart);
+        $newCart->UpdateItemCart($id,$quantity);
+        $request->Session()->put('Cart',$newCart);
+        return view('pages.cart');
+   }
+
+   public function SaveAllItemCart(Request $request) {
+    foreach($request->data as $item) {
+
+        $oldCart = Session('Cart') ? Session('Cart') : null;
+        $newCart = new Cart($oldCart);
+        $newCart->UpdateItemCart($item['key'],$item['value']);
+        $request->Session()->put('Cart',$newCart);
+
+    }
+        return view('pages.cart');
+   }
+
 
 }

@@ -4,11 +4,11 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-              <li><a href="#">Home</a></li>
+              <li><a href="{{ route('/')}}">Home</a></li>
               <li class="active">Shopping Cart</li>
             </ol>
         </div>
-        <div class="table-responsive cart_info">
+        <div class="table-responsive cart_info" >
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
@@ -18,39 +18,50 @@
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </thead>
-                <tbody id="change-cart">
+                <tbody>
+                    <div id="change-cart">
+
+                 
                     @if(Session::has('Cart')!=null)
                     @foreach (Session::get('Cart')->products as $item)
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">{{$item['productInfo']->name}}</a></h4>
-                           
-                        </td>
-                        <td class="cart_price">
-                            <p>{{number_format($item['productInfo']->price)}}</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">{{number_format($item['price'])}}</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" data-id="{{$item['productInfo']->id}}" href="javascript:"><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
+                 
+                        <tr>
+                            <td class="cart_product">
+                                <a href=""><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt=""></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="">{{$item['productInfo']->name}}</a></h4>
+                               
+                            </td>
+                            <td class="cart_price">
+                                <p>{{number_format($item['productInfo']->price)}}</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <a class="cart_quantity_up" href=""> + </a>
+                                    <input data-id="{{$item['productInfo']->id}}" class="cart_quantity_input quantity_item_{{$item['productInfo']->id}}" type="text" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href=""> - </a>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">{{number_format($item['price'])}}</p>
+                            </td>
+                            <td>
+                                <i style="font-size: 20px;" onclick="SaveListItemCart({{$item['productInfo']->id}});" id="Save-cart-item-{{$item['productInfo']->id}}" class="fa fa-save"></i>
+                            </td>
+                            <td class="cart_delete">
+                                <a class="cart_quantity_delete" data-id="{{$item['productInfo']->id}}" href="javascript:"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+    
+                 
                     @endforeach
+                    <input hidden id="total-quantity-cart" type="number" value="{{Session::get('Cart')->totalQuantity}}">
                     @endif
-                   
+                </div>
                 </tbody>
             </table>
         </div>
@@ -59,93 +70,32 @@
 
 <section id="do_action">
     <div class="container">
-        <div class="heading">
-            <h3>What would you like to do next?</h3>
-            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-        </div>
+        
         <div class="row">
-            <div class="col-sm-6">
-                <div class="chose_area">
-                    <ul class="user_option">
-                        <li>
-                            <input type="checkbox">
-                            <label>Use Coupon Code</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Use Gift Voucher</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Estimate Shipping & Taxes</label>
-                        </li>
-                    </ul>
-                    <ul class="user_info">
-                        <li class="single_field">
-                            <label>Country:</label>
-                            <select>
-                                <option>United States</option>
-                                <option>Bangladesh</option>
-                                <option>UK</option>
-                                <option>India</option>
-                                <option>Pakistan</option>
-                                <option>Ucrane</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
-                            
-                        </li>
-                        <li class="single_field">
-                            <label>Region / State:</label>
-                            <select>
-                                <option>Select</option>
-                                <option>Dhaka</option>
-                                <option>London</option>
-                                <option>Dillih</option>
-                                <option>Lahore</option>
-                                <option>Alaska</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
-                        
-                        </li>
-                        <li class="single_field zip-field">
-                            <label>Zip Code:</label>
-                            <input type="text">
-                        </li>
-                    </ul>
-                    <a class="btn btn-default update" href="">Get Quotes</a>
-                    <a class="btn btn-default check_out" href="">Continue</a>
-                </div>
-            </div>
+    
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Cart Sub Total <span>$59</span></li>
+                        @if (Session::has('Cart')!=null)
+                        <li>Cart Sub Total <span>$ {{number_format(Session::get('Cart')->totalPrice)}}</span></li>
+                        @else
+                        <li>Cart Sub Total <span>$ 0</span></li>
+                        @endif
                         <li>Eco Tax <span>$2</span></li>
                         <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>$61</span></li>
+                        @if (Session::has('Cart')!=null)
+                        <li>Total <span>$ {{number_format(Session::get('Cart')->totalPrice)}}</span></li>
+                        @else
+                        <li>Total <span>$ 0</span></li>
+                        @endif
                     </ul>
-                        <a class="btn btn-default update" href="">Update</a>
+                        <a class="btn btn-default update edit-all" href="javascript:">Update</a>
                         <a class="btn btn-default check_out" href="">Check Out</a>
                 </div>
             </div>
         </div>
     </div>
+
+
 </section><!--/#do_action-->
-@endsection
-@section('script')
-    <script>
-        $(".cart_delete").on("click",".cart_quantity_delete",function() {
-            $.ajax({
-                url:'Delete-Cart/'+$(this).data("id"),
-                type:'GET',
-                
-            }).done(function() { 
-                setTimeout(function(){// wait for 5 secs(2)
-                 location.reload(); // then reload the page.(3)
-             });
-            });
-        });
-    </script>
 @endsection

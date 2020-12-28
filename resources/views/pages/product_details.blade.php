@@ -53,11 +53,11 @@
                             <span>
                                 <span>{{number_format($product->price)}}</span>
                                 <label>Quantity:</label>
-                                <input type="number" min="1" value="3" />
-                                <button type="button" class="btn btn-fefault cart">
+                                <input type="number" min="1" value="1" />
+                                <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart
-                                </button>
+                                </a>
                             </span>
                             <p><b>Category:</b>{{$product->category->name}}</p>
                             <p><b>Condition:</b> New</p>
@@ -268,4 +268,17 @@
         </div>
     </div>
 </section>
+@endsection
+@section('script')
+    <script>
+        function AddCart(id) {
+            $.ajax({
+                url:'product-details/AddCart/'id, 
+                type:'GET',
+
+            }).done(function(){
+                alertify.success('Success message');
+            });
+        }
+    </script>
 @endsection

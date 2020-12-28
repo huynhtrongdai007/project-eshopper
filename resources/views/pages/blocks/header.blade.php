@@ -62,7 +62,15 @@
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{ route('checkout') }} "><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="{{ route('cart') }} "><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{ route('cart') }} ">
+                                <i class="fa fa-shopping-cart"></i>
+                                @if (Session::has('Cart')!=null)
+                                <span id="total-quantity-show" class="badge badge-pill badge-danger">{{Session::get('Cart')->totalQuantity}}</span>
+                                @else 
+                                <span id="total-quantity-show" class="badge badge-pill badge-danger">0</span>
+                                @endif
+                                Cart</a>
+                            </li>
                             <li><a href="{{ route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
@@ -91,7 +99,7 @@
                                     <li><a href="shop.html">Products</a></li>
                                     <li><a href="product-details.html">Product Details</a></li> 
                                     <li><a href="{{ route('checkout') }} ">Checkout</a></li> 
-                                    <li><a href="{{ route('cart') }} ">Cart</a></li> 
+                                    <li><a href="{{ route('cart') }} ">Cart </a></li> 
                                     <li><a href="{{ route('login') }} ">Login</a></li> 
                                 </ul>
                             </li> 
