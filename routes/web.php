@@ -147,6 +147,21 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','MenuController@update')->name('update');
         Route::get('destroy/{id}','MenuController@destroy')->name('destroy');
     });
+
+    Route::prefix('customer')->name('customer.')->group(function() {
+        Route::get('index','CustomerController@index')->name('index');
+        Route::get('destroy/{id}','CustomerController@destroy')->name('destroy');
+
+    });
+
+    Route::prefix('contact')->name('contact.')->group(function() {
+        Route::get('index','ContactController@index')->name('index');
+        Route::get('create','ContactController@create')->name('create');
+        Route::post('store','ContactController@store')->name('store');
+        Route::get('edit/{id}','ContactController@edit')->name('edit');
+        Route::post('update/{id}','ContactController@update')->name('update');
+        Route::get('destroy/{id}','ContactController@destroy')->name('destroy');
+    });
  });
 
     
