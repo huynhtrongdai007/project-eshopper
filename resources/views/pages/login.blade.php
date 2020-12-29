@@ -6,9 +6,10 @@
             <div class="col-sm-4 col-sm-offset-1">
                 <div class="login-form"><!--login form-->
                     <h2>Login to your account</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Name" />
-                        <input type="email" placeholder="Email Address" />
+                    <form action="{{ route('logincustomer') }}" method="POST">
+                        @csrf
+                        <input type="email" name="email" required placeholder="Email" />
+                        <input type="password" name="password" required placeholder="Password" />
                         <span>
                             <input type="checkbox" class="checkbox"> 
                             Keep me signed in
@@ -23,10 +24,11 @@
             <div class="col-sm-4">
                 <div class="signup-form"><!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Name"/>
-                        <input type="email" placeholder="Email Address"/>
-                        <input type="password" placeholder="Password"/>
+                    <form action="{{ route('register') }}" method="POST">
+                        @csrf
+                        <input type="text" name="name" value="{{old('name')}}" required placeholder="Name"/>
+                        <input type="email" name="email" value="{{old('email')}}" required placeholder="Email Address"/>
+                        <input type="password" name="password"  required placeholder="Password"/>
                         <button type="submit" class="btn btn-default">Signup</button>
                     </form>
                 </div><!--/sign up form-->

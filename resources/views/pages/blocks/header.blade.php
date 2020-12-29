@@ -71,7 +71,13 @@
                                 @endif
                                 Cart</a>
                             </li>
-                            <li><a href="{{ route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
+                      
+                            @if (Session::has('Customer')!=null)
+                               <li><a href="{{ route('logout') }}">Logout</a></li>
+                            @else
+                              <li><a href="{{ route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            @endif
+                          
                         </ul>
                     </div>
                 </div>

@@ -19,6 +19,10 @@ Route::get('/','HomeController@index')->name('/');
 Route::get('home','HomeController@index')->name('home');
 
 Route::get('login','HomeController@login')->name('login');
+Route::post('logincustomer','LoginCustomerController@loginCustomer')->name('logincustomer');
+
+Route::post('register','LoginCustomerController@registerCustomer')->name('register');
+Route::get('logout','LoginCustomerController@logout')->name('logout');
 
 Route::get('cart','HomeController@cart')->name('cart');
 
@@ -31,6 +35,8 @@ Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
 Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
+
+
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('/AddCart/{id}','CartController@AddCart')->name('AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');
