@@ -111,3 +111,48 @@ $(document).ready(function(){
  });    
  
 });
+
+// contact
+
+$(document).ready(function() {
+    $(".btn-submit-contact").click(function(e){
+        e.preventDefault();
+
+
+        var _token = $("meta[name='csrf-token']").attr("content");
+        var name = $("input[name='name']").val();
+        var email = $("input[name='email']").val();
+        var subject = $("input[name='subject']").val();
+        var  content = $("textarea[name='content']").val();
+
+
+        $.ajax({
+            url: "/addContact",
+            type:'POST',
+            data: {_token:_token,
+                  name:name,
+                  subject:subject,
+                  email:email,
+                  content:content},
+            success: function(data) {
+                if($.isEmptyObject(data.error)){
+                    $("#main-contact-form").trigger("reset");
+                    alert(data.success);
+                }else{
+                    $("#main-contact-form").trigger("reset");
+                    printErrorMsg(data.error);
+                }
+            }
+        });
+
+
+    }); 
+    function printErrorMsg (msg) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+        });
+    }
+
+});

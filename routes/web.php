@@ -19,16 +19,17 @@ Route::get('/','HomeController@index')->name('/');
 Route::get('home','HomeController@index')->name('home');
 
 Route::get('login','HomeController@login')->name('login');
-Route::post('logincustomer','LoginCustomerController@loginCustomer')->name('logincustomer');
+Route::post('logincustomer','CustomerController@loginCustomer')->name('logincustomer');
 
-Route::post('register','LoginCustomerController@registerCustomer')->name('register');
-Route::get('logout','LoginCustomerController@logout')->name('logout');
+Route::post('register','CustomerController@registerCustomer')->name('register');
+Route::get('logout','CustomerController@logout')->name('logout');
 
 Route::get('cart','HomeController@cart')->name('cart');
 
 Route::get('checkout','HomeController@checkout')->name('checkout');
 
 Route::get('contact','HomeController@contact')->name('contact-us');
+Route::post('addContact','CustomerController@addContact')->name('addContact');
 
 Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 
@@ -156,10 +157,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('contact')->name('contact.')->group(function() {
         Route::get('index','ContactController@index')->name('index');
-        Route::get('create','ContactController@create')->name('create');
-        Route::post('store','ContactController@store')->name('store');
-        Route::get('edit/{id}','ContactController@edit')->name('edit');
-        Route::post('update/{id}','ContactController@update')->name('update');
         Route::get('destroy/{id}','ContactController@destroy')->name('destroy');
     });
  });

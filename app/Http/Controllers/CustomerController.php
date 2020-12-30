@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Contact;
 use Session;
 use Illuminate\Support\Facades\Auth;
-
-class LoginCustomerController extends Controller
+use Validator;
+class CustomerController extends Controller
 {
     private $customer;
+    private $contact;
 
-    public function __construct(Customer $customer) {
+    public function __construct(Customer $customer,Contact $contact) {
         $this->customer = $customer;
+        $this->contact = $contact;
     }
     
     public function registerCustomer(Request $request) {
@@ -47,4 +50,29 @@ class LoginCustomerController extends Controller
         return redirect()->route('login');
     }
 
+
+    public function addContact(Request $request) {
+       
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'content' => 'required',
+        ]);
+
+
+        if ($validator->passes()) {
+
+            $this->contact->create([
+                'name' =>$request->name,
+                'email' =>$request->email,
+                'subject' =>$request->subject,
+                'content' =>$request->content
+           ]);
+			return response()->json(['success'=>'Added new records.']);
+        }
+    
+
+    	return response()->json(['error'=>$validator->errors()->all()]);
+    }
 }

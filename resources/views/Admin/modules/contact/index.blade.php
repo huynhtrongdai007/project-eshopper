@@ -25,28 +25,31 @@
 <thead>
    <tr>
       <th>#</th>
-      <th>Name Category</th>
-      <th>Status</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+      <th>Message</th>
       <th>Actions</th>
    </tr>
 </thead>
 <tbody>
-  @foreach ($brand as $items)
+  @foreach ($contacts as $item)
      <tr>
-      <td>{{$items->id}}</td>
+      <td>{{$item->id}}</td>
         <td>
-           {{$items->name}}
+           {{$item->name}}
        </td>
-    
-      <td>
-        @if($items->status==1)
-       <input type="checkbox" class="category_status_off " id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-       @else
-        <input type="checkbox" class="category_status_on " id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-       @endif
+       <td>{{$item->email}}</td>
+         <td>
+           {{$item->subject}}
+         </td>
+         <td>{{$item->content}}</td>
+         <td>
+        @can('category-delete')
+        <a class="btn btn-danger action_delete"  data-url="{{ route('admin.contact.destroy',['id'=>$item->id]) }}">Delete</a></td>
+        @endcan
        </td>
-      <td><a class="btn btn-info" href="{{ route('admin.brand.edit',['id'=>$items->id]) }}">Edit</a> | <a class="btn btn-danger" href="{{ route('admin.brand.destroy',['id'=>$items->id]) }}">Delete</a></td>
-   </tr>
+        </tr>
   @endforeach
   
 
