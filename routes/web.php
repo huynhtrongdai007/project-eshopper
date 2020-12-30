@@ -39,7 +39,7 @@ Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name(
 
 
 /*--------------------------------- phần Cart------------------------------------------*/
-Route::get('/AddCart/{id}','CartController@AddCart')->name('AddCart');
+Route::get('AddCart/{id}','CartController@AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');
 Route::get('Delete-Cart/{id}','CartController@DeleteItemCart')->name('DeleteCart');
 Route::get('Save-Item-List-Cart/{id}/{quantity}','CartController@SaveItemCart')->name('SaveItemCart');
@@ -75,6 +75,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::middleware('can:category-delete')->group(function() {
              Route::get('destroy/{id}','CategoryController@destroy')->name('destroy');
         });
+        Route::get('update-status-active/{id}','CategoryController@StatusActive');
+        Route::get('update-status-untive/{id}','CategoryController@StatusUntive');
     });
 
     Route::prefix('brand')->name('brand.')->group(function() {
@@ -84,6 +86,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('edit/{id}','BrandController@edit')->name('edit');
         Route::post('update/{id}','BrandController@update')->name('update');
         Route::get('destroy/{id}','BrandController@destroy')->name('destroy');
+        Route::get('update-status-active/{id}','BrandController@StatusActive');
+        Route::get('update-status-untive/{id}','BrandController@StatusUntive');
     });
 
     Route::prefix('user')->name('user.')->group(function() {

@@ -44,10 +44,10 @@
       </td>
     
       <td>
-        @if($items->category_status==1)
-       <input type="checkbox" class="category_status_off" id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+        @if($items->status==1)
+       <input type="checkbox" class="status_off_category" data-id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @else
-        <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+        <input type="checkbox" class="status_on_category" data-id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
       <td>
@@ -71,4 +71,28 @@
      </div>
      <!-- /.card-footer-->
 </div>
+@endsection
+
+@section('script')
+<script>
+  //update status category 
+$("document").ready(function() {
+  $('.status_on_category').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-active/'+id, 
+    type:'GET',
+  }); 
+});
+
+$('.status_off_category').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-untive/'+id, 
+    type:'GET',
+  }); 
+});
+});
+
+  </script>    
 @endsection

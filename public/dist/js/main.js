@@ -51,3 +51,26 @@ $(function() {
 
   });
 });
+
+
+$(document).ready(function() {
+  //update status brand 
+  $('.status_on').on('change',function() {
+    var id = $(this).data("id");
+    
+    $.ajax({
+      url:'update-status-active/'+id, 
+      type:'GET',
+    }); 
+  });
+
+  $('.status_off').on('change',function() {
+    var id = $(this).data("id");
+    
+    $.ajax({
+      url:'update-status-untive/'+id, 
+      type:'GET',
+    }); 
+  });
+
+});

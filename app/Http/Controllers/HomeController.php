@@ -11,8 +11,8 @@ class HomeController extends Controller
 {
 
     public function __construct() {
-        $categorys = category::where('parent_id',0)->get();
-        $brands = Brand::latest()->get();
+        $categorys = category::where('parent_id',0)->where('status',1)->get();
+        $brands = Brand::where('status',1)->get();
         $productsRecommend = Product::latest('number_of_views','desc')->take(12)->get();
 
         view()->share('categorys',$categorys);

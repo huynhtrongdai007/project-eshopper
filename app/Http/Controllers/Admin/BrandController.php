@@ -95,7 +95,29 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $this->brand->where('id',$id)->delete();
-        return \redirect()->route('admin.brand.index'); 
+        try {
+            $this->brand->find($id)->delete();
+             return response()->json([
+                 'code' => 200,
+                 'message' => 'success'
+             ]);
+         } catch (\Exception $exception) {
+             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+ 
+             return response()->json([
+                 'code' => 500,
+                 'message' => 'fail'
+             ]);
+         }
+    }
+
+    public function StatusActive(Request $request) {
+        $id = $request->id;
+        $this->brand->where('id',$id)->update(['status'=>1]);
+    }
+
+    public function StatusUntive(Request $request) {
+        $id = $request->id;
+        $this->brand->where('id',$id)->update(['status'=>0]);
     }
 }

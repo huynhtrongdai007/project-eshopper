@@ -121,4 +121,14 @@ class CategoryController extends Controller
              ]);
          }
     }
+
+    public function StatusActive(Request $request) {
+        $id = $request->id;
+        $this->category->where('id',$id)->update(['status'=>1]);
+    }
+
+    public function StatusUntive(Request $request) {
+        $id = $request->id;
+        $this->category->where('id',$id)->update(['status'=>0]);
+    }
 }

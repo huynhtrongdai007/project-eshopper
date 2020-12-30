@@ -1,9 +1,9 @@
 @extends('admin.master_layout')
-@section('title','Danh Sách Thể Loại')
+@section('title','Danh Sách Thương Hiệu')
 @section('content')
 <div class="card">
      <div class="card-header">
-       <h3 class="card-title">Danh Sách Thể Loại</h3>
+       <h3 class="card-title">Danh Sách Thương Hiệu</h3>
       <?php
        $message = Session::get('message');
          if($message)
@@ -40,12 +40,13 @@
     
       <td>
         @if($items->status==1)
-       <input type="checkbox" class="category_status_off " id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+       <input type="checkbox" class="status_off " data-id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @else
-        <input type="checkbox" class="category_status_on " id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+        <input type="checkbox" class="status_on " data-id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
-      <td><a class="btn btn-info" href="{{ route('admin.brand.edit',['id'=>$items->id]) }}">Edit</a> | <a class="btn btn-danger" href="{{ route('admin.brand.destroy',['id'=>$items->id]) }}">Delete</a></td>
+      <td><a class="btn btn-info" href="{{ route('admin.brand.edit',['id'=>$items->id]) }}">Edit</a> |
+         <a class="btn btn-danger action_delete" data-url="{{ route('admin.brand.destroy',['id'=>$items->id]) }}">Delete</a></td>
    </tr>
   @endforeach
   
