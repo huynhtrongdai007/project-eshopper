@@ -25,7 +25,7 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <img src="{{$categoryProductItem->feature_image_path}}" alt="" />
+                            <a href="{{ route('product-details', ['slug'=>$categoryProductItem->slug,'id'=>$categoryProductItem->id]) }}"><img src="{{$categoryProductItem->feature_image_path}}" alt="" /> </a>
                             <h2>{{number_format($categoryProductItem->price)}}</h2>
                             <p>{{$categoryProductItem->name}}</p>
                             <a onclick="AddCart({{$categoryProductItem->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

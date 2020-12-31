@@ -7,6 +7,8 @@ use App\Models\Slide;
 use App\Models\category;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductTag;
+use DB;
 class HomeController extends Controller
 {
 
@@ -55,6 +57,18 @@ class HomeController extends Controller
     
     public function productDetails($slug,$id)   {
         $product =  Product::where('id',$id)->find($id);
-        return view('pages.product_details',\compact('product'));
+        $product_tags = $product->tags()->get();
+        Product::where('id', $id)->update(['number_of_views' => $product->number_of_views+1]);  
+
+        return view('pages.product_details',\compact('product','product_tags'));
     } 
+
+    public function productTags($tag_id) {
+        $product = DB::table('products')
+        ->join('product_tags','product_tags.product_id','=','products.id')
+        ->where('product_tags.tag_id',$tag_id)
+		->select('products.*')
+		->paginate(5);
+        return view('pages.product.tags.list',\compact('product'));
+    }
 }

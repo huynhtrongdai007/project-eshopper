@@ -62,7 +62,13 @@
                             <p><b>Category:</b>{{$product->category->name}}</p>
                             <p><b>Condition:</b> New</p>
                             <p><b>Brand:</b> {{$product->brand->name}}</p>
-                            <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+                            <p><b>Tags:</b>
+                                @foreach ($product_tags as $item)
+
+                                 <a class="badge bg-primary" href="{{ route('tags', ['id'=>$item->id]) }}">{{$item->name}}</a>
+                                @endforeach
+                                </p>
+                            <a href=""><img src="{{ asset('frontend/images/product-details/share.png') }}" class="share img-responsive"  alt="" /></a>
                         </div><!--/product-information-->
                     </div>
                 </div><!--/product-details-->

@@ -72,3 +72,26 @@
      <!-- /.card-footer-->
 </div>
 @endsection
+@section('script')
+<script>
+  //update status category 
+$("document").ready(function() {
+  $('.status_on_product').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-active/'+id, 
+    type:'GET',
+  }); 
+});
+
+$('.status_off_product').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-untive/'+id, 
+    type:'GET',
+  }); 
+});
+});
+
+  </script>    
+@endsection

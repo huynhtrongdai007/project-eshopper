@@ -36,7 +36,7 @@ Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
 Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
-
+Route::get('tags/{id}','HomeController@productTags')->name('tags');
 
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('AddCart/{id}','CartController@AddCart');
@@ -115,6 +115,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('edit/{id}','ProductController@edit')->name('edit');
         Route::post('update/{id}','ProductController@update')->name('update');
         Route::get('destroy/{id}','ProductController@destroy')->name('destroy');
+        Route::get('update-status-active/{id}','ProductController@StatusActive');
+        Route::get('update-status-untive/{id}','ProductController@StatusUntive');
     });
 
     Route::prefix('setting')->name('setting.')->group(function() {
