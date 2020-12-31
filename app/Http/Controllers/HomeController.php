@@ -24,8 +24,8 @@ class HomeController extends Controller
 
 
     public function index() {
-        $sliders = Slide::latest()->get();
-        $products = Product::latest()->get()->take(6);
+        $sliders = Slide::where('status',1)->latest()->get();
+        $products = Product::where('status',1)->latest()->get()->take(6);
         return view('pages.home',\compact('sliders','products'));
     }
 

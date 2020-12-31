@@ -51,9 +51,9 @@
       <td>{{$items->number_of_views}}</td>
       <td>
         @if($items->status==1)
-       <input type="checkbox" class="category_status_off" id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+       <input type="checkbox" class="status_off_product" data-id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @else
-        <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+        <input type="checkbox" class="status_on_product" data-id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
       <td><a class="btn btn-info" href="{{ route('admin.product.edit',['id'=>$items->id]) }}">Edit</a> 

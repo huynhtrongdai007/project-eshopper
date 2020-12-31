@@ -242,4 +242,15 @@ class ProductController extends Controller
             ],500);
         }
     }
+
+    
+    public function StatusActive(Request $request) {
+        $id = $request->id;
+        $this->product->where('id',$id)->update(['status'=>1]);
+    }
+
+    public function StatusUntive(Request $request) {
+        $id = $request->id;
+        $this->product->where('id',$id)->update(['status'=>0]);
+    }
 }

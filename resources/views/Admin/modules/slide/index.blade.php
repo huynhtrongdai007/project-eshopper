@@ -46,12 +46,12 @@
       <td><img height="80" src="{{$items->image_path}}"></td>
       <td>
         @if($items->status==1)
-       <input type="checkbox" class="category_status_off" id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+       <input type="checkbox" class="status_off_slider" data-id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @else
-        <input type="checkbox" class="category_status_on" id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+        <input type="checkbox" class="status_on_slider" data-id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
        @endif
        </td>
-      <td><a href="{{ route('admin.slide.edit',['id'=>$items->id]) }}">Edit</a> | <a class="action_delete" data-url="{{ route('admin.slide.destroy',['id'=>$items->id]) }}" href="">Delete</a></td>
+      <td><a class="btn btn-info" href="{{ route('admin.slide.edit',['id'=>$items->id]) }}">Edit</a> | <a class="action_delete btn btn-danger" data-url="{{ route('admin.slide.destroy',['id'=>$items->id]) }}" href="">Delete</a></td>
    </tr>
   @endforeach
   
@@ -65,4 +65,27 @@
      </div>
      <!-- /.card-footer-->
 </div>
+@endsection
+@section('script')
+<script>
+  //update status category 
+$("document").ready(function() {
+  $('.status_on_slider').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-active/'+id, 
+    type:'GET',
+  }); 
+});
+
+$('.status_off_slider').on('change',function() {
+  var id = $(this).data("id");
+  $.ajax({
+    url:'update-status-untive/'+id, 
+    type:'GET',
+  }); 
+});
+});
+
+  </script>    
 @endsection

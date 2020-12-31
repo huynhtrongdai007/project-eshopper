@@ -106,6 +106,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('edit/{id}','SlideController@edit')->name('edit');
         Route::post('update/{id}','SlideController@update')->name('update');
         Route::get('destroy/{id}','SlideController@destroy')->name('destroy');
+        Route::get('update-status-active/{id}','SlideController@StatusActive');
+        Route::get('update-status-untive/{id}','SlideController@StatusUntive');
     });
 
     Route::prefix('product')->name('product.')->group(function() {

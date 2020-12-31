@@ -127,6 +127,29 @@ class SlideController extends Controller
      */
     public function destroy($id)
     {
-     
+        try {
+            $this->slide->find($id)->delete();
+             return response()->json([
+                 'code' => 200,
+                 'message' => 'success'
+             ]);
+         } catch (\Throwable $th) {
+             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+ 
+             return response()->json([
+                 'code' => 500,
+                 'message' => 'fail'
+             ]);
+         }
+    }
+
+    public function StatusActive(Request $request) {
+        $id = $request->id;
+        $this->slide->where('id',$id)->update(['status'=>1]);
+    }
+
+    public function StatusUntive(Request $request) {
+        $id = $request->id;
+        $this->slide->where('id',$id)->update(['status'=>0]);
     }
 }
