@@ -44,6 +44,9 @@ Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name
 Route::get('Delete-Cart/{id}','CartController@DeleteItemCart')->name('DeleteCart');
 Route::get('Save-Item-List-Cart/{id}/{quantity}','CartController@SaveItemCart')->name('SaveItemCart');
 Route::post('Save-All','CartController@SaveAllItemCart')->name('SaveItemCart');
+/*--------------------------------- phần Checkout------------------------------------------*/
+
+Route::post('storecheckout','CheckoutController@storeCheckOut');
 
 /*--------------------------------- phần Admin------------------------------------------*/
 

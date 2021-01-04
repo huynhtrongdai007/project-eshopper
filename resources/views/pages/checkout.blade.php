@@ -4,101 +4,40 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-              <li><a href="#">Home</a></li>
+              <li><a href="{{ route('/') }}">Home</a></li>
               <li class="active">Check out</li>
             </ol>
         </div><!--/breadcrums-->
 
-        <div class="step-one">
-            <h2 class="heading">Step1</h2>
-        </div>
-        <div class="checkout-options">
-            <h3>New User</h3>
-            <p>Checkout options</p>
-            <ul class="nav">
-                <li>
-                    <label><input type="checkbox"> Register Account</label>
-                </li>
-                <li>
-                    <label><input type="checkbox"> Guest Checkout</label>
-                </li>
-                <li>
-                    <a href=""><i class="fa fa-times"></i>Cancel</a>
-                </li>
-            </ul>
-        </div><!--/checkout-options-->
-
         <div class="register-req">
             <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
         </div><!--/register-req-->
-
         <div class="shopper-informations">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="shopper-info">
                         <p>Shopper Information</p>
                         <form>
-                            <input type="text" placeholder="Display Name">
-                            <input type="text" placeholder="User Name">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm password">
+                            @php
+                                $customer_id = Session::get('customer_id');
+							@endphp
+                            <input type="hidden" name="customer_id" id="customer_id" value="{{$customer_id}}">
+                            <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+                            <input type="text" name="miiddle" id="middlename" placeholder="middle Name">
+                            <input type="text" name="firstname" id="firstname" placeholder="first Name">
+                            <input type="number" name="phone" id="phone" placeholder="Enter Phone">
+                            <input type="email" name="email" id="email" placeholder="Enter Email">
+                            <textarea name="address" id="address" cols="30" rows="10" placeholder="Your Address"></textarea>
                         </form>
-                        <a class="btn btn-primary" href="">Get Quotes</a>
-                        <a class="btn btn-primary" href="">Continue</a>
+                        <a class="btn btn-primary" id="btn-checkout" href="javascript:">Continue</a>
+
                     </div>
                 </div>
-                <div class="col-sm-5 clearfix">
-                    <div class="bill-to">
-                        <p>Bill To</p>
-                        <div class="form-one">
-                            <form>
-                                <input type="text" placeholder="Company Name">
-                                <input type="text" placeholder="Email*">
-                                <input type="text" placeholder="Title">
-                                <input type="text" placeholder="First Name *">
-                                <input type="text" placeholder="Middle Name">
-                                <input type="text" placeholder="Last Name *">
-                                <input type="text" placeholder="Address 1 *">
-                                <input type="text" placeholder="Address 2">
-                            </form>
-                        </div>
-                        <div class="form-two">
-                            <form>
-                                <input type="text" placeholder="Zip / Postal Code *">
-                                <select>
-                                    <option>-- Country --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <select>
-                                    <option>-- State / Province / Region --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <input type="password" placeholder="Confirm password">
-                                <input type="text" placeholder="Phone *">
-                                <input type="text" placeholder="Mobile Phone">
-                                <input type="text" placeholder="Fax">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+           
                 <div class="col-sm-4">
                     <div class="order-message">
                         <p>Shipping Order</p>
-                        <textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
+                        <textarea name="message" id="note"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
                         <label><input type="checkbox"> Shipping to bill address</label>
                     </div>	
                 </div>					
@@ -124,8 +63,6 @@
                 <tbody>
                     @if (Session::has('Cart')!=null)
                     @foreach (Session::get('Cart')->products as $item)
-                        
-                 
                     <tr>
                         <td class="cart_product">
                             <a href=""><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt=""></a>
@@ -156,21 +93,60 @@
                     </tr>
                     @endforeach
                     @endif
+                    
                    
                 </tbody>
+            
             </table>
+            @if (Session::has('Cart')!=null)
+            <input type="text" disabled="" id="total" value="{{number_format(Session::get('Cart')->totalPrice)}}">
+            @else
+                <input type="text" id="total" value="0">
+            @endif
         </div>
         <div class="payment-options">
                 <span>
-                    <label><input type="checkbox"> Direct Bank Transfer</label>
+                    <label><input name="method" id="method" value="ATM" type="checkbox"> Direct Bank Transfer</label>
                 </span>
                 <span>
-                    <label><input type="checkbox"> Check Payment</label>
-                </span>
-                <span>
-                    <label><input type="checkbox"> Paypal</label>
+                    <label><input name="method" id="method" value="Tiền Mặt" type="checkbox"> Check Payment</label>
                 </span>
             </div>
     </div>
 </section> <!--/#cart_items-->
+@endsection
+
+@section('script')
+    <script>
+        $('document').ready(function() {
+          $('#btn-checkout').click(function () {
+                let customer_id = $("#customer_id").val();
+                let lastname = $('#lastname').val();
+                let middlename = $('#middlename').val();
+                let firstname = $('#firstname').val();
+                let phone = $('#phone').val();
+                let email = $('#email').val();
+                let address = $('#address').val();
+                let note = $('#note').val();
+                let method =$('#method').val();
+                let total = $("#total").val();
+                var _token = $("meta[name='csrf-token']").attr("content");
+                $.ajax({
+                url: 'storecheckout',
+                type: 'POST',   
+                data: {lastname:lastname,middlename:middlename,
+                firstname:firstname,phone:phone,email:email,address:address,
+                note:note,method:method,customer_id:customer_id,total:total,_token:_token},
+                success:function() {
+                    alert("Ok");
+                        // swal( "Check Success","", "success");
+                    setTimeout(function(){
+                        location.reload();
+                    },1000);
+                    
+                }
+             });
+          });
+        });
+    </script>
 @endsection

@@ -22,7 +22,7 @@ class CustomerController extends Controller
       $result =  $this->customer->create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => md5($request->password)
         ]);
 
         $request->Session()->put('Customer',$result->id);
@@ -35,14 +35,16 @@ class CustomerController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
-        $credentials = $request->only('email', 'password');
-        $request->Session()->put('Customer',$credentials);
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('home');
+        $email = $request->email;
+        $password = md5($request->password);
+        $result = $this->customer->where('email',$email)->where('password',$password)->first();;
+          
+        if ($result) {
+            Session::put('customer_id',$result->id);
+            return redirect()->route('checkout');
+        } else {
+             return redirect()->back()->with('error_message','Login Not Success');
         }
-
-        return redirect('login')->with('error', 'Oppes! You have entered invalid credentials');
     }
 
     public function logout(Request $request) {

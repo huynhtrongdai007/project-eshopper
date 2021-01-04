@@ -41,6 +41,10 @@ class HomeController extends Controller
         return view('pages.checkout');
     }
 
+    public function storeCheckOut(Request $request) {
+        
+    }
+
     public function contact() {
         return view('pages.contact-us');
     }
