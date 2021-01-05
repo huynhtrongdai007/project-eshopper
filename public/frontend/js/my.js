@@ -113,19 +113,14 @@ $(document).ready(function(){
 });
 
 // contact
-
 $(document).ready(function() {
     $(".btn-submit-contact").click(function(e){
         e.preventDefault();
-
-
         var _token = $("meta[name='csrf-token']").attr("content");
         var name = $("input[name='name']").val();
         var email = $("input[name='email']").val();
         var subject = $("input[name='subject']").val();
         var  content = $("textarea[name='content']").val();
-
-
         $.ajax({
             url: "/addContact",
             type:'POST',

@@ -17,20 +17,18 @@
                 <div class="col-sm-3">
                     <div class="shopper-info">
                         <p>Shopper Information</p>
-                        <form>
+                        <form id="form-checkout">
                             @php
                                 $customer_id = Session::get('customer_id');
 							@endphp
                             <input type="hidden" name="customer_id" id="customer_id" value="{{$customer_id}}">
                             <input type="text" name="lastname" id="lastname" placeholder="Last Name">
-                            <input type="text" name="miiddle" id="middlename" placeholder="middle Name">
+                            <input type="text" name="middlename" id="middlename" placeholder="middle Name">
                             <input type="text" name="firstname" id="firstname" placeholder="first Name">
                             <input type="number" name="phone" id="phone" placeholder="Enter Phone">
                             <input type="email" name="email" id="email" placeholder="Enter Email">
                             <textarea name="address" id="address" cols="30" rows="10" placeholder="Your Address"></textarea>
-                        </form>
-                        <a class="btn btn-primary" id="btn-checkout" href="javascript:">Continue</a>
-
+                            <input type="submit" class="btn btn-primary" id="btn-checkout" value="Continue">
                     </div>
                 </div>
            
@@ -62,6 +60,7 @@
                 </thead>
                 <tbody>
                     @if (Session::has('Cart')!=null)
+                    <input type="hidden" id="checkcart" value="{{Session::has('Cart')!=null}}">
                     @foreach (Session::get('Cart')->products as $item)
                     <tr>
                         <td class="cart_product">
@@ -113,40 +112,83 @@
                 </span>
             </div>
     </div>
+</form>
 </section> <!--/#cart_items-->
 @endsection
 
 @section('script')
     <script>
         $('document').ready(function() {
-          $('#btn-checkout').click(function () {
-                let customer_id = $("#customer_id").val();
-                let lastname = $('#lastname').val();
-                let middlename = $('#middlename').val();
-                let firstname = $('#firstname').val();
-                let phone = $('#phone').val();
-                let email = $('#email').val();
-                let address = $('#address').val();
-                let note = $('#note').val();
-                let method =$('#method').val();
-                let total = $("#total").val();
-                var _token = $("meta[name='csrf-token']").attr("content");
-                $.ajax({
-                url: 'storecheckout',
-                type: 'POST',   
-                data: {lastname:lastname,middlename:middlename,
-                firstname:firstname,phone:phone,email:email,address:address,
-                note:note,method:method,customer_id:customer_id,total:total,_token:_token},
-                success:function() {
-                    alert("Ok");
-                        // swal( "Check Success","", "success");
-                    setTimeout(function(){
-                        location.reload();
-                    },1000);
-                    
-                }
+            let checkcart = $('#checkcart').val();
+            console.log(checkcart);
+         $('#btn-checkout').click(function () {
+  
+            $('#form-checkout').validate({
+                    rules: {
+                        lastname: {
+                            required:true
+                        },
+                        middlename: {
+                            required:true
+                        },
+                        firstname: {
+                            required:true
+                        
+                        },
+                        phone: {
+                            required:true
+                        },
+                        email: {
+                            required:true,
+                            email:true
+                        },
+                        address: {
+                            required:true
+                        },
+                        method:{
+                            required:true
+                        }
+
+                    },
+
+                    submitHandler: function(form) {
+                       
+                        if(!checkcart) {
+                            swal("Bạn chưa mua hàng","", "error"); 
+                        }else{
+
+                        let customer_id = $("#customer_id").val();
+                        let lastname = $('#lastname').val();
+                        let middlename = $('#middlename').val();
+                        let firstname = $('#firstname').val();
+                        let phone = $('#phone').val();
+                        let email = $('#email').val();
+                        let address = $('#address').val();
+                        let note = $('#note').val();
+                        let method =  $('#method').val();
+                        let total = $("#total").val();
+                        var _token = $("meta[name='csrf-token']").attr("content");
+                            $.ajax({
+                            url: 'storecheckout',
+                            type: 'POST',   
+                            data: {lastname:lastname,middlename:middlename,
+                            firstname:firstname,phone:phone,email:email,address:address,
+                            note:note,method:method,customer_id:customer_id,total:total,_token:_token},
+                                success:function() {
+                                        swal( "Check Success","", "success");
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },1000);
+                                    
+                                }
+                            });
+                     
+                        // bắt buộc để chặn gửi bình thường vì bạn đã sử dụng ajax
+                        return false;
+                        }
+                    }
+                });
              });
-          });
         });
     </script>
 @endsection

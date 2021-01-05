@@ -72,7 +72,7 @@
                                 Cart</a>
                             </li>
                       
-                            @if (Session::has('Customer')!=null)
+                            @if (Session::has('customer_id')!=null)
                                <li><a href="{{ route('logout') }}">Logout</a></li>
                             @else
                               <li><a href="{{ route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
