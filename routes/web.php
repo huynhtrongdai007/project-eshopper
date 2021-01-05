@@ -170,6 +170,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('index','ContactController@index')->name('index');
         Route::get('destroy/{id}','ContactController@destroy')->name('destroy');
     });
+
+    Route::prefix('order')->name('order.')->group(function() {
+        Route::get('index','OrderController@index')->name('index');
+        Route::get('show/{id}','OrderController@show')->name('show');
+        Route::get('print_order/{id}','OrderController@print_order')->name('print_order');
+        
+        Route::get('destroy/{id}','OrderController@destroy')->name('destroy');
+    });
  });
 
     
