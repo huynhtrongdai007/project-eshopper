@@ -16,7 +16,7 @@ class Order extends Model
         return $this->belongsTo(Shipping::class,'shipping_id','id');
     }
 
-    public function order_orderdetail() {
-        return $this->belongsToMany(Orderdetail::class);
+    public function orderdetails() {
+        return $this->belongsToMany(Orderdetail::class,'order_id','id');
     }
 }

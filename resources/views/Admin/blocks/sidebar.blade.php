@@ -100,7 +100,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-users nav-icon"></i>
               <p>
                 User
                 <i class="right fas fa-angle-left"></i>
@@ -124,7 +124,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon far fa-images"></i>
               <p>
                 Slide
                 <i class="right fas fa-angle-left"></i>
@@ -172,7 +172,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-cog nav-icon"></i>
               <p>
                 Setting
                 <i class="right fas fa-angle-left"></i>
@@ -220,7 +220,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Permission
                 <i class="right fas fa-angle-left"></i>
@@ -243,7 +243,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fa fa-bars nav-icon"></i>
               <p>
                 Menu
                 <i class="right fas fa-angle-left"></i>
@@ -266,7 +266,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Customer
                 <i class="right fas fa-angle-left"></i>
@@ -283,8 +283,9 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-address-book nav-icon"></i>
               <p>
+               
                 Contact
                 <i class="right fas fa-angle-left"></i>
               </p>
@@ -300,7 +301,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fa fa-shopping-cart"></i>
               <p>
                 Order
                 <i class="right fas fa-angle-left"></i>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Orderdetail;
+use Illuminate\Support\Facades\Log;
 class OrderController extends Controller
 {
     private $order;
@@ -37,7 +38,8 @@ class OrderController extends Controller
     public function show($id)
     {
         $orderdetail = $this->orderdetail->all();
-        return view('admin.modules.order.show',\compact('orderdetail'));
+        $order = $this->order->find($id);
+        return view('admin.modules.order.show',\compact('orderdetail','order'));
     }
 
 
@@ -49,6 +51,24 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = $this->order->find($id);
+        $order->orderdetails()->detach();
+
+
+        // try {
+
+        //     $this->order->find($id)->delete();
+        //      return response()->json([
+        //          'code' => 200,
+        //          'message' => 'success'
+        //      ]);
+        //  } catch (\Throwable $th) {
+        //      Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+ 
+        //      return response()->json([
+        //          'code' => 500,
+        //          'message' => 'fail'
+        //      ]);
+        //  }
     }
 }

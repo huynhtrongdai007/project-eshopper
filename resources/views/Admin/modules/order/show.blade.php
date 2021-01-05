@@ -36,11 +36,11 @@
 </thead>
 <tbody>
 
-   {{-- <tr>
-     <td>{{$detail_customer->lastname}} {{$detail_customer->middlename}} {{$detail_customer->firstname}}</td> 
-     <td>{{$detail_customer->address}}</td>
-     <td>{{$detail_customer->phone}}</td>
-   </tr> --}}
+   <tr>
+     <td>{{$order->shippings->lastname}} {{$order->shippings->middlename}} {{$order->shippings->firstname}}</td> 
+     <td>{{$order->shippings->address}}</td>
+     <td>{{$order->shippings->phone}}</td>
+   </tr>
  
 </tbody>
 <thead>
