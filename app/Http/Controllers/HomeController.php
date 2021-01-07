@@ -8,6 +8,7 @@ use App\Models\category;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductTag;
+use App\Models\Menu;
 use DB;
 
 class HomeController extends Controller
@@ -17,16 +18,18 @@ class HomeController extends Controller
         $categorys = category::where('parent_id',0)->where('status',1)->get();
         $brands = Brand::where('status',1)->get();
         $productsRecommend = Product::latest('number_of_views','desc')->take(12)->get();
-
+        $menus = Menu::where('parent_id',0)->get();
         view()->share('categorys',$categorys);
         view()->share('brands',$brands);
         view()->share('productsRecommend',$productsRecommend);
+        view()->share('menus',$menus);
     }
 
 
     public function index() {
         $sliders = Slide::where('status',1)->latest()->get();
         $products = Product::where('status',1)->latest()->get()->take(6);
+       
         return view('pages.home',\compact('sliders','products'));
     }
 
