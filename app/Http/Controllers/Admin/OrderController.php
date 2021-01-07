@@ -37,7 +37,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $orderdetail = $this->orderdetail->all();
+        $orderdetail = $this->orderdetail->where('order_id',$id)->get();
         $order = $this->order->find($id);
         return view('admin.modules.order.show',\compact('orderdetail','order'));
     }

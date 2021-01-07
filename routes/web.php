@@ -38,6 +38,7 @@ Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
 Route::get('tags/{id}','HomeController@productTags')->name('tags');
 
+Route::get('/search','HomeController@search')->name('search');
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('AddCart/{id}','CartController@AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');

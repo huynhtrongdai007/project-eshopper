@@ -53,7 +53,8 @@
                             <span>
                                 <span>{{number_format($product->price)}}</span>
                                 <label>Quantity:</label>
-                                <input type="number" min="1" value="1" />
+                         
+                                <input type="number" min="1" value="" />
                                 <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart
@@ -279,7 +280,7 @@
     <script>
         function AddCart(id) {
             $.ajax({
-                url:'product-details/AddCart/'id, 
+                url:'/AddCart/'+id, 
                 type:'GET',
 
             }).done(function(){

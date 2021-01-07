@@ -122,10 +122,33 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <input type="text" autocomplete="off" id="search" placeholder="Search"/>
                     </div>
                 </div>
             </div>
         </div>
     </div><!--/header-bottom-->
 </header>
+
+@section('script')
+    <script>
+      $(document).ready(function(){
+    $("#search").autocomplete({
+        source: "{{ url('/search') }}",
+            focus: function( event, ui ) {
+            //$( "#search" ).val( ui.item.title ); // uncomment this line if you want to select value to search box  
+            return false;
+        },
+        select: function( event, ui ) {
+            window.location.href = ui.item.url;
+        }
+    }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        var inner_html = '<a href="' + item.url + '" ><div class="list_item_container"><div class="image"><img src="' + item.feature_image_path + '" ></div><div class="label"><h4><b>' + item.name + '</b></h4></div></div></a>';
+        return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append(inner_html)
+                .appendTo( ul );
+    };
+});
+    </script>
+@endsection

@@ -90,7 +90,7 @@
                         @endif
                     </ul>
                         <a class="btn btn-default update edit-all" href="javascript:">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
+                        <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check Out</a>
                 </div>
             </div>
         </div>

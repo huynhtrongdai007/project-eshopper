@@ -41,7 +41,8 @@
         <td>{{$item->status}}</td>
         <td>{{$item->created_at}}</td>
         <td>
-            <a class="btn btn-info" href="{{ route('admin.order.show', ['id'=>$item->id]) }}">Xem</a> |
+            <a class="btn btn-info" href="{{ route('admin.order.show', ['id'=>$item->id]) }}">Xem</a> | 
+            <a class="btn btn-success" href="">Print Bill </a> |
             <a class="btn btn-danger "  href="{{ route('admin.order.destroy', ['id'=>$item->id]) }}">Xóa</a>
         </td>
       </tr> 

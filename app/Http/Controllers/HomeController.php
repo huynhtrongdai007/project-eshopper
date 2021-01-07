@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductTag;
 use DB;
+
 class HomeController extends Controller
 {
 
@@ -74,5 +75,28 @@ class HomeController extends Controller
 		->select('products.*')
 		->paginate(5);
         return view('pages.product.tags.list',\compact('product'));
+    }
+
+    public function search(Request $request) {
+        $search=  $request->term;
+        
+        $products = Product::where('name','LIKE',"%{$search}%")
+                       ->orderBy('created_at','DESC')->limit(5)->get();
+
+        if(!$products->isEmpty())
+        {
+            foreach($products  as $product)
+            {
+                
+                $new_row['name']= $product->name;
+                $new_row['feature_image_path']= $product->feature_image_path;
+                $new_row['price'] = $product->price;
+                $new_row['url']= url('product-details/'.$product->slug,$product->id);
+                
+                $row_set[] = $new_row; //build an array
+            }
+        }
+        
+        echo json_encode($row_set); 
     }
 }

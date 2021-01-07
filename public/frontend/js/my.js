@@ -151,3 +151,101 @@ $(document).ready(function() {
     }
 
 });
+
+
+//============================checkout===========================================
+$('document').ready(function() {
+    let checkcart = $('#checkcart').val();
+    let customerid = $("#customer_id").val();
+ $('#btn-checkout').click(function () {
+
+    $('#form-checkout').validate({
+            rules: {
+                lastname: {
+                    required:true
+                },
+                middlename: {
+                    required:true
+                },
+                firstname: {
+                    required:true
+                
+                },
+                phone: {
+                    required:true
+                },
+                email: {
+                    required:true,
+                    email:true
+                },
+                address: {
+                    required:true
+                },
+                method:{
+                    required:true
+                }
+
+            },
+
+            submitHandler: function(form) {
+                if(!customerid){
+                    swal("Bạn vui lòng đăng nhập hoặc đăng ký để mua hàng","", "error"); 
+                    return false;
+                }   
+                if(!checkcart) {
+                    swal("Bạn chưa mua hàng","", "error"); 
+                }else{
+
+                let customer_id = $("#customer_id").val();
+                let lastname = $('#lastname').val();
+                let middlename = $('#middlename').val();
+                let firstname = $('#firstname').val();
+                let phone = $('#phone').val();
+                let email = $('#email').val();
+                let address = $('#address').val();
+                let note = $('#note').val();
+                let method =  $('#method').val();
+                let total = $("#total").val();
+                var _token = $("meta[name='csrf-token']").attr("content");
+                    $.ajax({
+                    url: 'storecheckout',
+                    type: 'POST',   
+                    data: {lastname:lastname,middlename:middlename,
+                    firstname:firstname,phone:phone,email:email,address:address,
+                    note:note,method:method,customer_id:customer_id,total:total,_token:_token},
+                        success:function() {
+                                swal( "Check Success","", "success");
+                            setTimeout(function(){
+                                location.reload();
+                            },1000);
+                            
+                        }
+                    });
+             
+                // bắt buộc để chặn gửi bình thường vì bạn đã sử dụng ajax
+                return false;
+                }
+            }
+        });
+     });
+});
+
+//=====================search product ==================================================== 
+$(document).ready(function(){
+    $("#search").autocomplete({
+        source: "{{ url('/search') }}",
+            focus: function( event, ui ) {
+            //$( "#search" ).val( ui.item.title ); // uncomment this line if you want to select value to search box  
+            return false;
+        },
+        select: function( event, ui ) {
+            window.location.href = ui.item.url;
+        }
+    }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        var inner_html = '<a href="' + item.url + '" ><div class="list_item_container"><div class="image"><img src="' + item.feature_image_path + '" ></div><div class="label"><h4><b>' + item.name + '</b></h4></div></div></a>';
+        return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append(inner_html)
+                .appendTo( ul );
+    };
+});
