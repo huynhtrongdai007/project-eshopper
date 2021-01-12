@@ -16,22 +16,18 @@
                             
                               <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
-                                    <div class="item active">
-                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                      <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                      <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                    </div>
-                                    
+                                    @foreach ($similar_product as $key => $item)
+                                    @if($key % 3 == 0)
+                          
+                                    <div class="item {{$key == 0 ? 'active' : '' }}">
+                                        @endif
+                                            <a href=""><img width="80" src="{{$item->feature_image_path}}" alt=""></a>
+                                      
+                                        @if ($key % 3 == 2)
+                                        </div>
+                                    @endif
+                                    @endforeach
+                              
                                 </div>
 
                               <!-- Controls -->

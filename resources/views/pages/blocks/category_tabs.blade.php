@@ -17,9 +17,6 @@
         @foreach ($categorys as $indexCategoryProduct => $categoryItemProduct)
       
         <div class="tab-pane fade {{$indexCategoryProduct == 0 ? 'active in' : ''}}" id="category_tab_{{$categoryItemProduct->id}}">
-
-
-      
             @foreach ($categoryItemProduct->products as $categoryProductItem)
             <div class="col-sm-3">
                 <div class="product-image-wrapper">

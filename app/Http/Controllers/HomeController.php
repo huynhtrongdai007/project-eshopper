@@ -29,8 +29,8 @@ class HomeController extends Controller
     public function index() {
         $sliders = Slide::where('status',1)->latest()->get();
         $products = Product::where('status',1)->latest()->get()->take(6);
-       
-        return view('pages.home',\compact('sliders','products'));
+        $menus = Menu::where('parent_id',0)->get();
+        return view('pages.home',\compact('sliders','products','menus'));
     }
 
     public function login() {
@@ -67,8 +67,8 @@ class HomeController extends Controller
         $product =  Product::where('id',$id)->find($id);
         $product_tags = $product->tags()->get();
         Product::where('id', $id)->update(['number_of_views' => $product->number_of_views+1]);  
-
-        return view('pages.product_details',\compact('product','product_tags'));
+        $similar_product = Product::where('category_id',$product->category_id)->whereNotIn('products.id',[$product->id])->take(6)->get();
+        return view('pages.product_details',\compact('product','product_tags','similar_product'));
     } 
 
     public function productTags($tag_id) {
