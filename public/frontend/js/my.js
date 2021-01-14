@@ -158,7 +158,6 @@ $('document').ready(function() {
     let checkcart = $('#checkcart').val();
     let customerid = $("#customer_id").val();
  $('#btn-checkout').click(function () {
-
     $('#form-checkout').validate({
             rules: {
                 lastname: {
@@ -230,6 +229,67 @@ $('document').ready(function() {
      });
 });
 
+//============================Form-Review===========================================
+
+$(document).ready(function() {
+      
+    $(".btn-review").click(function(e){
+         e.preventDefault();
+      
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var content = $("#content").val();
+        var product_id = $("#product_id").val();
+        var _token = $("meta[name='csrf-token']").attr("content");
+            if(name=="" || email=="" || content==""){
+                alert('các trường không được để trống')
+            } else {
+                $.ajax({
+                    url:'/storeReview',
+                    method:'post',
+                    data:{name:name,email:email,content:content,product_id:product_id,_token:_token},
+                    success:function(response) {
+                        Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Cảm ơn bạn đã đánh giá sản phẩm của chúng tôi',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                        DisplayReviews();
+                        $("#formReview")[0].reset();
+                    }
+                 
+                });
+            }
+     
+        return false;
+        
+    });
+
+
+    DisplayReviews();
+    function DisplayReviews() {
+        var product_id = $('#product_id').val();
+        var _token = $("meta[name='csrf-token']").attr("content");
+        $("#load-Reviews").html("");
+        $.ajax({
+            url:"/display_review",
+            type:"post",
+            data:{product_id:product_id,_token:_token},
+            success:function(data) {
+                $.each(data,function(key,value){
+                    $("#load-Reviews").append("<ul>"
+                        +"<li><a href=''><i class='fa fa-user'>"+value.name+"</i></a></li>"+
+                        "<li><a href=''><i class='fa fa-calendar-o'></i>"+value.created_at+"</a></li>"+
+                        "<p>"+value.content+"</p>"+
+                        "</ul>");
+                });
+            }
+        });
+    }
+
+});
 //=====================search product ==================================================== 
 $(document).ready(function(){
     $("#search").autocomplete({

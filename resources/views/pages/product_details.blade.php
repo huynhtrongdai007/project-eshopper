@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
-                            <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                            <img src="{{ asset('frontend/images/product-details/new.jpg') }}" class="newarrival" alt="" />
                             <h2>{{$product->name}}</h2>
                      
                             <img src="images/product-details/rating.png" alt="" />
@@ -76,7 +76,7 @@
                             <li><a href="#details" data-toggle="tab">Details</a></li>
                             <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
                             <li><a href="#tag" data-toggle="tab">Tag</a></li>
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews ({{$reviews->count()}})</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -235,22 +235,18 @@
                         
                         <div class="tab-pane fade active in" id="reviews" >
                             <div class="col-sm-12">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <div id="load-Reviews"></div>
                                 <p><b>Write Your Review</b></p>
                                 
-                                <form action="#">
+                                <form action="#" id="formReview">
                                     <span>
-                                        <input type="text" placeholder="Your Name"/>
-                                        <input type="email" placeholder="Email Address"/>
+                                        <input type="hidden" id="product_id" name="product_id" value="{{$product->id}}">
+                                        <input type="text" id="name" name="name" placeholder="Your Name"/>
+                                        <input type="email" id="email" name="email" placeholder="Email Address"/>
                                     </span>
-                                    <textarea name="" ></textarea>
-                                    <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                                    <button type="button" class="btn btn-default pull-right">
+                                    <textarea id="content" name="content" ></textarea>
+                                    <b>Rating: </b> <img src="{{ asset('frontend/images/product-details/rating.png') }}" alt="" />
+                                    <button type="button" class="btn btn-default pull-right btn-review">
                                         Submit
                                     </button>
                                 </form>

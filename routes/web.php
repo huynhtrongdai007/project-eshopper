@@ -35,10 +35,14 @@ Route::get('/category/{slug}/{id}','HomeController@category')->name('category');
 
 Route::get('/brand/{slug}/{id}','HomeController@brand')->name('brand');
 
-Route::get('product-details/{slug}/{id}','HomeController@productDetails')->name('product-details');
-Route::get('tags/{id}','HomeController@productTags')->name('tags');
+Route::get('product-details/{slug}/{id}','ProductDetailController@productDetails')->name('product-details');
+Route::get('tags/{id}','ProductDetailController@productTags')->name('tags');
+Route::post('/storeReview','ProductDetailController@storeReview')->name('storeReview');
+Route::post('/display_review','ProductDetailController@displayReview');
 
 Route::get('/search','HomeController@search')->name('search');
+/*--------------------------------- phần blog------------------------------------------*/
+Route::get('/list-post','PostController@listPost')->name('list-post');
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('AddCart/{id}','CartController@AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');
@@ -173,6 +177,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('order')->name('order.')->group(function() {
+        Route::get('index','OrderController@index')->name('index');
+        Route::get('show/{id}','OrderController@show')->name('show');
+        Route::get('print_order/{id}','OrderController@print_order')->name('print_order');
+        Route::get('destroy/{id}','OrderController@destroy')->name('destroy');
+    });
+    Route::prefix('prost')->name('prost.')->group(function() {
         Route::get('index','OrderController@index')->name('index');
         Route::get('show/{id}','OrderController@show')->name('show');
         Route::get('print_order/{id}','OrderController@print_order')->name('print_order');

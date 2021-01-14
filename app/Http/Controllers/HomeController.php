@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\Menu;
+use App\Models\Review;
 use DB;
 
 class HomeController extends Controller
@@ -63,13 +64,7 @@ class HomeController extends Controller
         return view('pages.product.brand.list',\compact('products'));
     }
     
-    public function productDetails($slug,$id)   {
-        $product =  Product::where('id',$id)->find($id);
-        $product_tags = $product->tags()->get();
-        Product::where('id', $id)->update(['number_of_views' => $product->number_of_views+1]);  
-        $similar_product = Product::where('category_id',$product->category_id)->whereNotIn('products.id',[$product->id])->take(6)->get();
-        return view('pages.product_details',\compact('product','product_tags','similar_product'));
-    } 
+ 
 
     public function productTags($tag_id) {
         $product = DB::table('products')
