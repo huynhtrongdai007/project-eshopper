@@ -318,7 +318,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-shopping-cart"></i>
+              <i class="nav-icon fa fa-clipboard"></i>
               <p>
                 Post
                 <i class="right fas fa-angle-left"></i>

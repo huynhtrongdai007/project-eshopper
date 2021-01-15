@@ -8,12 +8,18 @@ use App\Models\Review;
 use App\Models\category;
 use App\Models\Brand;
 use App\Models\ProductTag;
+use DB;
 class ProductDetailController extends Controller
 {
     private $review;
     
     public function __construct(Review $review) {
         $this->review = $review;
+        $brands = Brand::where('status',1)->get();
+
+        $categorys = category::where('parent_id',0)->where('status',1)->get();
+        view()->share('brands',$brands);
+        view()->share('categorys',$categorys);
     }
     
 
@@ -45,6 +51,15 @@ class ProductDetailController extends Controller
 		$result = $this->review->where('product_id',$id)->orderby('created_at','DESC')->get();
 		return response()->json($result);
     }
+    
+    public function productTags($tag_id){
+        $product = DB::table('products')
+        ->join('product_tags','product_tags.product_id','=','products.id')
+        ->where('product_tags.tag_id',$tag_id)
+        ->select('products.*')
+        ->paginate(6);
+        return view('pages.product.tags.list',\compact('product'));
 
-
+    } 
+  
 }

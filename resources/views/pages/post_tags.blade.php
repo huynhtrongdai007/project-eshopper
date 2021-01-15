@@ -9,7 +9,7 @@
             <h3>{{$item->title}}</h3>
             <div class="post-meta">
                 <ul>
-                    <li><i class="fa fa-user"></i>{{$item->users->name}}</li>
+                    <li><i class="fa fa-user"></i>{{$item->name}}</li>
                     <li><i class="fa fa-clock-o"></i>{{date('H:i:s', strtotime($item->created_at))}}</li>
                     <li><i class="fa fa-calendar"></i>{{date('d-M-Y', strtotime($item->created_at))}}
                     </li>

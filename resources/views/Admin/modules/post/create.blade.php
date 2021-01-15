@@ -17,6 +17,9 @@
                 <div  class="form-group">
                   <label  class="form-label">Title</label>
                   <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="Enter name category">
+                  @error('title')
+                    <div class="text-danger">{{$message}}</div>
+                  @enderror
                 </div>
                 <div class="form-group">
                     <select class="form-control" name="category_id">
@@ -25,18 +28,33 @@
                          <option value="{{$item->id}}">{{$item->name}}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <div class="text-danger">{{$message}}</div>
+                  @enderror
                 </div>
                 <div class="form-group">
                   <label for="">Description</label>
-                    <textarea class="form-control" value="{{old('description')}}" name="description" rows="10" placeholder="Enter Description"></textarea> 
+                  
+                    <textarea class="form-control" name="description" rows="10" placeholder="Enter Description">
+                      
+                    </textarea> 
+                    @error('description')
+                  <div class="text-danger">{{$message}}</div>
+                @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Content</label>
                     <textarea  class="form-control tinymce_editor_init" name="content" rows="20">{{old('content')}}</textarea>
+                    @error('content')
+                  <div class="text-danger">{{$message}}</div>
+                @enderror
                 </div>
                 <div class="form-group">
                     <label for="">feature_image</label>
                     <input type="file" class="form-control" value="{{old('feature_image_path')}}" name="feature_image_path">
+                    @error('feature_image_path')
+                     <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Tag</label>

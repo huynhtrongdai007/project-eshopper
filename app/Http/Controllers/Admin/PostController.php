@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use App\Traits\StorareImageTrait;
 use Storage;
+use DB;
+use App\Http\Requests\StorePostRequest;
 use App\Models\category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -63,7 +65,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -96,7 +98,7 @@ class PostController extends Controller
             return redirect()->route('admin.post.create')->with('message','Insered SuccessFully');
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+            Log::error('Message:'.$th->getMessage().'  Line : ' . $th->getLine());
         }
       
 
@@ -122,7 +124,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePostRequest $request, $id)
     {
         try {
             DB::beginTransaction();
@@ -139,8 +141,8 @@ class PostController extends Controller
                 $dataPostCreate['feature_image'] = $dataUploadFeatureImage['file_name'];
                 $dataPostCreate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
             }
-            $post = $this->post->find($id)->update($dataPostCreate);
-    
+            $this->post->find($id)->update($dataPostCreate);
+            $post = $this->post->find($id);
             //insert tags for post
             $tagIds = [];
             if(!empty($request->tags)) {
@@ -158,7 +160,7 @@ class PostController extends Controller
             return redirect()->route('admin.post.index')->with('message','Updated SuccessFully');
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+            Log::error('Message:'.$th->getMessage().'  Line : ' . $th->getLine());
         }
       
     }

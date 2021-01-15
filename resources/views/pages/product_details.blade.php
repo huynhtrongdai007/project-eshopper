@@ -61,7 +61,6 @@
                             <p><b>Brand:</b> {{$product->brand->name}}</p>
                             <p><b>Tags:</b>
                                 @foreach ($product_tags as $item)
-
                                  <a class="badge bg-primary" href="{{ route('tags', ['id'=>$item->id]) }}">{{$item->name}}</a>
                                 @endforeach
                                 </p>

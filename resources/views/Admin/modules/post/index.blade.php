@@ -25,6 +25,7 @@
 <thead>
    <tr>
       <th>#</th>
+      <th>User</th>
       <th>Title</th>
       <th>iamge</th>
       <th>Category</th>
@@ -35,6 +36,7 @@
   @foreach ($posts as $item)
      <tr>
       <td>{{$item->id}}</td>
+      <td>{{$item->users->name}}</td>
       <td>{{$item->title}}</td>
       <td><img width="200" src="{{$item->feature_image_path}}" alt=""></td>
       <td>{{$item->category->name}}</td>

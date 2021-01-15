@@ -43,6 +43,8 @@ Route::post('/display_review','ProductDetailController@displayReview');
 Route::get('/search','HomeController@search')->name('search');
 /*--------------------------------- phần blog------------------------------------------*/
 Route::get('/list-post','PostController@postList')->name('list-post');
+Route::get('/post-detail/{slug}/{id}','PostController@postDetail')->name('post-detail');
+Route::get('/post-tags/{id}','PostController@postTags')->name('post-tags');
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('AddCart/{id}','CartController@AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');

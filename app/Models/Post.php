@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\User;
 class Post extends Model
 {
     protected $guarded = [];
@@ -16,4 +16,8 @@ class Post extends Model
         return $this->belongsTo(category::class,'category_id');
 
     }
-}
+
+    public function users() {
+        return $this->belongsTo(User::class,'user_id');
+    }
+ }

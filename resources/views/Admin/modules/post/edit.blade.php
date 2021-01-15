@@ -17,6 +17,9 @@
                 <div  class="form-group">
                   <label  class="form-label">Title</label>
                   <input type="text" name="title" value="{{$post->title}}" class="form-control" placeholder="Enter name category">
+                    @error('title')
+                        <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <select class="form-control" name="category_id">
@@ -25,22 +28,32 @@
                         <option {{$categoryItem->id == $post->category_id ? 'selected' : ''}} value="{{$categoryItem->id}}">{{$categoryItem->name}}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <div class="text-danger">{{$message}}</div>
+                @enderror
                 </div>
                 <div class="form-group">
                   <label for="">Description</label>
                     <textarea class="form-control" name="description" rows="10" placeholder="Enter Description">
                         {{$post->description}}
                     </textarea> 
+                    @error('description')
+                    <div class="text-danger">{{$message}}</div>
+                @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Content</label>
                     <textarea  class="form-control tinymce_editor_init" name="content" rows="20">{{$post->content}}</textarea>
+                    @error('content')
+                    <div class="text-danger">{{$message}}</div>
+                @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="">feature_image</label><br/>
                     <img width="400" class="img-fluid img-thumbnail" src="{{$post->feature_image_path}}" alt="">
-                    <input type="file" class="form-control" name="feature_image_path">
+                    <input type="file" class="form-control" value="{{$post->feature_image_path}}" name="feature_image_path">
+                    
                 </div>
                 <div class="form-group">
                     <label for="">Tag</label>
