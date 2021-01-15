@@ -21,8 +21,8 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->string('feature_image');
             $table->string('feature_image_path');
-            $table->unsignedBigInteger('category_post_id');
-            $table->foreign('category_post_id')->references('id')->on('category_posts');
+            $table->integer('category_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

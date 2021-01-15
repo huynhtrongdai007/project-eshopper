@@ -42,7 +42,7 @@ Route::post('/display_review','ProductDetailController@displayReview');
 
 Route::get('/search','HomeController@search')->name('search');
 /*--------------------------------- phần blog------------------------------------------*/
-Route::get('/list-post','PostController@listPost')->name('list-post');
+Route::get('/list-post','PostController@postList')->name('list-post');
 /*--------------------------------- phần Cart------------------------------------------*/
 Route::get('AddCart/{id}','CartController@AddCart');
 Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name('AddCart');
@@ -182,11 +182,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('print_order/{id}','OrderController@print_order')->name('print_order');
         Route::get('destroy/{id}','OrderController@destroy')->name('destroy');
     });
-    Route::prefix('prost')->name('prost.')->group(function() {
-        Route::get('index','OrderController@index')->name('index');
-        Route::get('show/{id}','OrderController@show')->name('show');
-        Route::get('print_order/{id}','OrderController@print_order')->name('print_order');
-        Route::get('destroy/{id}','OrderController@destroy')->name('destroy');
+    Route::prefix('post')->name('post.')->group(function() {
+        Route::get('index','PostController@index')->name('index');
+        Route::get('create','PostController@create')->name('create');
+        Route::post('store','PostController@store')->name('store');
+        Route::get('edit/{id}','PostController@edit')->name('edit');
+        Route::post('update/{id}','PostController@update')->name('update');
+        Route::get('destroy/{id}','PostController@destroy')->name('destroy');
     });
  });
 

@@ -12,7 +12,7 @@
             @if (isset($message))
                 <div class="alert alert-success">{{$message}}</div>               
             @endif
-            <form action="{{ route('admin.product.update',['id'=>$product->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.product.update',['id'=>$post->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Name</label>
