@@ -123,8 +123,3 @@
     </div><!--/Repaly Box-->
 </div>
 @endsection
-@section('script')
-<script>
-
-</script>
-@endsection

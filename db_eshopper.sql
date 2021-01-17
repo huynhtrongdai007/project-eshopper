@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2021 at 08:01 AM
+-- Generation Time: Jan 17, 2021 at 06:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -99,6 +99,40 @@ INSERT INTO `categories` (`id`, `name`, `parent_id`, `slug`, `status`, `created_
 (28, 'VALENTINO', 3, 'valentino', 0, '2020-12-11 06:21:58', '2020-12-11 06:21:58'),
 (29, 'DIOR', 3, 'dior', 0, '2020-12-11 06:22:06', '2020-12-11 06:22:06'),
 (30, 'VERSACE', 3, 'versace', 0, '2020-12-11 06:22:12', '2020-12-11 06:22:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `post_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `parent_id`, `name`, `email`, `comment`, `created_at`, `updated_at`, `post_id`) VALUES
+(14, 0, 'kimdai huynh', 'huynhtrongdaiz@gmail.com', 'comment 1', '2021-01-17 03:42:37', '2021-01-17 03:42:37', 2),
+(15, 0, 'kimdai', 'daihuynhtrong@viendong.edu.vn', 'comment post 3', '2021-01-17 03:47:30', '2021-01-17 03:47:30', 3),
+(16, 15, 'san pham 4', 'kimcuong@gmail.com', 'coment reply', '2021-01-17 03:47:53', '2021-01-17 03:47:53', 3),
+(17, 0, 'kimdai', 'daihuynhtrong@viendong.edu.vn', 'comment post 2', '2021-01-17 03:50:13', '2021-01-17 03:50:13', 2),
+(18, 17, 'Váy Đỏ', 'hungkimdai@yahoo.com', 'reply comment 2', '2021-01-17 03:51:11', '2021-01-17 03:51:11', 2),
+(19, 0, 'huynh trong dai', 'kimcuong@gmail.com', 'hihih bai viet hay wa', '2021-01-17 04:02:37', '2021-01-17 04:02:37', 3),
+(20, 19, 'san pham 6', 'ASDASD@GMIAL.COM', 'hihihi', '2021-01-17 04:03:19', '2021-01-17 04:03:19', 3),
+(21, 0, 'Váy Đỏ', 'huynhtrongdaiz@gmail.com', 'Ok hello ae', '2021-01-17 04:04:00', '2021-01-17 04:04:00', 1),
+(22, 0, 'kimdai huynh', 'hungkimdai@yahoo.com', 'okokok', '2021-01-17 05:28:19', '2021-01-17 05:28:19', 1),
+(23, 21, 'huynh trong dai', 'huynhtrongdaiz@gmail.com', 'okokok', '2021-01-17 05:28:32', '2021-01-17 05:28:32', 1),
+(24, 0, 'kimdai huynh', 'huynhtrongdaiz@gmail.com', 'ok', '2021-01-17 05:33:53', '2021-01-17 05:33:53', 4);
 
 -- --------------------------------------------------------
 
@@ -232,7 +266,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2021_01_03_144023_create_shippings_table', 21),
 (38, '2021_01_03_145006_create_payments_table', 21),
 (40, '2021_01_03_210326_create_orders_table', 22),
-(41, '2021_01_04_143409_create_orderdetails_table', 23);
+(41, '2021_01_04_143409_create_orderdetails_table', 23),
+(45, '2021_01_13_101227_create_reviews_table', 24),
+(46, '2021_01_13_200700_create_category_posts_table', 25),
+(47, '2021_01_13_200800_create_posts_table', 26),
+(49, '2021_01_14_170824_create_posts_table', 27),
+(50, '2021_01_14_171016_create_post_tags_table', 28),
+(51, '2021_01_16_195237_create_comments_table', 29),
+(52, '2021_01_17_101739_add_column_post_id_to_comments_table', 30);
 
 -- --------------------------------------------------------
 
@@ -263,7 +304,10 @@ INSERT INTO `orderdetails` (`id`, `order_id`, `product_id`, `name`, `price`, `sa
 (5, 41, 32, 'san pham 8', '500', 1, '2021-01-06 13:45:40', NULL),
 (6, 41, 31, 'Quan ao nam', '3000', 1, '2021-01-06 13:45:40', NULL),
 (7, 42, 26, 'kimdai huynh', '20000', 1, '2021-01-06 13:47:33', NULL),
-(8, 42, 32, 'san pham 8', '500', 1, '2021-01-06 13:47:33', NULL);
+(8, 42, 32, 'san pham 8', '500', 1, '2021-01-06 13:47:33', NULL),
+(9, 43, 22, 'kimdai', '20000', 2, '2021-01-13 03:02:36', NULL),
+(10, 43, 27, 'kimdai huynh', '20000', 2, '2021-01-13 03:02:36', NULL),
+(11, 43, 21, 'san pham 4', '20000', 1, '2021-01-13 03:02:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -290,7 +334,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `order_code`, `customer_id`, `shipping_id`, `payment_id`, `total`, `status`, `created_at`, `updated_at`) VALUES
 (40, '70d5b', 6, 49, 43, '41,100', 1, '2021-01-05 09:57:23', '2021-01-05 09:57:23'),
 (41, 'ff706', 6, 50, 44, '3,500', 1, '2021-01-06 13:45:40', '2021-01-06 13:45:40'),
-(42, '17279', 6, 51, 45, '20,500', 1, '2021-01-06 13:47:33', '2021-01-06 13:47:33');
+(42, '17279', 6, 51, 45, '20,500', 1, '2021-01-06 13:47:33', '2021-01-06 13:47:33'),
+(43, '345d7', 6, 52, 46, '100,000', 1, '2021-01-13 03:02:36', '2021-01-13 03:02:36');
 
 -- --------------------------------------------------------
 
@@ -312,7 +357,8 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `method`, `created_at`, `updated_at`) VALUES
 (43, 'ATM', '2021-01-05 09:57:23', '2021-01-05 09:57:23'),
 (44, 'ATM', '2021-01-06 13:45:40', '2021-01-06 13:45:40'),
-(45, 'ATM', '2021-01-06 13:47:33', '2021-01-06 13:47:33');
+(45, 'ATM', '2021-01-06 13:47:33', '2021-01-06 13:47:33'),
+(46, 'ATM', '2021-01-13 03:02:36', '2021-01-13 03:02:36');
 
 -- --------------------------------------------------------
 
@@ -433,6 +479,60 @@ INSERT INTO `permission_role` (`id`, `role_id`, `permission_id`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `feature_image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `feature_image_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `slug`, `description`, `content`, `feature_image`, `feature_image_path`, `category_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'GIRLS PINK T SHIRT ARRIVED IN STORE', 'girls-pink-t-shirt-arrived-in-store', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>\r\n<p>&nbsp;</p>\r\n<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>\r\n<p>&nbsp;</p>\r\n<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>\r\n<p>&nbsp;</p>\r\n<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>\r\n<div class=\"pager-area\">&nbsp;</div>', 'blog-one.jpg', '/storage/posts/1/B33FQI63KqIZyL2EZD2x.jpg', 3, 1, '2021-01-14 11:45:09', '2021-01-15 05:04:55'),
+(2, 'GIRLS PINK T SHIRT ARRIVED IN STORE', 'girls-pink-t-shirt-arrived-in-store', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '<p>&nbsp;</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>\r\n<p>&nbsp;</p>\r\n<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>\r\n<p>&nbsp;</p>\r\n<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>\r\n<p>&nbsp;</p>\r\n<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>', 'blog-two.jpg', '/storage/posts/1/ZOwPZjBFN8d0P1MYbr1m.jpg', 4, 1, '2021-01-14 12:10:23', '2021-01-17 03:52:10'),
+(3, 'GIRLS PINK T SHIRT ARRIVED IN STORE', 'girls-pink-t-shirt-arrived-in-store', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '<p><img src=\"http://localhost:8000/storage/photos/1/blog-three.jpg\" alt=\"\" /></p>\r\n<p>&nbsp;</p>\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>\r\n<p>&nbsp;</p>\r\n<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>\r\n<p>&nbsp;</p>\r\n<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>\r\n<p>&nbsp;</p>\r\n<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>', 'blog-three.jpg', '/storage/posts/1/4R5cTeT7xXYFUuHNeOhp.jpg', 3, 1, '2021-01-14 12:21:06', '2021-01-14 12:21:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_tags`
+--
+
+CREATE TABLE `post_tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_tags`
+--
+
+INSERT INTO `post_tags` (`id`, `post_id`, `tag_id`, `created_at`, `updated_at`) VALUES
+(1, 2, 43, '2021-01-14 12:10:23', '2021-01-14 12:10:23'),
+(2, 2, 44, '2021-01-14 12:10:23', '2021-01-14 12:10:23'),
+(3, 3, 44, '2021-01-14 12:21:06', '2021-01-14 12:21:06'),
+(4, 4, 44, '2021-01-14 12:41:01', '2021-01-14 12:41:01'),
+(5, 5, 45, '2021-01-15 03:56:00', '2021-01-15 03:56:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -460,23 +560,23 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `slug`, `price`, `feature_image`, `content`, `description`, `number_of_views`, `status`, `category_id`, `brand_id`, `user_id`, `created_at`, `updated_at`, `feature_image_path`) VALUES
 (16, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', NULL, 1, 2, 1, 1, '2021-01-07 15:29:37', '2021-01-07 15:29:37', '/storage/products/1/YuIQF31jFBmGxmmBXTop.jpg'),
-(17, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', 10, 1, 2, 1, 1, '2021-01-07 15:30:38', '2021-01-07 15:43:53', '/storage/products/1/kVvqw5JkfskNWlTx3WqI.jpg'),
+(17, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', 11, 1, 2, 1, 1, '2021-01-07 15:30:38', '2021-01-13 07:06:51', '/storage/products/1/kVvqw5JkfskNWlTx3WqI.jpg'),
 (18, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', NULL, 1, 11, 1, 1, '2020-12-15 13:38:35', '2021-01-07 15:26:50', '/storage/products/1/YI1WnlS4WX07Otat98h3.jpg'),
 (19, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', 8, 1, 1, 1, 1, '2020-12-15 13:38:56', '2021-01-07 15:41:47', '/storage/products/1/d6ZKhPWh2xHX7yFIi93b.jpg'),
 (20, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', 9, 1, 1, 1, 1, '2020-12-15 13:39:10', '2021-01-07 15:39:21', '/storage/products/1/DqJ7JVbePILdNGCNFnSg.jpg'),
 (21, 'san pham 4', 'san-pham-4', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasd</p>', NULL, 1, 2, 1, 1, '2021-01-07 15:30:59', '2021-01-07 15:30:59', '/storage/products/1/MeuXa5xaD6Pv5AaxrcDh.jpg'),
-(22, 'kimdai', 'kimdai', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>asdas</p>', 1, 1, 2, 1, 1, '2021-01-07 15:42:38', '2021-01-07 15:42:38', '/storage/products/1/uQvvyeKux2ZgSvhf8R9N.jpg'),
+(22, 'kimdai', 'kimdai', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>asdas</p>', 2, 1, 2, 1, 1, '2021-01-07 15:42:38', '2021-01-13 07:07:07', '/storage/products/1/uQvvyeKux2ZgSvhf8R9N.jpg'),
 (23, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', NULL, 1, 11, 1, 1, '2020-12-15 13:42:38', '2021-01-07 15:34:10', '/storage/products/1/of7zOjSdOJNaD3Ou3DIX.jpg'),
 (24, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', NULL, 0, 11, 1, 1, '2020-12-15 13:43:07', NULL, '/storage/products/1/hHeWkk1YhPxhocxya12q.jpg'),
 (25, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', 5, 0, 2, 1, 1, '2021-01-07 15:29:07', '2021-01-07 15:31:46', '/storage/products/1/kJQhHWtCWV3tOcDpGjAw.jpg'),
 (26, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', 72, 1, 1, 1, 1, '2020-12-31 06:58:33', '2021-01-07 15:25:05', '/storage/products/1/hGGl70g0fPOocoRhr14c.jpg'),
-(27, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', 3, 1, 3, 1, 1, '2021-01-07 15:33:04', '2021-01-07 15:41:56', '/storage/products/1/nFe2VEPmybpk8QXXOSj2.jpg'),
+(27, 'kimdai huynh', 'kimdai-huynh', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>dasdasd</p>', 4, 1, 3, 1, 1, '2021-01-07 15:33:04', '2021-01-13 07:06:57', '/storage/products/1/nFe2VEPmybpk8QXXOSj2.jpg'),
 (28, 'Váy Đỏ', 'vay-do', '20000', 'product6.jpg', '<p>asdasd</p>', '<p>sdadasd</p>', 2, 1, 1, 1, 1, '2020-12-25 04:55:56', '2020-12-31 09:39:50', '/storage/products/1/GvUCvprqf1cQAkK7juNE.jpg'),
-(29, 'san pham 6', 'san-pham-6', '20000', 'product2.jpg', '<p>asdasdasdasd</p>', '<p>dasxasdasd</p>', 4, 1, 1, 1, 1, '2021-01-07 15:03:29', '2021-01-07 15:25:52', '/storage/products/1/6WMI74qs8aPV428Kw1jq.jpg'),
-(30, 'kimdai', 'kimdai', '20000', 'product4.jpg', '<p>asdasdsad</p>', '<p>asdasd</p>', 4, 1, 1, 1, 1, '2021-01-07 14:56:24', '2021-01-07 14:56:24', '/storage/products/1/UObV3SaeLfMsaY8KfB4N.jpg'),
+(29, 'san pham 6', 'san-pham-6', '20000', 'product2.jpg', '<p>asdasdasdasd</p>', '<p>dasxasdasd</p>', 7, 1, 1, 1, 1, '2021-01-07 15:03:29', '2021-01-13 07:47:41', '/storage/products/1/6WMI74qs8aPV428Kw1jq.jpg'),
+(30, 'kimdai', 'kimdai', '20000', 'product4.jpg', '<p>asdasdsad</p>', '<p>asdasd</p>', 7, 1, 1, 1, 1, '2021-01-07 14:56:24', '2021-01-13 07:20:30', '/storage/products/1/UObV3SaeLfMsaY8KfB4N.jpg'),
 (31, 'Quan ao nam', 'quan-ao-nam', '3000', 'product2.jpg', '<p>asdasdasdas</p>', '<p>asdasd</p>', 14, 1, 1, 3, 1, '2021-01-07 15:06:38', '2021-01-07 15:06:38', '/storage/products/1/7KM3Z9On6LurftG7ibAC.jpg'),
-(32, 'san pham 8', 'san-pham-8', '500', 'product1.jpg', '<p>asdasdasd</p>', '<p>adasdasd</p>', 63, 1, 1, 1, 1, '2021-01-07 15:13:27', '2021-01-07 15:13:27', '/storage/products/1/L6zP98U5Jpcdjd4aucwO.jpg'),
-(34, 'san pham 10', 'san-pham-10', '100', 'product5.jpg', '<p>asasasasassa</p>', '<p>asasassa</p>', 4, 1, 1, 1, 1, '2021-01-07 15:13:09', '2021-01-07 15:25:38', '/storage/products/1/3lA6xqchhJWOCZrUfe5q.jpg');
+(32, 'san pham 8', 'san-pham-8', '500', 'product1.jpg', '<p>asdasdasd</p>', '<p>adasdasd</p>', 65, 1, 1, 1, 1, '2021-01-07 15:13:27', '2021-01-15 08:54:52', '/storage/products/1/L6zP98U5Jpcdjd4aucwO.jpg'),
+(34, 'san pham 10', 'san-pham-10', '100', 'product5.jpg', '<p>asasasasassa</p>', '<p>asasassa</p>', 85, 1, 1, 1, 1, '2021-01-07 15:13:09', '2021-01-13 08:08:31', '/storage/products/1/3lA6xqchhJWOCZrUfe5q.jpg');
 
 -- --------------------------------------------------------
 
@@ -555,6 +655,22 @@ INSERT INTO `product_tags` (`id`, `product_id`, `tag_id`, `created_at`, `updated
 (45, 32, 3, '2020-12-31 06:45:22', '2020-12-31 06:45:22'),
 (46, 26, 41, '2020-12-31 06:58:33', '2020-12-31 06:58:33'),
 (47, 26, 42, '2020-12-31 06:58:33', '2020-12-31 06:58:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -659,7 +775,8 @@ CREATE TABLE `shippings` (
 INSERT INTO `shippings` (`id`, `lastname`, `middlename`, `firstname`, `phone`, `email`, `address`, `note`, `customer_id`, `created_at`, `updated_at`) VALUES
 (49, 'huynh', 'trong', 'dai', '0389297385', 'huynhtrongdaiz@gmail.com', 'soc trang xa đại ăn 2', NULL, 6, '2021-01-05 09:57:23', '2021-01-05 09:57:23'),
 (50, 'huynh', 'trong', 'dai', '0389297385', 'daihuynhtrong@viendong.edu.vn', 'asd', NULL, 6, '2021-01-06 13:45:40', '2021-01-06 13:45:40'),
-(51, 'huynh', 'kim', 'dai', '0389297385', 'daihuynhtrong@viendong.edu.vn', 'asd', NULL, 6, '2021-01-06 13:47:33', '2021-01-06 13:47:33');
+(51, 'huynh', 'kim', 'dai', '0389297385', 'daihuynhtrong@viendong.edu.vn', 'asd', NULL, 6, '2021-01-06 13:47:33', '2021-01-06 13:47:33'),
+(52, 'nguyễn', 'Văn', 'A', '0389297385', 'ASDASD@GMIAL.COM', 'sóc trăng', NULL, 6, '2021-01-13 03:02:36', '2021-01-13 03:02:36');
 
 -- --------------------------------------------------------
 
@@ -748,7 +865,10 @@ INSERT INTO `tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (39, 'ao so mi', '2020-12-31 06:44:36', '2020-12-31 06:44:36'),
 (40, 'ao thun nam', '2020-12-31 06:44:36', '2020-12-31 06:44:36'),
 (41, 'áp thun', '2020-12-31 06:58:33', '2020-12-31 06:58:33'),
-(42, 'áp thun nữ', '2020-12-31 06:58:33', '2020-12-31 06:58:33');
+(42, 'áp thun nữ', '2020-12-31 06:58:33', '2020-12-31 06:58:33'),
+(43, 'Pink', '2021-01-14 12:10:23', '2021-01-14 12:10:23'),
+(44, 'Girls', '2021-01-14 12:10:23', '2021-01-14 12:10:23'),
+(45, 'Mens', '2021-01-15 03:56:00', '2021-01-15 03:56:00');
 
 -- --------------------------------------------------------
 
@@ -792,6 +912,12 @@ ALTER TABLE `brands`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -861,6 +987,18 @@ ALTER TABLE `permission_role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_tags`
+--
+ALTER TABLE `post_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -883,6 +1021,13 @@ ALTER TABLE `product_tags`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_tags_product_id_foreign` (`product_id`),
   ADD KEY `product_tags_tag_id_foreign` (`tag_id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reviews_product_id_foreign` (`product_id`);
 
 --
 -- Indexes for table `roles`
@@ -945,6 +1090,12 @@ ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
@@ -972,25 +1123,25 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `orderdetails`
 --
 ALTER TABLE `orderdetails`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1003,6 +1154,18 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `permission_role`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `post_tags`
+--
+ALTER TABLE `post_tags`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1021,6 +1184,12 @@ ALTER TABLE `product_images`
 --
 ALTER TABLE `product_tags`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1044,7 +1213,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `shippings`
 --
 ALTER TABLE `shippings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `slides`
@@ -1056,7 +1225,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1103,6 +1272,12 @@ ALTER TABLE `product_images`
 ALTER TABLE `product_tags`
   ADD CONSTRAINT `product_tags_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `product_tags_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `shippings`
