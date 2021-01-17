@@ -312,79 +312,78 @@ $(document).ready(function(){
 
 //=====================Comment Post ==================================================== 
 
-// $(document).ready(function() {
-//     $('.btn-post-comment').click(function(){
-    
-//             $('#form-comment').validate({
-//             rules: {
-//                 name: {
-//                     required:true
-//                 },
-//                 email: {
-//                     required:true,
-//                     email:true
-//                 },
-//                 comment: {
-//                     required:true
+$(document).ready(function() {
+    $('#btn-post-comment').click(function(){
+            $('#form-comment').validate({
+            rules: {
+                name: {
+                    required:true
+                },
+                email: {
+                    required:true,
+                    email:true
+                },
+                comment: {
+                    required:true
                 
-//                 }
-//             },
+                }
+            },
 
-//             submitHandler:function(_form) {
-//                 var name = $("#name").val();
-//                 var email = $("#email").val();
-//                 var comment = $("#comment").val();
-//                 var parent_id = $("#parent_id").val();
-//                 var post_id = $("#post_id").val();
-//                 var _token = $("meta[name='csrf-token']").attr("content");
-//                 $.ajax({
-//                     url:'/add_comment',
-//                     method:'POST',
-//                     data:{name:name,email:email,comment:comment,parent_id:parent_id,post_id:post_id,_token:_token},
-//                     dataType:"JSON",
-//                     success:function(_respone) {
-//                         loadComemnt();
-//                         loadRespones();
-//                         $("#form-comment")[0].reset();
-//                     }
+            submitHandler:function(form) {
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var comment = $("#comment").val();
+                var parent_id = $("#parent_id").val();
+                var post_id = $("#post_id").val();
+                var _token = $("meta[name='csrf-token']").attr("content");
+                $.ajax({
+                    url:'/add_comment',
+                    method:'POST',
+                    data:{name:name,email:email,comment:comment,parent_id:parent_id,post_id:post_id,_token:_token},
+                    dataType:"JSON",
+                    success:function(respone) {
+                        loadComemnt();
+                        loadRespones();
+                        $("#form-comment")[0].reset();
+                    }
 
-//                 });
-//                 return false;
-//             }
-//      });
-// });
+                });
+                return false;
+            }
+     });
+});
 
-//     loadComemnt();
-//     function loadComemnt() {
-//         var _token = $("meta[name='csrf-token']").attr("content");
-//         var post_id = $("#post_id").val();
-//         $.ajax({
-//             url:'/load-comment',
-//             method:'POST',
-//             data:{_token:_token,post_id:post_id},
-//             success:function(respone) {
-//                 $("#display_comment").html(respone);
+    loadComemnt();
+    function loadComemnt() {
+        var _token = $("meta[name='csrf-token']").attr("content");
+        var post_id = $("#post_id").val();
+        $.ajax({
+            url:'/load-comment',
+            method:'POST',
+            data:{_token:_token,post_id:post_id},
+            success:function(respone) {
+                $("#display_comment").html(respone);
                 
-//             }
-//         });
-//     }
-//     loadRespones();
-//     function loadRespones() {
-//         var _token = $("meta[name='csrf-token']").attr("content");
-//         var post_id = $("#post_id").val();
-//         $.ajax({
-//             url:'/load-respones',
-//             method:'POST',
-//             data:{_token:_token,post_id:post_id},
-//             success:function(respone) {
-//                 $("#respones").html(respone);
+            }
+        });
+    }
+    loadRespones();
+    function loadRespones() {
+        var _token = $("meta[name='csrf-token']").attr("content");
+        var post_id = $("#post_id").val();
+        $.ajax({
+            url:'/load-respones',
+            method:'POST',
+            data:{_token:_token,post_id:post_id},
+            success:function(respone) {
+                $("#respones").html(respone);
                 
-//             }
-//         });
-//     }
-//     $(document).on('click', '.reply', function() {
-//         var comment_id = $(this).attr("id");
-//         $('#parent_id').val(comment_id);
-//         $('#name').focus();
-//     });
-// });
+            }
+        });
+    }
+    $(document).on('click', '.reply', function() {
+        var comment_id = $(this).attr("id");
+        $('#parent_id').val(comment_id);
+        $('#name').focus();
+    });
+});
