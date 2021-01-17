@@ -83,25 +83,9 @@
         </div>
     </div><!--Comments-->
     <div class="response-area">
-        <h2>3 RESPONSES</h2>
+        <h2><span id="respones"></span> RESPONSES</h2>
         <ul class="media-list">
             <div id="display_comment"></div>
-          
-            {{-- <li class="media second-media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="images/blog/man-three.jpg" alt="">
-                </a>
-                <div class="media-body">
-                    <ul class="sinlge-post-meta">
-                        <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                        <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                        <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                </div>
-            </li> --}}
-         
         </ul>					
     </div><!--/Response-area-->
     <div class="replay-box">
@@ -120,7 +104,6 @@
                     <span>*</span>
                     <input type="email" name="email" id="email" placeholder="your email address...">
 
-                </form>
             </div>
             <div class="col-sm-8">
                 <div class="text-area">
@@ -130,7 +113,10 @@
                     <span>*</span>
                     <textarea name="comment" id="comment"  rows="11"></textarea>
                     <input type="hidden" name="parent_id" id="parent_id" value="0" />
-                    <a class="btn btn-primary btn-post-comment" href="javascript:">post comment</a>
+                    <input type="hidden" name="post_id" id="post_id" value="{{$post->id}}" />
+                    <input type="submit" class="btn btn-primary" id="btn-post-comment" value="post comment">
+                    
+                </form>
                 </div>
             </div>
         </div>
@@ -140,40 +126,74 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $('.btn-post-comment').click(function(e){
-            e.preventDefault();
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var comment = $("#comment").val();
-            var parent_id = $("#parent_id").val();
-            var _token = $("meta[name='csrf-token']").attr("content");
-             $.ajax({
-                url:'/add_comment',
-                method:'POST',
-                data:{name:name,email:email,comment:comment,parent_id:parent_id,_token:_token},
-                dataType:"JSON",
-                success:function(respone) {
-                    loadComemnt();
-                    loadComemntReply();
-                    $("#form-comment").trigger("reset"); //Line1
-                }
+        $('#btn-post-comment').click(function(){
+                $('#form-comment').validate({
+                rules: {
+                    name: {
+                        required:true
+                    },
+                    email: {
+                        required:true,
+                        email:true
+                    },
+                    comment: {
+                        required:true
+                    
+                    }
+                },
+ 
+                submitHandler:function(form) {
+                    var name = $("#name").val();
+                    var email = $("#email").val();
+                    var comment = $("#comment").val();
+                    var parent_id = $("#parent_id").val();
+                    var post_id = $("#post_id").val();
+                    var _token = $("meta[name='csrf-token']").attr("content");
+                    $.ajax({
+                        url:'/add_comment',
+                        method:'POST',
+                        data:{name:name,email:email,comment:comment,parent_id:parent_id,post_id:post_id,_token:_token},
+                        dataType:"JSON",
+                        success:function(respone) {
+                            loadComemnt();
+                            loadRespones();
+                            $("#form-comment")[0].reset();
+                        }
 
-             });
-        });
+                    });
+                    return false;
+                }
+         });
+    });
+   
         loadComemnt();
         function loadComemnt() {
             var _token = $("meta[name='csrf-token']").attr("content");
+            var post_id = $("#post_id").val();
             $.ajax({
                 url:'/load-comment',
                 method:'POST',
-                data:{_token:_token},
+                data:{_token:_token,post_id:post_id},
                 success:function(respone) {
-                    console.log(respone);
                     $("#display_comment").html(respone);
+                    
                 }
             });
         }
-
+        loadRespones();
+        function loadRespones() {
+            var _token = $("meta[name='csrf-token']").attr("content");
+            var post_id = $("#post_id").val();
+            $.ajax({
+                url:'/load-respones',
+                method:'POST',
+                data:{_token:_token,post_id:post_id},
+                success:function(respone) {
+                    $("#respones").html(respone);
+                    
+                }
+            });
+        }
         $(document).on('click', '.reply', function() {
             var comment_id = $(this).attr("id");
             $('#parent_id').val(comment_id);

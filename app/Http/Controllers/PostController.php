@@ -48,12 +48,18 @@ class PostController extends Controller
             'name'=>$request->name,
             'email'=>$request->email,
             'comment'=>$request->comment,
-            'parent_id'=>$request->parent_id
+            'parent_id'=>$request->parent_id,
+            'post_id'=>$request->post_id
         ]);
+
+        echo \json_encode($insertData);
     }
 
-    public function displayCommemnt() {
-        $dataComments = Comment::where('parent_id',0)->latest()->get();
+    public function displayCommemnt(Request $request) {
+        $id = $request->post_id;
+        $dataComments = Comment::where('parent_id',0)->where('post_id',$id)->latest()->get();
+        $countRespones = $dataComments->count();
+        
         $output='';
         foreach($dataComments as $comment) {
             $output.='<li class="media"> 
@@ -76,33 +82,45 @@ class PostController extends Controller
       
     }
 
+    public function displayRespones(Request $request) {
+        $id = $request->post_id;
+        $dataComments = Comment::where('post_id',$id)->get();
+        $countRespones = $dataComments->count();
+        return $countRespones;
+    }
+
+
     public function get_reply_comment($parent_id = 0) {
         $dataComments = Comment::where('parent_id',$parent_id)->get();
         $count = $dataComments->count();
         $output='';
+    
         if($count > 0) {
             foreach($dataComments as $row)
             {
-            $output .= '
-            <li class="media second-media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="'.\asset('frontend/images/blog/man-three.jpg').'" alt="">
-            </a>
-            <div class="media-body">
-                <ul class="sinlge-post-meta">
-                    <li><i class="fa fa-user"></i>'.$row->name.'</li>
-                    <li><i class="fa fa-clock-o"></i>'.date('H:i:s', strtotime($row->created_at)).'</li>
-                    <li><i class="fa fa-calendar"></i>'.date('d-M-Y', strtotime($row->created_at)).'</li>
-                </ul>
-                <p>'.$row->comment.'.</p>
-                <a class="btn btn-primary reply" href="javascript:"><i class="fa fa-reply"></i>Replay</a>
-            </div>
-        </li> 
-            ';
+             
+                    $output .= '
+                    <li class="media second-media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="'.\asset('frontend/images/blog/man-three.jpg').'" alt="">
+                    </a>
+                    <div class="media-body">
+                        <ul class="sinlge-post-meta">
+                            <li><i class="fa fa-user"></i>'.$row->name.'</li>
+                            <li><i class="fa fa-clock-o"></i>'.date('H:i:s', strtotime($row->created_at)).'</li>
+                            <li><i class="fa fa-calendar"></i>'.date('d-M-Y', strtotime($row->created_at)).'</li>
+                        </ul>
+                        <p>'.$row->comment.'.</p>
+                        <a class="btn btn-primary reply" id="'.$row->id.'" href="javascript:"><i class="fa fa-reply"></i>Replay</a>
+                    </div>
+                </li> 
+                    ';
+                
              $output .= $this->get_reply_comment($row->id);
             }
         }
-      
+
+        
         return $output;
     }
 }

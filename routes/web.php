@@ -57,6 +57,8 @@ Route::post('storecheckout','CheckoutController@storeCheckOut');
 
 Route::post('/add_comment','PostController@add_comment');
 Route::post('/load-comment','PostController@displayCommemnt');
+Route::post('/load-respones','PostController@displayRespones');
+
 
 /*--------------------------------- phần Admin------------------------------------------*/
 

@@ -41,7 +41,7 @@ $(".edit-all").on("click",function() {
             "data":list
         }
 
-    }).done(function(response){
+    }).done(function(_response){
         location.reload();
     });
     console.log(list);
@@ -145,7 +145,7 @@ $(document).ready(function() {
     function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display','block');
-        $.each( msg, function( key, value ) {
+        $.each( msg, function( _key, value ) {
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
         });
     }
@@ -186,7 +186,7 @@ $('document').ready(function() {
 
             },
 
-            submitHandler: function(form) {
+            submitHandler: function(_form) {
                 if(!customerid){
                     swal("Bạn vui lòng đăng nhập hoặc đăng ký để mua hàng","", "error"); 
                     return false;
@@ -248,7 +248,7 @@ $(document).ready(function() {
                     url:'/storeReview',
                     method:'post',
                     data:{name:name,email:email,content:content,product_id:product_id,_token:_token},
-                    success:function(response) {
+                    success:function(_response) {
                         Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -278,7 +278,7 @@ $(document).ready(function() {
             type:"post",
             data:{product_id:product_id,_token:_token},
             success:function(data) {
-                $.each(data,function(key,value){
+                $.each(data,function(_key,value){
                     $("#load-Reviews").append("<ul>"
                         +"<li><a href=''><i class='fa fa-user'>"+value.name+"</i></a></li>"+
                         "<li><a href=''><i class='fa fa-calendar-o'></i>"+value.created_at+"</a></li>"+
@@ -294,11 +294,11 @@ $(document).ready(function() {
 $(document).ready(function(){
     $("#search").autocomplete({
         source: "{{ url('/search') }}",
-            focus: function( event, ui ) {
+            focus: function( _event, _ui ) {
             //$( "#search" ).val( ui.item.title ); // uncomment this line if you want to select value to search box  
             return false;
         },
-        select: function( event, ui ) {
+        select: function( _event, ui ) {
             window.location.href = ui.item.url;
         }
     }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
@@ -309,3 +309,82 @@ $(document).ready(function(){
                 .appendTo( ul );
     };
 });
+
+//=====================Comment Post ==================================================== 
+
+// $(document).ready(function() {
+//     $('.btn-post-comment').click(function(){
+    
+//             $('#form-comment').validate({
+//             rules: {
+//                 name: {
+//                     required:true
+//                 },
+//                 email: {
+//                     required:true,
+//                     email:true
+//                 },
+//                 comment: {
+//                     required:true
+                
+//                 }
+//             },
+
+//             submitHandler:function(_form) {
+//                 var name = $("#name").val();
+//                 var email = $("#email").val();
+//                 var comment = $("#comment").val();
+//                 var parent_id = $("#parent_id").val();
+//                 var post_id = $("#post_id").val();
+//                 var _token = $("meta[name='csrf-token']").attr("content");
+//                 $.ajax({
+//                     url:'/add_comment',
+//                     method:'POST',
+//                     data:{name:name,email:email,comment:comment,parent_id:parent_id,post_id:post_id,_token:_token},
+//                     dataType:"JSON",
+//                     success:function(_respone) {
+//                         loadComemnt();
+//                         loadRespones();
+//                         $("#form-comment")[0].reset();
+//                     }
+
+//                 });
+//                 return false;
+//             }
+//      });
+// });
+
+//     loadComemnt();
+//     function loadComemnt() {
+//         var _token = $("meta[name='csrf-token']").attr("content");
+//         var post_id = $("#post_id").val();
+//         $.ajax({
+//             url:'/load-comment',
+//             method:'POST',
+//             data:{_token:_token,post_id:post_id},
+//             success:function(respone) {
+//                 $("#display_comment").html(respone);
+                
+//             }
+//         });
+//     }
+//     loadRespones();
+//     function loadRespones() {
+//         var _token = $("meta[name='csrf-token']").attr("content");
+//         var post_id = $("#post_id").val();
+//         $.ajax({
+//             url:'/load-respones',
+//             method:'POST',
+//             data:{_token:_token,post_id:post_id},
+//             success:function(respone) {
+//                 $("#respones").html(respone);
+                
+//             }
+//         });
+//     }
+//     $(document).on('click', '.reply', function() {
+//         var comment_id = $(this).attr("id");
+//         $('#parent_id').val(comment_id);
+//         $('#name').focus();
+//     });
+// });
