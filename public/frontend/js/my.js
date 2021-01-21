@@ -387,3 +387,71 @@ $(document).ready(function() {
         $('#name').focus();
     });
 });
+//=====================Add WishList ==================================================== 
+
+$(document).ready(function(){
+    $(".btn-add-wishlist").on('click', function() {
+       var link_data = $(this).data('id');
+       var _token = $("meta[name='csrf-token']").attr("content");
+       $.ajax({
+          type: "POST",
+          url: '/add-with-list',
+          data: ({product_id: link_data,_token:_token}),
+          success: function(data) {
+               if(data == '1')
+               {
+                  $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-minus-square">Remove wishlist</i>');
+               }
+               else{
+                   $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-plus-square">Add to wishlist</i>');
+               }
+               
+          }   
+       });   
+    }); 
+    getWishList();
+    function getWishList() {
+        var link_data = $(this).data('id');
+
+        var _token = $("meta[name='csrf-token']").attr("content");
+        $.ajax({
+            type: "POST",
+            url: '/get-with-list',
+            data:({product_id:link_data,_token:_token}),
+            success: function(data) {
+                $(".whishstate").html(data);
+            }   
+         });   
+    }
+
+    $(".delete-wishlist").on('click',function () {
+        var id = $(this).data('id');
+
+        $.ajax({
+            url:'/delete-wishlist',
+            method:'POST',
+            data:{id:id},
+            success:function(respone) {
+                
+            }
+        });
+    });
+
+});
+
+//=====================Delete Wishlist ==================================================== 
+
+$(".delete-wishlist").click(function() {
+    let id = $(this).data('id');
+    let row = $(this);
+    var _token = $("meta[name='csrf-token']").attr("content");
+
+    $.ajax({
+        url:"/delete-wishlist",
+        type:'POST',
+        data:{id:id,_token:_token},
+        success:function() {
+            row.parent().parent().remove();
+        }
+      });
+});

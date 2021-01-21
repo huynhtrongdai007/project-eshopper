@@ -60,14 +60,14 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+                            <li><a href="{{ route('list-wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="{{ route('checkout') }} "><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="{{ route('cart') }} ">
                                 <i class="fa fa-shopping-cart"></i>
                                 @if (Session::has('Cart')!=null)
                                 <span id="total-quantity-show" class="badge badge-pill badge-danger">{{Session::get('Cart')->totalQuantity}}</span>
                                 @else 
-                                <span id="total-quantity-show" class="badge badge-pill badge-danger">0</span>
+                                <span id="total-quantity-show" class="badge badge-pill bg-danger">0</span>
                                 @endif
                                 Cart</a>
                             </li>

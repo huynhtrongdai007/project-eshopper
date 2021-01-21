@@ -10,8 +10,9 @@ use App\Models\Product;
 use App\Models\ProductTag;
 use App\Models\Menu;
 use App\Models\Review;
+use App\Models\Wishlist;
 use DB;
-
+use Session;
 class HomeController extends Controller
 {
 
@@ -96,5 +97,11 @@ class HomeController extends Controller
         }
         
         echo json_encode($row_set); 
+    }
+
+    public function wishlist() {
+        $id = Session::get('customer_id');
+        $products = Wishlist::where('customer_id',$id)->latest()->get();
+        return view('pages.product.wishlist.list',\compact('products'));
     }
 }
