@@ -409,20 +409,6 @@ $(document).ready(function(){
           }   
        });   
     }); 
-    getWishList();
-    function getWishList() {
-        var link_data = $(this).data('id');
-
-        var _token = $("meta[name='csrf-token']").attr("content");
-        $.ajax({
-            type: "POST",
-            url: '/get-with-list',
-            data:({product_id:link_data,_token:_token}),
-            success: function(data) {
-                $(".whishstate").html(data);
-            }   
-         });   
-    }
 
     $(".delete-wishlist").on('click',function () {
         var id = $(this).data('id');
