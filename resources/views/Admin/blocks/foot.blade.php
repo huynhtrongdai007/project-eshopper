@@ -15,9 +15,6 @@
 <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{asset('dist/js/adminlte.min.js') }}"></script>
 <script src="{{asset('dist/js/select2.min.js') }}"></script>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script src="{{ asset('public/TinyMCE4/TinyMCE4.js') }}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{asset('dist/js/main.js') }}"></script>

@@ -25,7 +25,7 @@ class CustomerController extends Controller
             'password' => md5($request->password)
         ]);
 
-        $request->Session()->put('Customer',$result->id);
+        $request->Session()->put('customer_id',$result->id);
     
         return redirect()->route('home');
     }

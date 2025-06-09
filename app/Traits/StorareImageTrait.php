@@ -13,13 +13,13 @@ trait StorareImageTrait {
             $fileNameOrigin = $file->getClientOriginalName();
             $fileNameHash = Str::random(20) . '.'. $file->getClientOriginalExtension();
             $filepath = $request->file($fielName)->storeAs('public/'.$forderName.'/'.auth()->id(),$fileNameHash);
-            
             $dataUploadTrait = [
                 'file_name' => $fileNameOrigin,
                 'file_path' => Storage::url($filepath)
             ];
-    
+
             return $dataUploadTrait;
+
         }
 
         return null;

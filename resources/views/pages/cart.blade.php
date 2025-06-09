@@ -67,27 +67,17 @@
         </div>
     </div>
 </section> <!--/#cart_items-->
-
+@if (Session::has('Cart')!=null)
 <section id="do_action">
-    <div class="container">
-        
+    <div class="container">  
         <div class="row">
-    
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        @if (Session::has('Cart')!=null)
                         <li>Cart Sub Total <span>$ {{number_format(Session::get('Cart')->totalPrice)}}</span></li>
-                        @else
-                        <li>Cart Sub Total <span>$ 0</span></li>
-                        @endif
                         <li>Eco Tax <span>$2</span></li>
                         <li>Shipping Cost <span>Free</span></li>
-                        @if (Session::has('Cart')!=null)
                         <li>Total <span>$ {{number_format(Session::get('Cart')->totalPrice)}}</span></li>
-                        @else
-                        <li>Total <span>$ 0</span></li>
-                        @endif
                     </ul>
                         <a class="btn btn-default update edit-all" href="javascript:">Update</a>
                         <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check Out</a>
@@ -95,7 +85,7 @@
             </div>
         </div>
     </div>
-
-
 </section><!--/#do_action-->
+@endif
+
 @endsection

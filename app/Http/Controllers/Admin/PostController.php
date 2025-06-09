@@ -100,8 +100,6 @@ class PostController extends Controller
             DB::rollBack();
             Log::error('Message:'.$th->getMessage().'  Line : ' . $th->getLine());
         }
-      
-
     }
 
     /**

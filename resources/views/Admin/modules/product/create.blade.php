@@ -50,7 +50,7 @@
                 <div class="mb-3">
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea type="text" name="description"  class="form-control tinymce_editor_init @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Description">
+                    <textarea type="text" name="description"  class="form-control  @error('description') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Description">
                       {{old('description')}}
                     </textarea>
                     @error('description')
@@ -62,7 +62,7 @@
                 <div class="mb-3">
                     <div class="form-group">
                       <label>Content</label>
-                      <textarea type="text" name="content" class="form-control tinymce_editor_init @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Content">
+                      <textarea type="text" name="content" class="form-control @error('content') is-invalid @enderror" cols="30" rows="10" placeholder="Enter Content">
                         {{old('content')}}
                       </textarea>
                     </div>

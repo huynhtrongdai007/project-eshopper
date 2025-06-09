@@ -26,7 +26,6 @@
    <tr>
       <th>#</th>
       <th>Name</th>
-      <th>Description</th>
       <th>Image</th>
       <th>Status</th>
       <th>Actions</th>
@@ -39,10 +38,6 @@
         <td>
            {{$items->name}}
        </td>
-        
-      <td>
-      {{$items->description}}
-      </td>
       <td><img height="80" src="{{$items->image_path}}"></td>
       <td>
         @if($items->status==1)
