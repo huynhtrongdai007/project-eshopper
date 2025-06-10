@@ -77,6 +77,12 @@
                       
                             @if (Session::has('customer_id')!=null)
                                <li><a href="{{ route('logout') }}">Logout</a></li>
+                               @php
+                                $customer_id = Session::get('customer_id');  
+                               @endphp
+
+                                <input type="hidden" name="customer_id" id="customer_id" value="{{$customer_id}}">
+
                             @else
                               <li><a href="{{ route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
                             @endif

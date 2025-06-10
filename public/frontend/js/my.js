@@ -154,13 +154,33 @@ $(document).ready(function () {
 
 });
 
+$('document').ready(function () {
+    let customerid = $("#customer_id").val();
+
+    $('#check_out').click(function () {
+        if (!customerid) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                html: `
+                    Xin vui lòng <a href="login">đăng nhập</a> để tiếp tục thanh toán.
+                `,
+            });
+
+        } else {
+            window.location.href = "/checkout";
+        }
+
+    });
+});
+
 
 //============================checkout===========================================
 $('document').ready(function () {
-        let checkcart = $('#checkcart').val();
-        let customerid = $("#customer_id").val();
+    let checkcart = $('#checkcart').val();
+    let customerid = $("#customer_id").val();
     $('#btn-checkout').click(function () {
-  
+
         $('#form-checkout').validate({
             rules: {
                 lastname: {
@@ -171,7 +191,6 @@ $('document').ready(function () {
                 },
                 firstname: {
                     required: true
-
                 },
                 phone: {
                     required: true
@@ -189,16 +208,7 @@ $('document').ready(function () {
 
             },
 
-            submitHandler: function (_form) {                
-                if (!customerid) {
-                    Swal.fire({
-                        title: "Good job!",
-                        text: "You clicked the button!",
-                        icon: "success"
-                        });
-                    // swal("Bạn vui lòng đăng nhập hoặc đăng ký để mua hàng", "", "error");
-                    return false;
-                }
+            submitHandler: function (_form) {
                 if (!checkcart) {
                     swal("Bạn chưa mua hàng", "", "error");
                     return false;
@@ -222,18 +232,21 @@ $('document').ready(function () {
                             firstname: firstname, phone: phone, email: email, address: address,
                             note: note, method: method, customer_id: customer_id, total: total, _token: _token
                         },
-                        success: function () {
-                          Swal.fire({
+                    }).done(function (response) {
+                            console.log(response);
+                            
+                            Swal.fire({
                                 title: "Good job!",
-                                text: "You clicked the button!",
+                                text: `${response}`,
                                 icon: "success"
                             });
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1000);
+                            // setTimeout(function () {
+                            //     location.reload();
+                            // }, 1000);
+                        }).fail(function (x){
+                            console.error(x);
 
-                        }
-                    });
+                        });
 
                     // bắt buộc để chặn gửi bình thường vì bạn đã sử dụng ajax
                     return false;

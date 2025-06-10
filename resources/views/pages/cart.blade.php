@@ -80,7 +80,7 @@
                         <li>Total <span>$ {{number_format(Session::get('Cart')->totalPrice)}}</span></li>
                     </ul>
                         <a class="btn btn-default update edit-all" href="javascript:">Update</a>
-                        <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check Out</a>
+                        <a class="btn btn-default check_out" id="check_out" href="#!">Check Out</a>
                 </div>
             </div>
         </div>
