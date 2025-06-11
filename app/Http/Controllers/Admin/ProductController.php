@@ -60,7 +60,6 @@ class ProductController extends Controller
     public function create()
     {
         $htmlOption = $this->getCategory($parent_id = '');
-
         return view ('admin.modules.product.create',\compact('htmlOption'));
     }
 
@@ -130,17 +129,6 @@ class ProductController extends Controller
             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
         }
          
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

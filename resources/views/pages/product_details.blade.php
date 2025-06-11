@@ -50,7 +50,7 @@
                                 <span>{{number_format($product->price)}}</span>
                                 <label>Quantity:</label>
                          
-                                <input type="number" min="1" value="" />
+                                <input type="number" min="1" value="1" />
                                 <a onclick="AddCart({{$product->id}})" href="javascript:" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Add to cart

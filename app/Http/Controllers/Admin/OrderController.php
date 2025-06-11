@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Orderdetail;
 use Illuminate\Support\Facades\Log;
+use PDF;
+
 class OrderController extends Controller
 {
     private $order;
     private $orderdetail;
 
-    public function __construct(Order $order,Orderdetail $orderdetail) {
+    public function __construct(Order $order, Orderdetail $orderdetail)
+    {
         $this->order = $order;
         $this->orderdetail = $orderdetail;
     }
@@ -25,8 +28,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = $this->order->latest()->get();
-     
-        return view('admin.modules.order.index',\compact('orders'));
+
+        return view("admin.modules.order.index", \compact("orders"));
     }
 
     /**
@@ -37,11 +40,13 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $orderdetail = $this->orderdetail->where('order_id',$id)->get();
+        $orderdetail = $this->orderdetail->where("order_id", $id)->get();
         $order = $this->order->find($id);
-        return view('admin.modules.order.show',\compact('orderdetail','order'));
+        return view(
+            "admin.modules.order.show",
+            \compact("orderdetail", "order")
+        );
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -54,7 +59,6 @@ class OrderController extends Controller
         $order = $this->order->find($id);
         $order->orderdetails()->detach();
 
-
         // try {
 
         //     $this->order->find($id)->delete();
@@ -64,11 +68,92 @@ class OrderController extends Controller
         //      ]);
         //  } catch (\Throwable $th) {
         //      Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
- 
+
         //      return response()->json([
         //          'code' => 500,
         //          'message' => 'fail'
         //      ]);
         //  }
+    }
+
+    public function print_order($order_id)
+    {
+        $pdf = \App::make("dompdf.wrapper");
+        $pdf->loadHTML($this->print_order_convert($order_id));
+        return $pdf->stream();
+    }
+
+    public function print_order_convert($order_id)
+    {
+        $getOrderDetail = $this->orderdetail->getByCodeOrderDetail($order_id);
+        $customer = $this->orderdetail->getCustomerByCodeOrder($order_id);
+        $output = "";
+
+        $output .=
+            '
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+        <style>body{font-family:Dejavu Sans;}</style>
+        <h1 align="center">CÔNG TY CNHH MỘT THÀNH VIÊN ABC</h1>   
+        <table class="table mt-5" border="1px">    
+          <thead>
+              <tr>
+                 <th>tên khách hàng</th>
+                 <th>địa chỉ</th>
+                 <th>số điên thoại</th>
+              </tr>
+        </thead>
+           <tbody>
+         
+              <tr>
+                <td with>' .
+            $customer->lastname .
+            $customer->middlename .
+            $customer->firstname .
+            '</td>
+                <td with="20%">' .
+            $customer->address .
+            '</td>
+                <td>' .
+            $customer->phone .
+            '</td>
+              </tr>
+            
+          </tbody>
+         </table>
+        <table border="1px" class="table">
+         <thead  with="100%">
+             <tr>
+                 <th>tên sản phẩm</th>
+                 <th>Số Lượng</th>
+                 <th>Giá</th>
+                 <th>Tổng Tiền</th>
+              </tr>
+      <tbody>';
+        foreach($getOrderDetail as $key => $items){ 
+        $output.=
+        '<tr>
+          <td with="30%">'.$items->product_name.'</td>
+          <td >'.$items->qty.'</td>
+          <td with="30%">'.number_format($items->price).'</td>
+          <td>'.number_format($items->qty * $items->price).'</td>
+        </tr>';
+
+      }
+   $output.='<tr>
+          <td colspan="4">Tong Thanh Tien:'.$items->total.'</td>
+
+        </tr>
+        <tr>
+           <td colspan="4">Ma don hang:'.$items->order_code.'</td>
+        </tr>';
+      $output.='
+  </tbody>
+</table>';
+
+        $output .= '
+  <p style="float:left ;margin-top:90px;">Người Lập Phiếu</p>  
+  <p style="float:right;margin-top:1px;">Người Nhận</p>
+';
+        return $output;
     }
 }

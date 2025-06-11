@@ -79,7 +79,7 @@
 </div>
      <!-- /.card-body -->
      <div class="card-footer">
-        <a target="_blank" href="{{ route('admin.order.print_order',['id'=>$item->id]) }}" class="btn btn-success">Print Bill</a>
+        <a target="_blank" href="{{ route('admin.order.print_order',['id'=>$item->order_id]) }}" class="btn btn-success">Print Bill</a>
      </div>
      <!-- /.card-footer-->
 </div>
