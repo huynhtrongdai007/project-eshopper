@@ -27,8 +27,8 @@ function actionDelete(event) {
             row.parent().parent().remove();
           }
         },
-        error:function() {
-            
+        error:function(e) {
+          console.error(e)
         }
       });
       

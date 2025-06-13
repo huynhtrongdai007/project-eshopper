@@ -28,7 +28,6 @@ class OrderController extends Controller
     public function index()
     {
         $orders = $this->order->latest()->get();
-
         return view("admin.modules.order.index", \compact("orders"));
     }
 

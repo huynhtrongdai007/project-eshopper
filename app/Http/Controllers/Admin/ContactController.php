@@ -21,18 +21,6 @@ class ContactController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -201,9 +201,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','PostController@update')->name('update');
         Route::get('destroy/{id}','PostController@destroy')->name('destroy');
     });
+    Route::prefix('vendor')->name('vendor.')->group(function() {
+        Route::get('index','VendorController@index')->name('index');
+        Route::get('create','VendorController@create')->name('create');
+        Route::post('store','VendorController@store')->name('store');
+        Route::get('edit/{id}','VendorController@edit')->name('edit');
+        Route::post('update/{id}','VendorController@update')->name('update');
+        Route::get('destroy/{id}','VendorController@destroy')->name('destroy');
+    });
  });
-
-    
 });
 
 
