@@ -209,6 +209,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','VendorController@update')->name('update');
         Route::get('destroy/{id}','VendorController@destroy')->name('destroy');
     });
+    Route::prefix('warehouse')->name('warehouse.')->group(function() {
+        Route::get('index','WarehouseController@index')->name('index');
+        Route::get('create','WarehouseController@create')->name('create');
+        Route::post('store','WarehouseController@store')->name('store');
+        Route::get('edit/{id}','WarehouseController@edit')->name('edit');
+        Route::post('update/{id}','WarehouseController@update')->name('update');
+        Route::get('destroy/{id}','WarehouseController@destroy')->name('destroy');
+    });
  });
 });
 

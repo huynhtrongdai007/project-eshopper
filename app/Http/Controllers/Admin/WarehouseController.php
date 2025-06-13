@@ -4,9 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\Warehouse;
+use App\Models\Product;
+use App\Models\Vendor;
+use DB;
 
 class WarehouseController extends Controller
 {
+    private $product;
+    private $vendor;
+    public function __construct(Product $product, Vendor $vendor,Warehouse $warehouse) {
+        $this->product = $product;
+        $this->vendor = $vendor;
+        $this->warehouse = $warehouse;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.modules.warehouse.index');
     }
 
     /**
@@ -24,7 +37,10 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        $products = $this->product->all();
+        $vendors = $this->vendor->all();
+
+        return view('admin.modules.warehouse.create',compact('products','vendors'));
     }
 
     /**
@@ -35,7 +51,29 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'product_id' => 'required',
+            'vendor_id' => 'required',
+            'incoming' => 'required',
+        ]);
+        $product_warehouse = $this->warehouse->create([
+            'product_id'=> $request->product_id,
+            'vendor_id'=> $request->vendor_id,
+            'incoming'=> $request->incoming,
+        ]);
+
+        $product = $this->product->find($product_warehouse->product_id);
+
+        $this->warehouse->find($product_warehouse->id)->update([
+            'on_hand'=> $product->on_hand + $request->incoming,
+        ]);
+
+        $this->product->find($product->id)->update([
+            'on_hand'=> $product->on_hand + $request->incoming,
+        ]);
+    
+        return \back()->with('message','Insertd SuccesssFully');
     }
 
     /**

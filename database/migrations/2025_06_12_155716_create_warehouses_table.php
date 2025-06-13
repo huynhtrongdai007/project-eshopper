@@ -19,9 +19,9 @@ class CreateWarehousesTable extends Migration
             $table->unsignedBigInteger('vendor_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('vendor_id')->references('id')->on('vendors');
-            $table->integer('incoming');
-            $table->integer('outgoing');
-            $table->integer('on_hand');
+            $table->integer('incoming')->default(0);
+            $table->integer('outgoing')->default(0);
+            $table->integer('on_hand')->default(0);
             $table->timestamps();
         });
     }

@@ -341,7 +341,7 @@
           </li>
            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-clipboard"></i>
+              <i class="fa fa-address-card" aria-hidden="true"></i>
               <p>
                 Vendor
                 <i class="right fas fa-angle-left"></i>
@@ -358,6 +358,35 @@
                 <a href="{{ route('admin.vendor.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Vendor</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              <p>
+                Warehouse
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.warehouse.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>list Warehouses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.warehouse.create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Incomming</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="{{ route('admin.warehouse.create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Outgoing</p>
                 </a>
               </li>
             </ul>
