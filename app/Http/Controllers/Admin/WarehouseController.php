@@ -27,7 +27,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('admin.modules.warehouse.index');
+        $products = $this->warehouse->orderBy('id','DESC')->get();
+        return view('admin.modules.warehouse.index',compact('products'));
     }
 
     /**
@@ -51,29 +52,36 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            DB::beginTransaction();
+            $request->validate([
+                'product_id' => 'required',
+                'vendor_id' => 'required',
+                'incoming' => 'required',
+            ]);
+            $product_warehouse = $this->warehouse->insertGetId([
+                'product_id'=> $request->product_id,
+                'vendor_id'=> $request->vendor_id,
+                'incoming'=> $request->incoming,
+            ]);
 
-        $request->validate([
-            'product_id' => 'required',
-            'vendor_id' => 'required',
-            'incoming' => 'required',
-        ]);
-        $product_warehouse = $this->warehouse->create([
-            'product_id'=> $request->product_id,
-            'vendor_id'=> $request->vendor_id,
-            'incoming'=> $request->incoming,
-        ]);
+            $product = $this->product->find($product_warehouse->product_id);
 
-        $product = $this->product->find($product_warehouse->product_id);
+            $this->warehouse->find($product_warehouse->id)->update([
+                'on_hand'=> $product->on_hand + $request->incoming,
+            ]);
 
-        $this->warehouse->find($product_warehouse->id)->update([
-            'on_hand'=> $product->on_hand + $request->incoming,
-        ]);
+            $this->product->find($product->id)->update([
+                'on_hand'=> $product->on_hand + $request->incoming,
+            ]);
+            DB::commit();
+            return \back()->with('message','Incoming SuccesssFully');
 
-        $this->product->find($product->id)->update([
-            'on_hand'=> $product->on_hand + $request->incoming,
-        ]);
-    
-        return \back()->with('message','Insertd SuccesssFully');
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+        }
+       
     }
 
     /**

@@ -35,9 +35,25 @@
    </tr>
 </thead>
 <tbody>
-
+  @php
+      $stt = 1;
+  @endphp
+  @foreach ($products as $item)
+    <tr>
+      <td>{{$stt++}}</td>
+      <td>{{$item->product->name}}</td>
+      <td>{{$item->incoming}}</td>
+      <td>{{$item->outgoing}}</td>
+      <td>{{$item->on_hand}}</td>
+      <td>{{$item->vendor->name}}</td>
+      <td>{{$item->created_at}}</td>
+      <td>{{$item->user->name}}</td>
+      <td>
+        
+      </td>
+  </tr>
   
-
+  @endforeach
 </table>
 
 </div>
