@@ -384,7 +384,7 @@
                 </a>
               </li>
                <li class="nav-item">
-                <a href="{{ route('admin.warehouse.create') }}" class="nav-link">
+                <a href="{{ route('admin.warehouse.stock_out_view') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Outgoing</p>
                 </a>

@@ -164,9 +164,11 @@ class OrderController extends Controller
 
     public function confirm_order($id) {
         try {
+            DB::beginTransaction();
             $confirmed =  $this->order->find($id)->update([
-                    'status'=> 1
-                ]);
+                'status'=> 1
+            ]);
+
             if($confirmed){
                 $order = $this->order->find($id);
                 $order_details = $this->orderdetail->where('order_id','=',$order->id)->get();
@@ -186,16 +188,12 @@ class OrderController extends Controller
                         'total_price'=> $item->sales_quantity * $item->price,
                     ]);
                 }
+                DB::commit();
                 return "Đơn hàng đã được duyệt";
-
             }
-        } catch (\Throwable $th) {
-            dd( $th);
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
         }    
-      
     }
 }
-
-
-  #message: "SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`db_eshopper`.`stock_out_details`, CONSTRAINT `stock_out_details_stock_out_id_foreign` FOREIGN KEY (`stock_out_id`) REFERENCES `warehouses` (`id`)) (SQL: insert into `stock_out_details` (`stock_out_id`, `product_id`, `quantity`, `unit_price`, `total_price`, `updated_at`, `created_at`) values (14, 26, 1, 20000, 20000, 2025-06-15 17:37:27, 2025-06-15 17:37:27))"
-  #sql: "insert into `stock_out_details` (`stock_out_id`, `product_id`, `quantity`, `unit_price`, `total_price`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?)"

@@ -29,14 +29,25 @@
       <th>Employee</th>
       <th>Recipient</th>
       <th>Reason</th>
-      <th>note</th>
-      <th>User</th>
       <th>Actions</th>
    </tr>
 </thead>
 <tbody>
-
-  
+  @php
+      $stt = 1;
+  @endphp
+  @foreach ($list_stock_out as $item)
+    <tr>
+    <td>{{$stt++}}</td>
+    <td>{{$item->stock_code}}</td>
+    <td>{{$item->stock_date}}</td>
+    <td>{{$item->user->name}}</td>
+    <td>{{$item->customers->name}}</td>
+    <td>{{$item->reason}}</td>
+    <td><a class="btn btn-info" href="">Xem</a></td>
+  </tr>
+  @endforeach
+ 
 </table>
 
 </div>

@@ -8,16 +8,19 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Warehouse;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Models\StockOut;
 use DB;
 
 class WarehouseController extends Controller
 {
     private $product;
     private $vendor;
-    public function __construct(Product $product, Vendor $vendor,Warehouse $warehouse) {
+    private $stock_out;
+    public function __construct(Product $product, Vendor $vendor,Warehouse $warehouse, StockOut $stockout) {
         $this->product = $product;
         $this->vendor = $vendor;
         $this->warehouse = $warehouse;
+        $this->stockout = $stockout;
     }
 
     /**
@@ -29,6 +32,11 @@ class WarehouseController extends Controller
     {
         $products = $this->warehouse->orderBy('id','DESC')->get();
         return view('admin.modules.warehouse.index',compact('products'));
+    }
+
+    public function stock_out_view() {
+       $list_stock_out = $this->stockout->orderBy('id','DESC')->get();
+        return view('admin.modules.warehouse.stock_out_view',compact('list_stock_out'));
     }
 
     /**
@@ -127,9 +135,5 @@ class WarehouseController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function create_stock_out() {
-        return "ok";
     }
 }

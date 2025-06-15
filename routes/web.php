@@ -218,6 +218,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('edit/{id}','WarehouseController@edit')->name('edit');
         Route::post('update/{id}','WarehouseController@update')->name('update');
         Route::get('destroy/{id}','WarehouseController@destroy')->name('destroy');
+        Route::get('stock_out_view','WarehouseController@stock_out_view')->name('stock_out_view');
     });
  });
 });
