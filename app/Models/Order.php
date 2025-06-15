@@ -19,4 +19,9 @@ class Order extends Model
     public function orderdetails() {
         return $this->belongsToMany(Orderdetail::class,'order_id','id');
     }
+
+    public function stockout() {
+        return $this->belongsTo(Warehouse::class,'stock_out_id','id');
+    }
+
 }

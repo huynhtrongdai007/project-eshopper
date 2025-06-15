@@ -78,10 +78,7 @@ $(document).ready(function() {
           icon: "success",
           draggable: true
         });
-        setTimeout(() => {
-        location.reload();
-          
-        }, 1000);
+  
       });
    });
 });

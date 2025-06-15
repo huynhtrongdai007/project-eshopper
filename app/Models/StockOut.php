@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class StockOut extends Model
 {
-    //
+    protected $guarded = [];
 }

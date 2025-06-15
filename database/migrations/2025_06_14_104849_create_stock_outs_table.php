@@ -16,15 +16,15 @@ class CreateStockOutsTable extends Migration
         Schema::create('stock_outs', function (Blueprint $table) {
             $table->id();
             $table->string('stock_code');
-            $table->date('stock_date');
+            $table->date('stock_date')->nullble;
             $table->unsignedBigInteger('warehouse_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('recipient_id');
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('recipient_id')->references('id')->on('customers');
-            $table->string('reason');
-            $table->string('note');
+            $table->string('reason')->nullble;
+            $table->string('note')->nullble;
             $table->timestamps();
         });
     }

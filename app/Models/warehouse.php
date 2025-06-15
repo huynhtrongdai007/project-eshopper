@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class warehouse extends Model
+class Warehouse extends Model
 {
     protected $guarded = [];
 
@@ -20,5 +20,4 @@ class warehouse extends Model
     public function vendor() {
         return $this->belongsTo(Vendor::class,'vendor_id');
     }
-
 }

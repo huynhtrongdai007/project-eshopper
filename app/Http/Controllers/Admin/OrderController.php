@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Orderdetail;
+use App\Models\StockOut;
+use App\Models\StockOutDetail;
 use Illuminate\Support\Facades\Log;
 use PDF;
 
@@ -13,11 +15,15 @@ class OrderController extends Controller
 {
     private $order;
     private $orderdetail;
+    private $stock_out;
+    private $stock_out_detail;
 
-    public function __construct(Order $order, Orderdetail $orderdetail)
+    public function __construct(Order $order, Orderdetail $orderdetail, StockOut $stock_out,StockOutDetail $stock_out_detail)
     {
         $this->order = $order;
         $this->orderdetail = $orderdetail;
+        $this->stock_out = $stock_out;
+        $this->stock_out_detail = $stock_out_detail;
     }
 
     /**
@@ -158,17 +164,38 @@ class OrderController extends Controller
 
     public function confirm_order($id) {
         try {
-            $this->order->find($id)->update([
-                'status'=> 1
-            ]);
+            $confirmed =  $this->order->find($id)->update([
+                    'status'=> 1
+                ]);
+            if($confirmed){
+                $order = $this->order->find($id);
+                $order_details = $this->orderdetail->where('order_id','=',$order->id)->get();
+                $stock_out =  $this->stock_out->create([
+                    'stock_code'=>$order->order_code,
+                    'order_id'=> $order->id,
+                    'user_id'=> auth()->id(),
+                    'recipient_id' => $order->customer_id
+                ]);
 
-             return "Đơn hàng đã được duyệt";
-        } catch (\Throwable $exception) {
-            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+                foreach ($order_details as $item) {
+                    $this->stock_out_detail->create([
+                        'stock_out_id'=> $stock_out->id,
+                        'product_id' => $item->product_id,
+                        'quantity'=>$item->sales_quantity,
+                        'unit_price' =>$item->price,
+                        'total_price'=> $item->sales_quantity * $item->price,
+                    ]);
+                }
+                return "Đơn hàng đã được duyệt";
 
-        }
+            }
+        } catch (\Throwable $th) {
+            dd( $th);
+        }    
       
     }
-
 }
 
+
+  #message: "SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`db_eshopper`.`stock_out_details`, CONSTRAINT `stock_out_details_stock_out_id_foreign` FOREIGN KEY (`stock_out_id`) REFERENCES `warehouses` (`id`)) (SQL: insert into `stock_out_details` (`stock_out_id`, `product_id`, `quantity`, `unit_price`, `total_price`, `updated_at`, `created_at`) values (14, 26, 1, 20000, 20000, 2025-06-15 17:37:27, 2025-06-15 17:37:27))"
+  #sql: "insert into `stock_out_details` (`stock_out_id`, `product_id`, `quantity`, `unit_price`, `total_price`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?)"

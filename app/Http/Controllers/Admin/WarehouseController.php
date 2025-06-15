@@ -128,4 +128,8 @@ class WarehouseController extends Controller
     {
         //
     }
+
+    public function create_stock_out() {
+        return "ok";
+    }
 }

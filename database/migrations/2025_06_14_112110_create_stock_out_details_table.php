@@ -17,12 +17,12 @@ class CreateStockOutDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('stock_out_id');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('stock_out_id')->references('id')->on('warehouses');
+            $table->foreign('stock_out_id')->references('id')->on('stock_outs');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('quantity');
             $table->decimal('unit_price', 8, 2);
             $table->decimal('total_price', 8, 2);	
-            $table->string('note');
+            $table->string('note')->nullble;
             $table->timestamps();
         });
     }
