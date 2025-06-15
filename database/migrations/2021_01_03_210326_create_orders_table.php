@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('shipping_id')->references('id')->on('shippings');
             $table->foreign('payment_id')->references('id')->on('payments');
             $table->string('total');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

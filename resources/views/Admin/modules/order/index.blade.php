@@ -1,9 +1,8 @@
 @extends('admin.master_layout')
-@section('title','Danh Sách Thể Loại')
+@section('title','Danh Sách Đơn hàng')
 @section('content')
 <div class="card">
      <div class="card-header">
-       <h3 class="card-title">Danh Sách Thể Loại</h3>
       <?php
        $message = Session::get('message');
          if($message)
@@ -33,12 +32,21 @@
    </tr>
 </thead>
 <tbody>
+  @php
+      $stt = 1;
+  @endphp
     @foreach ($orders as $item)
     <tr>
-        <td>{{$item->id}}</td>
+        <td>{{$stt++}}</td>
         <td>{{$item->order_code}}</td>
         <td>{{$item->shippings->lastname}} {{$item->shippings->middlename}} {{$item->shippings->firstname}}</td>
-        <td>{{$item->status}}</td>
+        <td>
+          @if ($item->status == 0)
+            <a class="btn btn-info btn-comfirm" href="#!" data-id="{{$item->id}}">Duyệt</a>
+          @else
+           <span class="badge badge-success">Đã duyệt</span>
+          @endif
+        </td>
         <td>{{$item->created_at}}</td>
         <td>
             <a class="btn btn-info" href="{{ route('admin.order.show', ['id'=>$item->id]) }}">Xem</a> | 
@@ -51,10 +59,33 @@
 </table>
 
 </div>
-     <!-- /.card-body -->
-     <div class="card-footer">
-       Footer
-     </div>
-     <!-- /.card-footer-->
 </div>
+@endsection
+
+@section('script')
+<script>
+// confirm order 
+$(document).ready(function() {
+   $('.btn-comfirm').on('click',function() {
+      let id = $(this).data("id"); 
+
+      $.ajax({
+        url:'confirm-order/'+id, 
+        type:'GET',
+      }).done(function(reponse) {
+          Swal.fire({
+          title: reponse,
+          icon: "success",
+          draggable: true
+        });
+        setTimeout(() => {
+        location.reload();
+          
+        }, 1000);
+      });
+   });
+});
+
+</script>
+
 @endsection

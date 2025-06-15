@@ -192,6 +192,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('show/{id}','OrderController@show')->name('show');
         Route::get('print_order/{id}','OrderController@print_order')->name('print_order');
         Route::get('destroy/{id}','OrderController@destroy')->name('destroy');
+        Route::get('confirm-order/{id}','OrderController@confirm_order')->name('confirm');
+
     });
     Route::prefix('post')->name('post.')->group(function() {
         Route::get('index','PostController@index')->name('index');

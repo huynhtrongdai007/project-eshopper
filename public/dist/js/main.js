@@ -51,10 +51,10 @@ $(function() {
 
   });
 });
-
+ //update status brand 
 
 $(document).ready(function() {
-  //update status brand 
+ 
   $('.status_on').on('change',function() {
     var id = $(this).data("id");
     

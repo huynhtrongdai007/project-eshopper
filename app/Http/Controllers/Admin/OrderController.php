@@ -138,21 +138,37 @@ class OrderController extends Controller
         </tr>';
 
       }
-   $output.='<tr>
-          <td colspan="4">Tong Thanh Tien:'.$items->total.'</td>
+        $output.='<tr>
+                <td colspan="4">Tong Thanh Tien:'.$items->total.'</td>
 
-        </tr>
-        <tr>
-           <td colspan="4">Ma don hang:'.$items->order_code.'</td>
-        </tr>';
-      $output.='
-  </tbody>
-</table>';
+                </tr>
+                <tr>
+                <td colspan="4">Ma don hang:'.$items->order_code.'</td>
+                </tr>';
+            $output.='
+        </tbody>
+        </table>';
 
-        $output .= '
-  <p style="float:left ;margin-top:90px;">Người Lập Phiếu</p>  
-  <p style="float:right;margin-top:1px;">Người Nhận</p>
-';
-        return $output;
+                $output .= '
+        <p style="float:left ;margin-top:90px;">Người Lập Phiếu</p>  
+        <p style="float:right;margin-top:1px;">Người Nhận</p>
+        ';
+                return $output;
     }
+
+    public function confirm_order($id) {
+        try {
+            $this->order->find($id)->update([
+                'status'=> 1
+            ]);
+
+             return "Đơn hàng đã được duyệt";
+        } catch (\Throwable $exception) {
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+
+        }
+      
+    }
+
 }
+
