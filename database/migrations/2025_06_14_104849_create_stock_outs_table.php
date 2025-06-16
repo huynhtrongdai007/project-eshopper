@@ -17,12 +17,12 @@ class CreateStockOutsTable extends Migration
             $table->id();
             $table->string('stock_code');
             $table->date('stock_date')->nullble;
-            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('recipient_id');
-            $table->foreign('warehouse_id')->references('id')->on('warehouses');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('recipient_id')->references('id')->on('customers');
+            $table->foreign('recipient_id')->references('id')->on('shippings');
             $table->string('reason')->nullble;
             $table->string('note')->nullble;
             $table->timestamps();

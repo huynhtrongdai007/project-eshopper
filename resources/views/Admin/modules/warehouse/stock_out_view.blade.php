@@ -42,9 +42,9 @@
     <td>{{$item->stock_code}}</td>
     <td>{{$item->stock_date}}</td>
     <td>{{$item->user->name}}</td>
-    <td>{{$item->customers->name}}</td>
+    <td>{{$item->shipping->address}}</td>
     <td>{{$item->reason}}</td>
-    <td><a class="btn btn-info" href="">Xem</a></td>
+    <td><a class="btn btn-info" href="{{route('admin.warehouse.stock_out_detail_view',['id'=>$item->id])}}">Xem</a></td>
   </tr>
   @endforeach
  

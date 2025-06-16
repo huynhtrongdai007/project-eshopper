@@ -12,7 +12,7 @@ class StockOut extends Model
         return $this->belongsTo(User::class, 'user_id','id');
     }
 
-     public function customers() {
-        return $this->belongsTo(Customer::class, 'recipient_id','id');
+     public function shipping() {
+        return $this->belongsTo(Shipping::class, 'recipient_id','id');
     }
 }

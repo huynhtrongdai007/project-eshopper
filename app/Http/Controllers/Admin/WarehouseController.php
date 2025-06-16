@@ -9,6 +9,7 @@ use App\Models\Warehouse;
 use App\Models\Product;
 use App\Models\Vendor;
 use App\Models\StockOut;
+use App\Models\StockOutDetail;
 use DB;
 
 class WarehouseController extends Controller
@@ -16,11 +17,15 @@ class WarehouseController extends Controller
     private $product;
     private $vendor;
     private $stock_out;
-    public function __construct(Product $product, Vendor $vendor,Warehouse $warehouse, StockOut $stockout) {
+    private $stock_out_detail;
+
+    public function __construct(Product $product,Vendor $vendor,
+    Warehouse $warehouse, StockOut $stockout, StockOutDetail $stock_out_detail) {
         $this->product = $product;
         $this->vendor = $vendor;
         $this->warehouse = $warehouse;
         $this->stockout = $stockout;
+        $this->stock_out_detail = $stock_out_detail;
     }
 
     /**
@@ -109,9 +114,11 @@ class WarehouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function stock_out_detail_view($id)
     {
-        //
+        $stock_out = $this->stockout->find($id);
+        $stock_out_detail = $this->stock_out_detail->where('stock_out_id','=',$id)->get();
+        return view('admin.modules.warehouse.stock_out_detail_view',compact('stock_out','stock_out_detail'));
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Models\StockOut;
 use App\Models\StockOutDetail;
 use Illuminate\Support\Facades\Log;
 use PDF;
+use DB;
 
 class OrderController extends Controller
 {
@@ -163,8 +164,6 @@ class OrderController extends Controller
     }
 
     public function confirm_order($id) {
-        try {
-            DB::beginTransaction();
             $confirmed =  $this->order->find($id)->update([
                 'status'=> 1
             ]);
@@ -176,7 +175,7 @@ class OrderController extends Controller
                     'stock_code'=>$order->order_code,
                     'order_id'=> $order->id,
                     'user_id'=> auth()->id(),
-                    'recipient_id' => $order->customer_id
+                    'recipient_id' => $order->shipping_id
                 ]);
 
                 foreach ($order_details as $item) {
@@ -188,12 +187,7 @@ class OrderController extends Controller
                         'total_price'=> $item->sales_quantity * $item->price,
                     ]);
                 }
-                DB::commit();
                 return "Đơn hàng đã được duyệt";
-            }
-        } catch (\Throwable $exception) {
-            DB::rollBack();
-            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
-        }    
+            }  
     }
 }
