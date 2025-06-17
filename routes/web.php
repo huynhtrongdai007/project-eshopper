@@ -220,6 +220,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('destroy/{id}','WarehouseController@destroy')->name('destroy');
         Route::get('stock_out_view','WarehouseController@stock_out_view')->name('stock_out_view');
         Route::get('stock_out_detail_view/{id}','WarehouseController@stock_out_detail_view')->name('stock_out_detail_view');
+        Route::get('confirm-stock-out/{id}','WarehouseController@confirm_stock_out')->name('confirm_stock_out');
+
     });
  });
 });

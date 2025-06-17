@@ -11,6 +11,7 @@ use App\Models\Vendor;
 use App\Models\StockOut;
 use App\Models\StockOutDetail;
 use DB;
+use Carbon\Carbon;
 
 class WarehouseController extends Controller
 {
@@ -128,10 +129,85 @@ class WarehouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+     
+        $request->validate([
+            'stock_date' => 'required',
+            'reason' => 'required',
+        ]);
+
+        $this->stockout->find($id)->update([
+            'stock_date' => $request->stock_date,
+            'reason' => $request->reason,
+            'note' => $request->note,
+        ]);
+
+        return \back()->with('message','Updated SuccesssFully');
     }
+
+    public function confirm_stock_out($id)
+    {
+        try {
+            $stock_out = $this->stockout->find($id);
+
+            if (empty($stock_out) || empty($stock_out->stock_date) || empty($stock_out->reason)) {
+                return response()->json([
+                    'code' => 400,
+                    'message' => 'Yêu cầu chọn ngày và lý do để tiến hành xuất kho'
+                ]);
+            }
+
+            DB::beginTransaction();
+
+            $stock_out_details = $this->stock_out_detail->where('stock_out_id', $id)->get();
+
+            foreach ($stock_out_details as $item) {
+                $product = $this->product->find($item->product_id);
+                
+                if (!$product) {
+                    DB::rollBack();
+                    return response()->json([
+                        'code' => 404,
+                        'message' => "Không tìm thấy sản phẩm ID: {$item->product_id}"
+                    ]);
+                }
+
+                $new_quantity = $product->on_hand - $item->quantity;
+
+                if ($new_quantity < 0) {
+                    DB::rollBack();
+                    return response()->json([
+                        'code' => 400,
+                        'message' => "Sản phẩm '{$product->name}' không đủ tồn kho."
+                    ]);
+                }
+
+                $product->update([
+                    'on_hand' => $new_quantity
+                ]);
+            }
+
+            $stock_out->update([
+                'status' => 1
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Đã xuất kho thành công'
+            ]);
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            Log::error('Message: '.$exception->getMessage().' | Line: '.$exception->getLine());
+
+            return response()->json([
+                'code' => 500,
+                'message' => 'Đã có lỗi xảy ra. Vui lòng thử lại.'
+            ]);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

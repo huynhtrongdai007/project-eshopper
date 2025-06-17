@@ -9,24 +9,30 @@
             @if (isset($message))
                 <div class="alert alert-success">{{$message}}</div>               
             @endif
-            <form action="" method="POST">
+            <form action="{{route('admin.warehouse.update',['id'=>$stock_out->id])}}" method="POST">
                 @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Code</label>
                     <input type="text" class="form-control" readonly value="{{$stock_out->stock_code}}">
                 </div>
-                  <div class="form-group col-md-6">
+                <div class="form-group col-md-6">
                     <label for="date">Date</label>
-                    <input type="date" name="date" id="date" class="form-control" value="">
+                    <input type="date" name="stock_date" id="date" class="form-control" value="{{$stock_out->stock_date}}">
+                  @error('date')
+                      <div class="text-danger">{{$message}}</div>
+                  @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label>Address</label>
-                    <input type="text" name="address" class="form-control" value="{{$stock_out->shipping->address}}" placeholder="1234 Main St">
+                    <input type="text" readonly name="address" class="form-control" value="{{$stock_out->shipping->address}}" placeholder="1234 Main St">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Reason</label>
-                    <input type="text" name="reason" class="form-control" required value="{{$stock_out->reason}}" placeholder="Reason">
+                    <input type="text" name="reason" class="form-control" value="{{$stock_out->reason}}" placeholder="Reason">
+                  @error('reason')
+                      <div class="text-danger">{{$message}}</div>
+                  @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label>Note</label>
