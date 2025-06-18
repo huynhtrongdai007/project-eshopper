@@ -1,9 +1,8 @@
 @extends('admin.master_layout')
-@section('title','Danh Sách Thể Loại')
+@section('title','Danh Sách Sản Phẩm')
 @section('content')
 <div class="card">
      <div class="card-header">
-       <h3 class="card-title">Danh Sách Thể Loại</h3>
       <?php
        $message = Session::get('message');
          if($message)
@@ -41,7 +40,7 @@
   @foreach ($products as $item)
      <tr>
       <td><input type="checkbox" name="id[]" class="selectbox" value="{{$item->id}}"></td>
-      <td><img height="80" src="{{url($item->feature_image_path)}}"></td>
+      <td><img height="80" src="{{asset($item->feature_image_path)}}"></td>
       <td>{{$item->name}} </td>
       <td>{{number_format($item->price) }}</td>
       <td>{{optional($item->category)->name}}</td>
@@ -65,11 +64,6 @@
 </table>
 
 </div>
-     <!-- /.card-body -->
-     <div class="card-footer">
-       Footer
-     </div>
-     <!-- /.card-footer-->
 </div>
 @endsection
 @section('script')

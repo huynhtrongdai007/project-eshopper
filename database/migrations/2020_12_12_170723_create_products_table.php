@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('price');
-            $table->string('feature_image')->nullble;
+            $table->string('feature_image')->nullble();
             $table->text('content');
             $table->text('description');
             $table->integer('number_of_views'); 

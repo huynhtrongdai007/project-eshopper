@@ -77,7 +77,6 @@ class ProductController extends Controller
      */
     public function store(ProductAddRequest $request)
     {
-      
         try{
             DB::beginTransaction();
             $dataProductCreate = [
@@ -97,33 +96,33 @@ class ProductController extends Controller
                 $dataProductCreate['feature_image'] =  $dataUploadFeatureImage['file_name'];
                 $dataProductCreate['feature_image_path'] =  $dataUploadFeatureImage['file_path'];
             }
-             $product =  $this->product->create($dataProductCreate);
-        
-             //Insert data to product_iamge
-             if($request->hasFile('image_path')) {
+            $product =  $this->product->create($dataProductCreate);
+    
+            //Insert data to product_iamge
+                if($request->hasFile('image_path')) {
                 foreach($request->image_path as $fileItem) {
-                  $dataProductImageDetail = $this->storageTraitUploadMultiple($fileItem,'products');
-                  $product->images()->create([
+                    $dataProductImageDetail = $this->storageTraitUploadMultiple($fileItem,'products');
+                    $product->images()->create([
                     'image_path' => $dataProductImageDetail['file_path'],
                     'image' => $dataProductImageDetail['file_name']
-                  ]);
+                    ]);
                 }
-             }
-    
-             //insert tags for product
-             $tagIds = [];
-             if(!empty($request->tags)) {
-                foreach($request->tags as $tagItem) {
-                    // Insert to tags
-                    $tagInstance = $this->tag->firstOrCreate(['name'=>$tagItem]);
-                    $tagIds[] = $tagInstance->id;
-                 }
+            }
 
-             }
-             $product->tags()->attach($tagIds);
+            //insert tags for product
+            $tagIds = [];
+            if(!empty($request->tags)) {
+            foreach($request->tags as $tagItem) {
+                // Insert to tags
+                $tagInstance = $this->tag->firstOrCreate(['name'=>$tagItem]);
+                $tagIds[] = $tagInstance->id;
+                }
 
-             DB::commit();
-             return back()->with('message','Insered SuccessFully');
+            }
+            $product->tags()->attach($tagIds);
+
+            DB::commit();
+            return back()->with('message','Insered SuccessFully');
         }catch(\Exception $exception){
             DB::rollBack();
             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
@@ -168,6 +167,7 @@ class ProductController extends Controller
                 'created_at' => new DateTime()
             ];
             $dataUploadFeatureImage = $this->storageTraitUpload($request,'feature_image','products');
+            dd($dadataUploadFeatureImageta);
             if(!empty($dataUploadFeatureImage)) {
                 $dataProductUpdate['feature_image'] =  $dataUploadFeatureImage['file_name'];
                 $dataProductUpdate['feature_image_path'] =  $dataUploadFeatureImage['file_path'];

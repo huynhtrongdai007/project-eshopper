@@ -21,7 +21,7 @@ class CreateShippingsTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->text('address');
-            $table->text('note')->nullble;
+            $table->text('note')->nullble();
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->timestamps();

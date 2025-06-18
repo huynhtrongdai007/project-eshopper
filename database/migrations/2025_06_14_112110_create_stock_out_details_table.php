@@ -22,7 +22,7 @@ class CreateStockOutDetailsTable extends Migration
             $table->integer('quantity');
             $table->decimal('unit_price', 8, 2);
             $table->decimal('total_price', 8, 2);	
-            $table->string('note')->nullble;
+            $table->string('note')->nullble();
             $table->timestamps();
         });
     }
