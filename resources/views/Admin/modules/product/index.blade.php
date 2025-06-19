@@ -40,7 +40,7 @@
   @foreach ($products as $item)
      <tr>
       <td><input type="checkbox" name="id[]" class="selectbox" value="{{$item->id}}"></td>
-      <td><img height="80" src="{{asset($item->feature_image_path)}}"></td>
+      <td><img height="80" src="{{asset($item->feature_image_path)}}" alt="{{$item->feature_image}}"></td>
       <td>{{$item->name}} </td>
       <td>{{number_format($item->price) }}</td>
       <td>{{optional($item->category)->name}}</td>

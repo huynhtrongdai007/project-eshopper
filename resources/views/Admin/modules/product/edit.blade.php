@@ -69,19 +69,19 @@
                 </div>
                 <div class="mb-3">
                     <div class="form-group">
-                        <img class="img-fluid  img-thumbnail" height="300" src="{{$product->feature_image_path}}">
+                        <img class="img-thumbnail" width="300" src="{{$product->feature_image_path}}">
                     </div>
                  </div>
-                 <div class="mb-3">
+                 {{-- <div class="mb-3">
                     <div class="row">
                       <div class="col-md-12">
                         @foreach ($product->productImages as $productImagesItem)
-                        <img class="img-fluid  img-thumbnail" src="{{$productImagesItem->image_path}}">
+                        <img class="img-thumbnail" width="300"  src="{{$productImagesItem->image_path}}">
                         @endforeach  
                       </div>
                     </div>
                 
-                   </div>                
+                   </div>                 --}}
                  </div>
                 <div class="mb-3">
                    <div class="form-group">

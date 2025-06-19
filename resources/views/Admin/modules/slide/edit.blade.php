@@ -2,9 +2,6 @@
 @section('title','Sửa Slide')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h3>Edit Slide</h3>
-        </div>
         <div class="card-body">
             @php
                 $message = Session::get('message');  
@@ -16,7 +13,7 @@
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Name</label>
-                  <input type="text" name="name" value="{{$slide->name}}" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name">
+                  <input type="text" name="name" value="{{$slide->name}}" class="form-control" placeholder="Enter name">
                   @error('name')
                       <div class="text-danger">{{$message}}</div>
                   @enderror

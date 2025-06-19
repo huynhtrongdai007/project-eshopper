@@ -48,7 +48,7 @@ class User extends Authenticatable
     public function checkPermissionAccess($permissionCheck) {
         //use login use co quyen add,sua danh muc va xem menu
         // B1 lay tat ca cac quen cua user dang nhap vao he thong
-              //B2 so sanh gia tri dua vao cac route hien tai xem co ton tai trong cac quyen ma minh lay dc hay khong 
+        //B2 so sanh gia tri dua vao cac route hien tai xem co ton tai trong cac quyen ma minh lay dc hay khong 
 
         $roles = auth()->user()->roles;
       

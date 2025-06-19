@@ -167,7 +167,6 @@ class ProductController extends Controller
                 'created_at' => new DateTime()
             ];
             $dataUploadFeatureImage = $this->storageTraitUpload($request,'feature_image','products');
-            dd($dadataUploadFeatureImageta);
             if(!empty($dataUploadFeatureImage)) {
                 $dataProductUpdate['feature_image'] =  $dataUploadFeatureImage['file_name'];
                 $dataProductUpdate['feature_image_path'] =  $dataUploadFeatureImage['file_path'];
