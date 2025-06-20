@@ -285,7 +285,6 @@
             <a href="#" class="nav-link">
               <i class="fas fa-address-book nav-icon"></i>
               <p>
-               
                 Contact
                 <i class="right fas fa-angle-left"></i>
               </p>

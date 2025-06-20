@@ -10,7 +10,7 @@
                                 <img src="{{$item->feature_image_path}}" alt="" />
                             </a>
                             <h2>{{number_format($item->price)}}</h2>
-                            <p>{{$item->name}}</p>
+                            <p class="line-clamp line-2">{{$item->name}}</p>
                             <a onclick="AddCart({{$item->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart whishstate"></i>Add to cart</a>
                         </div>
                 </div>

@@ -24,7 +24,7 @@
                         <div class="productinfo text-center">
                             <a href="{{ route('product-details', ['slug'=>$categoryProductItem->slug,'id'=>$categoryProductItem->id]) }}"><img src="{{$categoryProductItem->feature_image_path}}" alt="" /> </a>
                             <h2>{{number_format($categoryProductItem->price)}}</h2>
-                            <p>{{$categoryProductItem->name}}</p>
+                            <p class="line-clamp line-2">{{$categoryProductItem->name}}</p>
                             <a onclick="AddCart({{$categoryProductItem->id}})" href="javascript:" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         </div>
                         

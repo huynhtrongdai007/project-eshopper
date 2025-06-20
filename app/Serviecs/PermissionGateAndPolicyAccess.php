@@ -3,8 +3,6 @@
 namespace App\Serviecs;
 use Illuminate\Support\Facades\Gate;
 
-
-
 class PermissionGateAndPolicyAccess{
 
     public function setGateAndPolicyAccess() {

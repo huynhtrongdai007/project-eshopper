@@ -24,7 +24,7 @@ class SliderAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|unique:slides|max:255',
+            'name' => 'bail|required|max:255',
             'description' => 'required',
             'image_path' => 'required|mimes:jpeg,bmp,png,jpg' 
             ];

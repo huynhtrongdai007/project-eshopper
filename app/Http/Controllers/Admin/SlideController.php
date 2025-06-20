@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slide;
 use App\Traits\StorareImageTrait;
-use App\Http\Requests\SliderAddRequest;
+use App\Requests\SliderAddRequest;
 use Illuminate\Support\Facades\Log;
 class SlideController extends Controller
 {
@@ -85,7 +85,7 @@ class SlideController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SliderAddRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             
