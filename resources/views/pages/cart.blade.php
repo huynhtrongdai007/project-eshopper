@@ -50,7 +50,9 @@
                                 <p class="cart_total_price">{{number_format($item['price'])}}</p>
                             </td>
                             <td>
-                                <i style="font-size: 20px;" onclick="SaveListItemCart({{$item['productInfo']->id}});" id="Save-cart-item-{{$item['productInfo']->id}}" class="fa fa-save"></i>
+                                <a href="#!" onclick="SaveListItemCart({{$item['productInfo']->id}});" id="Save-cart-item-{{$item['productInfo']->id}}">
+                                    <i style="font-size: 20px;" class="fa fa-save"></i>
+                                </a>
                             </td>
                             <td class="cart_delete">
                                 <a class="cart_quantity_delete" data-id="{{$item['productInfo']->id}}" href="javascript:"><i class="fa fa-times"></i></a>

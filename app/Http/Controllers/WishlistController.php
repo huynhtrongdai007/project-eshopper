@@ -26,14 +26,20 @@ class WishlistController extends Controller
         $countId = $result->count();
         if($countId>0) {
             $this->wishlist->where('product_id',$addproductid)->where('customer_id',$customer_id)->delete();
-            echo '0';
+            return response()->json([
+                'code' => 200,
+                'message' => 'Đã xóa sản phẩm yêu thích'
+            ]);
         }else{
             $dataProduct =  $this->product->find($addproductid);
             $this->wishlist->create([
                 'product_id'=>$dataProduct->id,
                 'customer_id'=>$customer_id
             ]);
-            echo '1';
+            return response()->json([
+                'code' => 200,
+                'message' => 'Đã thêm sản phẩm yêu thích'
+            ]);
         }
 
     }
@@ -55,6 +61,8 @@ class WishlistController extends Controller
         return $output;
 
     }
+
+ 
 
     public function deleteWishlist(Request $request) {
         $id = $request->id;

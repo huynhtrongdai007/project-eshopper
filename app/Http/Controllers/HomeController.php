@@ -86,7 +86,6 @@ class HomeController extends Controller
         {
             foreach($products  as $product)
             {
-                
                 $new_row['name']= $product->name;
                 $new_row['feature_image_path']= $product->feature_image_path;
                 $new_row['price'] = $product->price;

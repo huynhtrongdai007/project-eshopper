@@ -61,7 +61,7 @@ Route::post('/load-respones','PostController@displayRespones');
 /*--------------------------------- phần WishList------------------------------------------*/
 Route::post('/add-with-list','WishlistController@addWishList');
 Route::get('list-wishlist','HomeController@wishlist')->name('list-wishlist');
-Route::post('/get-with-list','WishlistController@getWishList');
+Route::get('/get-with-list','HomeController@loadWishlist');
 Route::post('/delete-wishlist','WishlistController@deleteWishlist')->name('delete-wishlist');
 
 /*--------------------------------- phần Admin------------------------------------------*/

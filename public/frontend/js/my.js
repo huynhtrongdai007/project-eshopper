@@ -418,37 +418,27 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".btn-add-wishlist").on('click', function () {
+        console.log('ok');
+        
         var link_data = $(this).data('id');
         var _token = $("meta[name='csrf-token']").attr("content");
+        let myElement = $('.btn-add-wishlist');        
         $.ajax({
             type: "POST",
             url: '/add-with-list',
             data: ({ product_id: link_data, _token: _token }),
-            success: function (data) {
-                if (data == '1') {
-                    $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-minus-square">Remove wishlist</i>');
-                }
-                else {
-                    $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-plus-square">Add to wishlist</i>');
-                }
-
+        }).done(function(data) {
+            console.log(data);
+            
+        if (data == '1') {
+             myElement.classList.add("d-none");                
+                $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-minus-square">Remove wishlist</i>');
+            }
+            else {
+                $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-plus-square">Add to wishlist</i>');
             }
         });
     });
-
-    $(".delete-wishlist").on('click', function () {
-        var id = $(this).data('id');
-
-        $.ajax({
-            url: '/delete-wishlist',
-            method: 'POST',
-            data: { id: id },
-            success: function (respone) {
-
-            }
-        });
-    });
-
 });
 
 //=====================Delete Wishlist ==================================================== 
