@@ -18,12 +18,14 @@
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
                         <input type="hidden" id="customer_id" value="{{Session::get('customer_id')}}">
+                        @if (Session::has('customer_id')!=null)
                         <li>
                             <a href="javascript:" data-id="{{$item->id}}" class="btn-add-wishlist">
                                 <i class="fa fa-plus-square whishstate">Add to wishlist</i>
                             </a>
                         </li>               
                         <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>

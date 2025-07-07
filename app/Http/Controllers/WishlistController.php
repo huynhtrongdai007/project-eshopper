@@ -21,31 +21,34 @@ class WishlistController extends Controller
     public function addWishList(Request $request) {
         $customer_id = Session::get('customer_id');
         $addproductid = $request->product_id;
-
-        $result = $this->wishlist->where('product_id',$addproductid)->where('customer_id',$customer_id)->get();
-        $countId = $result->count();
-        if($countId>0) {
-            $this->wishlist->where('product_id',$addproductid)->where('customer_id',$customer_id)->delete();
-            return response()->json([
-                'code' => 200,
-                'message' => 'Đã xóa sản phẩm yêu thích'
-            ]);
-        }else{
-            $dataProduct =  $this->product->find($addproductid);
-            $this->wishlist->create([
-                'product_id'=>$dataProduct->id,
-                'customer_id'=>$customer_id
-            ]);
-            return response()->json([
-                'code' => 200,
-                'message' => 'Đã thêm sản phẩm yêu thích'
-            ]);
-        }
-
+        $dataProduct =  $this->product->find($addproductid);
+        $this->wishlist->create([
+            'product_id'=>$dataProduct->id,
+            'customer_id'=>$customer_id
+        ]);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Đã thêm sản phẩm yêu thích'
+        ]);
     }
 
-    public function getWishList(Request $request) {
+    public function removeWishlist(Request $request) {
+        $customer_id = Session::get('customer_id');
+        $product_id  = $request->product_id;
+        $wishlistItem = $this->wishlist
+        ->where('product_id',$product_id)
+        ->where('customer_id',$customer_id)
+        ->first();
 
+        if($wishlistItem) {
+            $wishlistItem->delete();
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status' => 'not_found'], 404);
+        }
+    }
+
+    public function checkWishList(Request $request) {
         $customer_id = Session::get('customer_id');
         $addproductid = $request->product_id;
 
@@ -59,7 +62,6 @@ class WishlistController extends Controller
         }
 
         return $output;
-
     }
 
  

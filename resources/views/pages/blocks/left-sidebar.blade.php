@@ -10,8 +10,6 @@
                         <a data-toggle="collapse" data-parent="#accordian" href="#sportswear_{{$category->id}}">
                             <span class="badge pull-right">
                              <i class="fa fa-plus"></i>
-                             
-                             
                             </span>
                           {{$category->name}}
                         </a>

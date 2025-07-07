@@ -233,20 +233,20 @@ $('document').ready(function () {
                             note: note, method: method, customer_id: customer_id, total: total, _token: _token
                         },
                     }).done(function (response) {
-                            console.log(response);
-                            
-                            Swal.fire({
-                                title: "Good job!",
-                                text: `${response}`,
-                                icon: "success"
-                            });
-                            // setTimeout(function () {
-                            //     location.reload();
-                            // }, 1000);
-                        }).fail(function (x){
-                            console.error(x);
+                        console.log(response);
 
+                        Swal.fire({
+                            title: "Good job!",
+                            text: `${response}`,
+                            icon: "success"
                         });
+                        // setTimeout(function () {
+                        //     location.reload();
+                        // }, 1000);
+                    }).fail(function (x) {
+                        console.error(x);
+
+                    });
 
                     // bắt buộc để chặn gửi bình thường vì bạn đã sử dụng ajax
                     return false;
@@ -417,31 +417,46 @@ $(document).ready(function () {
 //=====================Add WishList ==================================================== 
 
 $(document).ready(function () {
-    $(".btn-add-wishlist").on('click', function () {
-        console.log('ok');
-        
+    $(document).on('click','.btn-add-wishlist', function () {
         var link_data = $(this).data('id');
         var _token = $("meta[name='csrf-token']").attr("content");
-        let myElement = $('.btn-add-wishlist');        
+        let myElement = $(this);
+        
         $.ajax({
             type: "POST",
             url: '/add-with-list',
             data: ({ product_id: link_data, _token: _token }),
-        }).done(function(data) {
-            console.log(data);
-            
-        if (data == '1') {
-             myElement.classList.add("d-none");                
-                $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-minus-square">Remove wishlist</i>');
+        }).done(function (data) {            
+            if (data.status == 200) {
+                myElement.removeClass('btn-add-wishlist').addClass('btn-remove-wishlist').html('<i class="fa fa-minus-square">Remove wishlist</i>');
             }
-            else {
-                $('a[data-id="' + link_data + '"] > .whishstate').html('<i class="fa fa-plus-square">Add to wishlist</i>');
-            }
+            return;
         });
     });
 });
 
 //=====================Delete Wishlist ==================================================== 
+
+$(document).ready(function () {
+    $(document).on('click','.btn-remove-wishlist', function () {
+        var link_data = $(this).data('id');
+        var _token = $("meta[name='csrf-token']").attr("content");
+        let myElement = $(this);
+        
+        $.ajax({
+            type: "POST",
+            url: '/remove-wishlist',
+            data: ({ product_id: link_data, _token: _token }),
+        }).done(function (data) {            
+            if (data.status == 200) {
+                myElement.removeClass('remove-wishlist').addClass('btn-add-wishlist').html('<i class="fa fa-plus-square whishstate">Add to wishlist</i>');
+            }
+        });
+    });
+});
+
+
+
 
 $(".delete-wishlist").click(function () {
     let id = $(this).data('id');
