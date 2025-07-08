@@ -174,6 +174,12 @@ $('document').ready(function () {
     });
 });
 
+//============================show-products====================================
+
+
+
+
+
 
 //============================checkout===========================================
 $('document').ready(function () {
@@ -417,20 +423,20 @@ $(document).ready(function () {
 //=====================Add WishList ==================================================== 
 
 $(document).ready(function () {
-    $(document).on('click','.btn-add-wishlist', function () {
-        var link_data = $(this).data('id');
+    $(document).on('click', '.btn-add-wishlist', function () {
+        var product_id = $(this).data('id');
         var _token = $("meta[name='csrf-token']").attr("content");
         let myElement = $(this);
-        
+        localStorage.setItem('customer_id', product_id);
+
         $.ajax({
             type: "POST",
             url: '/add-with-list',
-            data: ({ product_id: link_data, _token: _token }),
-        }).done(function (data) {            
+            data: ({ product_id: product_id, _token: _token }),
+        }).done(function (data) {
             if (data.status == 200) {
                 myElement.removeClass('btn-add-wishlist').addClass('btn-remove-wishlist').html('<i class="fa fa-minus-square">Remove wishlist</i>');
             }
-            return;
         });
     });
 });
@@ -438,23 +444,22 @@ $(document).ready(function () {
 //=====================Delete Wishlist ==================================================== 
 
 $(document).ready(function () {
-    $(document).on('click','.btn-remove-wishlist', function () {
+    $(document).on('click', '.btn-remove-wishlist', function () {
         var link_data = $(this).data('id');
         var _token = $("meta[name='csrf-token']").attr("content");
         let myElement = $(this);
-        
+
         $.ajax({
             type: "POST",
             url: '/remove-wishlist',
             data: ({ product_id: link_data, _token: _token }),
-        }).done(function (data) {            
+        }).done(function (data) {
             if (data.status == 200) {
                 myElement.removeClass('remove-wishlist').addClass('btn-add-wishlist').html('<i class="fa fa-plus-square whishstate">Add to wishlist</i>');
             }
         });
     });
 });
-
 
 
 

@@ -34,4 +34,9 @@ class Product extends Model
         return $this->hasMany(ProductImage::class,'product_id');
     }
 
+    public function  productWishlist() {
+        return $this->hasOneThrough(Wishlist::class,'product_id');
+        
+    }
+
 }

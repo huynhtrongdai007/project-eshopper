@@ -48,24 +48,6 @@ class WishlistController extends Controller
         }
     }
 
-    public function checkWishList(Request $request) {
-        $customer_id = Session::get('customer_id');
-        $addproductid = $request->product_id;
-
-        $result = $this->wishlist->where('product_id',$addproductid)->where('customer_id',$customer_id)->get();
-        $countId = $result->count();
-        $output="";
-        if($countId > 0) {
-            $output.='<i class="fa fa-minus-square">Remove wishlist</i>';
-        } else {
-            $output.='<i class="fa fa-plus-square">Add to wishlist</i>';
-        }
-
-        return $output;
-    }
-
- 
-
     public function deleteWishlist(Request $request) {
         $id = $request->id;
         $this->wishlist->find($id)->delete();

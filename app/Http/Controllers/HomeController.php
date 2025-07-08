@@ -32,7 +32,8 @@ class HomeController extends Controller
         $sliders = Slide::where('status',1)->latest()->get();
         $products = Product::where('status',1)->latest()->get()->take(6);
         $menus = Menu::where('parent_id',0)->get();
-        return view('pages.home',\compact('sliders','products','menus'));
+        $check_wishlist = $this->checkWishList();
+        return view('pages.home',\compact('sliders','products','menus','check_wishlist'));
     }
 
     public function login() {
@@ -64,8 +65,6 @@ class HomeController extends Controller
         $products = Product::where('brand_id',$brand_id)->paginate(5);
         return view('pages.product.brand.list',\compact('products'));
     }
-    
- 
 
     public function productTags($tag_id) {
         $product = DB::table('products')
@@ -103,4 +102,11 @@ class HomeController extends Controller
         $products = Wishlist::where('customer_id',$id)->latest()->get();
         return view('pages.product.wishlist.list',\compact('products'));
     }
+    
+    public function checkWishList() {
+        $customer_id = Session::get('customer_id');
+        $result = Wishlist::where('customer_id',$customer_id)->get();
+        return $result;
+    }
+
 }

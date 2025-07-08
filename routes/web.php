@@ -64,6 +64,7 @@ Route::get('list-wishlist','HomeController@wishlist')->name('list-wishlist');
 Route::get('/get-with-list','HomeController@loadWishlist');
 Route::post('/delete-wishlist','WishlistController@deleteWishlist')->name('delete-wishlist');
 Route::post('/remove-wishlist','WishlistController@removeWishlist')->name('remove-wishlist');
+Route::get('/check-with-list','HomeController@checkWishlist');
 
 /*--------------------------------- phần Admin------------------------------------------*/
 
