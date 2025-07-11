@@ -53,6 +53,8 @@ Route::get('Save-Item-List-Cart/{id}/{quantity}','CartController@SaveItemCart')-
 Route::post('Save-All','CartController@SaveAllItemCart')->name('SaveItemCart');
 /*--------------------------------- phần Checkout------------------------------------------*/
 Route::post('storecheckout','CheckoutController@storeCheckOut');
+Route::post('/vn_payment','PaymentController@vnpay_payment');
+
 /*--------------------------------- phần Comment------------------------------------------*/
 
 Route::post('/add_comment','PostController@add_comment');
@@ -223,6 +225,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('stock_out_view','WarehouseController@stock_out_view')->name('stock_out_view');
         Route::get('stock_out_detail_view/{id}','WarehouseController@stock_out_detail_view')->name('stock_out_detail_view');
         Route::get('confirm-stock-out/{id}','WarehouseController@confirm_stock_out')->name('confirm_stock_out');
+    });
+    Route::prefix('coupon')->name('coupon.')->group(function() {
+        Route::get('index','CouponController@index')->name('index');
+        Route::get('create','CouponController@create')->name('create');
+        Route::post('store','CouponController@store')->name('store');
+        Route::get('edit/{id}','CouponController@edit')->name('edit');
+        Route::post('update/{id}','CouponController@update')->name('update');
+        Route::get('destroy/{id}','CouponController@destroy')->name('destroy');
     });
  });
 });

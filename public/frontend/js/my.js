@@ -184,7 +184,6 @@ $('document').ready(function () {
 //============================checkout===========================================
 $('document').ready(function () {
     let checkcart = $('#checkcart').val();
-    let customerid = $("#customer_id").val();
     $('#btn-checkout').click(function () {
 
         $('#form-checkout').validate({
@@ -230,6 +229,38 @@ $('document').ready(function () {
                     let method = $('#method').val();
                     let total = $("#total").val();
                     var _token = $("meta[name='csrf-token']").attr("content");
+                    
+                    if(method == 'cash') {
+                        console.log('cash');
+                        return false;
+                    }else{
+                        $.ajax({
+                        url: '/vn_pay',
+                        type: 'POST',
+                        data: {
+                            lastname: lastname, middlename: middlename,
+                            firstname: firstname, phone: phone, email: email, address: address,
+                            note: note, method: method, customer_id: customer_id, total: total, _token: _token
+                        },
+                    }).done(function (response) {
+                        console.log(response);
+
+                        Swal.fire({
+                            title: "Good job!",
+                            text: `${response}`,
+                            icon: "success"
+                        });
+                        // setTimeout(function () {
+                        //     location.reload();
+                        // }, 1000);
+                    }).fail(function (x) {
+                        console.error(x);
+
+                    });
+                        return false;
+                    }
+
+
                     $.ajax({
                         url: 'storecheckout',
                         type: 'POST',

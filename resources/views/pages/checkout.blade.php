@@ -21,7 +21,7 @@
                             @php
                                 $customer_id = Session::get('customer_id');
 							@endphp
-                            <input type="hidden" name="customer_id" id="customer_id" value="{{$customer_id}}">
+                            <input type="hidden" name="customer_id" id="customer_id" value="{{$customer_id }}">
                             <input type="text" name="lastname" id="lastname" placeholder="Last Name">
                             <input type="text" name="middlename" id="middlename" placeholder="middle Name">
                             <input type="text" name="firstname" id="firstname" placeholder="first Name">
@@ -38,7 +38,16 @@
                         <textarea name="message" id="note"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
                         <label><input type="checkbox"> Shipping to bill address</label>
                     </div>	
-                </div>					
+                    <div class="form-group">
+                    <label for="method">Payment Method:</label>
+                        <select class="form-control" name="method" id="method">
+                            <option value="cash">Cash</option>
+                            <option value="vn_pay">VN Pay</option>
+                        </select>
+                      
+                    </div>
+                </div>	
+               			
             </div>
         </div>
         <div class="review-payment">
@@ -103,15 +112,19 @@
                 <input type="text" id="total" value="0">
             @endif
         </div>
-        <div class="payment-options">
+        {{-- <div class="payment-options">
                 <span>
                     <label><input name="method" id="method" value="ATM" type="checkbox"> Direct Bank Transfer</label>
                 </span>
                 <span>
                     <label><input name="method" id="method" value="Tiền Mặt" type="checkbox"> Check Payment</label>
                 </span>
-            </div>
+            </div> --}}
     </div>
 </form>
+                         <form action="{{url('/vn_payment')}}" method="post">
+                            @csrf
+                            <button type="submit" name="redirect">VN PAY</button>
+                        </form>
 </section> <!--/#cart_items-->
 @endsection

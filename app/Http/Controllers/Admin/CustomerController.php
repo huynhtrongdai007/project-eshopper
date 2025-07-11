@@ -25,18 +25,6 @@ class CustomerController extends Controller
         return view('admin.modules.customer.index',\compact('customers'));
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
