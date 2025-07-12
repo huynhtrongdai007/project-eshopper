@@ -1,15 +1,15 @@
-$(function(){
-    $(".tags_select").select2({
+$(function () {
+  $(".tags_select").select2({
     tags: true,
     tokenSeparators: [',']
   });
- });
+});
 
 function actionDelete(event) {
-    event.preventDefault();
-    let urlRequest = $(this).data('url');
-    let row = $(this);
-    Swal.fire({
+  event.preventDefault();
+  let urlRequest = $(this).data('url');
+  let row = $(this);
+  Swal.fire({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
     icon: 'warning',
@@ -20,57 +20,57 @@ function actionDelete(event) {
   }).then((result) => {
     if (result.value) {
       $.ajax({
-        type:'GET',
-        url:urlRequest,
-        success:function(data) {
-          if(data.code == 200) {
+        type: 'GET',
+        url: urlRequest,
+        success: function (data) {
+          if (data.code == 200) {
             row.parent().parent().remove();
           }
         },
-        error:function(e) {
+        error: function (e) {
           console.error(e)
         }
       });
-      
+
     }
   })
-  }
+}
 
-  $(function() {
-    $(document).on('click','.action_delete',actionDelete);
+$(function () {
+  $(document).on('click', '.action_delete', actionDelete);
 });
 
-$(function() {
-  $('.checkbox_wapper').on('click',function() {
-    $(this).parents('.col-md-3').find('.checkbox_chilrent').prop('checked',$(this).prop('checked'));
+$(function () {
+  $('.checkbox_wapper').on('click', function () {
+    $(this).parents('.col-md-3').find('.checkbox_chilrent').prop('checked', $(this).prop('checked'));
   });
-  
-  $('.checkall').on('click',function() {
-    $(this).parents().find('.checkbox_chilrent').prop('checked',$(this).prop('checked'));
-    $(this).parents().find('.checkbox_wapper').prop('checked',$(this).prop('checked'));
+
+  $('.checkall').on('click', function () {
+    $(this).parents().find('.checkbox_chilrent').prop('checked', $(this).prop('checked'));
+    $(this).parents().find('.checkbox_wapper').prop('checked', $(this).prop('checked'));
 
   });
 });
- //update status brand 
+//update status brand 
 
-$(document).ready(function() {
- 
-  $('.status_on').on('change',function() {
+$(document).ready(function () {
+
+  $('.status_on').on('change', function () {
     var id = $(this).data("id");
-    
+
     $.ajax({
-      url:'update-status-active/'+id, 
-      type:'GET',
-    }); 
+      url: 'update-status-active/' + id,
+      type: 'GET',
+    });
   });
 
-  $('.status_off').on('change',function() {
+  $('.status_off').on('change', function () {
     var id = $(this).data("id");
-    
+
     $.ajax({
-      url:'update-status-untive/'+id, 
-      type:'GET',
-    }); 
+      url: 'update-status-untive/' + id,
+      type: 'GET',
+    });
   });
 
 });

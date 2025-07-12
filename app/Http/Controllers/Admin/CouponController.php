@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupon;
+use Illuminate\Support\Facades\Log;
+
 class CouponController extends Controller
 {
     public function __construct(Coupon $coupon) {
@@ -45,6 +47,7 @@ class CouponController extends Controller
             'code' => 'required|min:5',
             'coupon_time' => 'required',
             'coupon_condition' => 'required',
+            'coupon_number' => 'required'
         ]);
         $data = $request->all();
         $this->coupon->create($data);
@@ -82,6 +85,18 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+             $this->coupon->find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ]);
+        } catch (\Throwable $th) {
+            Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ]);
+        }
     }
 }

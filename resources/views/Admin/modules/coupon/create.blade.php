@@ -1,7 +1,7 @@
 @extends('admin.master_layout')
 @section('title','Tạo Mã Giảm Giá')
 @section('content')
-    <div class="card">>
+    <div class="card">
         <div class="card-body">
             @php
                 $message = Session::get('message');  

@@ -51,6 +51,7 @@ Route::get('product-details/{slug}/AddCart/{id}','CartController@AddCart')->name
 Route::get('Delete-Cart/{id}','CartController@DeleteItemCart')->name('DeleteCart');
 Route::get('Save-Item-List-Cart/{id}/{quantity}','CartController@SaveItemCart')->name('SaveItemCart');
 Route::post('Save-All','CartController@SaveAllItemCart')->name('SaveItemCart');
+Route::post('/check-coupon','CartController@check_coupon')->name('check_coupon');
 /*--------------------------------- phần Checkout------------------------------------------*/
 Route::post('storecheckout','CheckoutController@storeCheckOut');
 Route::post('/vn_payment','PaymentController@vnpay_payment');

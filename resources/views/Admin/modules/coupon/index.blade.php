@@ -57,8 +57,10 @@
       <td>
         {{$item->coupon_number}}  
       </td>
-      <td><a class="btn btn-info" href="{{ route('admin.coupon.edit',['id'=>$item->id]) }}">Edit</a> |
-         <a class="btn btn-danger text-white action_delete" data-url="{{ route('admin.coupon.destroy',['id'=>$item->id]) }}">Delete</a></td>
+      <td>
+         <a class="btn btn-info" href="{{ route('admin.coupon.edit',['id'=>$item->id]) }}">Edit</a> |
+         <a class="btn btn-danger text-white action_delete" data-url="{{ route('admin.coupon.destroy',['id'=>$item->id]) }}">Delete</a>
+      </td>
    </tr>
   @endforeach
 </table>
