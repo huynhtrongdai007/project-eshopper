@@ -2,9 +2,6 @@
 @section('title','Tạo Thể Loại')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h3>Create Category</h3>
-        </div>
         <div class="card-body">
             @php
                 $message = Session::get('message');  

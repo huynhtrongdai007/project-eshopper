@@ -235,6 +235,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','CouponController@update')->name('update');
         Route::get('destroy/{id}','CouponController@destroy')->name('destroy');
     });
+    Route::prefix('feeship')->name('feeship.')->group(function() {
+        Route::get('index','FeeshipController@index')->name('index');
+        Route::get('create','FeeshipController@create')->name('create');
+        Route::post('store','FeeshipController@store')->name('store');
+        Route::get('edit/{id}','FeeshipController@edit')->name('edit');
+        Route::post('update/{id}','FeeshipController@update')->name('update');
+        Route::get('destroy/{id}','FeeshipController@destroy')->name('destroy');
+        Route::get('select-delivery','FeeshipController@select_delivery');
+    });
  });
 });
 

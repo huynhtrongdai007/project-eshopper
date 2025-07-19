@@ -74,3 +74,27 @@ $(document).ready(function () {
   });
 
 });
+
+// FeeShip
+$(document).ready(function () {
+  $(".choose").on('change', function () {
+    let action = $(this).attr('id');
+    let code = $(this).val();
+    let _token = $("meta[name='csrf-token']").attr("content");
+    let result = '';
+
+    if (action == 'province') {
+      result = 'district';
+    } else {
+      result = 'ward';
+    }    
+    $.ajax({
+      url: 'select-delivery',
+      type: "GET",
+      data: ({action:action, code: code, _token: _token }),
+    }).done(function (data) {
+      console.log(action);
+      $('#'+result).html(data);
+    });
+  });
+});

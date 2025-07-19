@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistrictsTable extends Migration
+class CreateFeeshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateDistrictsTable extends Migration
      */
     public function up()
     {
-        Schema::create('districts', function (Blueprint $table) {
-            $table->string('code')->primary();
-    	    $table->string('name');
-	        $table->string('full_name');
+        Schema::create('feeships', function (Blueprint $table) {
+            $table->id();
             $table->string('province_code');
-            $table->foreign('province_code')->references('code')->on('provinces');
+            $table->string('district_code');
+            $table->string('ward_code');
+            $table->string('fee_ship');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateDistrictsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('feeships');
     }
 }
