@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Provinces;
 use App\Models\District;
 use App\Models\Ward;
+use App\Models\Feeship;
+use Illuminate\Support\Facades\Log;
 
 class FeeshipController extends Controller
 {
@@ -41,7 +43,30 @@ class FeeshipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        try {
+            $feeship = Feeship::create([
+            'province_code'=>$data['province_code'],
+            'district_code'=>$data['district_code'],
+            'ward_code'=>$data['ward_code'],
+            'fee_ship'=>$data['fee_ship'],
+        ]);
+
+          if($feeship) {
+                return response()->json([
+                    'code' => 200,
+                    'message' => 'Thêm Feeship thành công'
+                ]);
+            }
+            
+        } catch (\Throwable $exception) {
+             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+            return response()->json([
+                 'code' => 500,
+                 'message' => 'fail'
+             ]);
+        }
+       
     }
 
     /**

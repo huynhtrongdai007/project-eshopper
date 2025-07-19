@@ -243,6 +243,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','FeeshipController@update')->name('update');
         Route::get('destroy/{id}','FeeshipController@destroy')->name('destroy');
         Route::get('select-delivery','FeeshipController@select_delivery');
+        
     });
  });
 });

@@ -87,14 +87,33 @@ $(document).ready(function () {
       result = 'district';
     } else {
       result = 'ward';
-    }    
+    }
     $.ajax({
       url: 'select-delivery',
       type: "GET",
-      data: ({action:action, code: code, _token: _token }),
+      data: ({ action: action, code: code, _token: _token }),
     }).done(function (data) {
-      console.log(action);
-      $('#'+result).html(data);
+      $('#' + result).html(data);
+    });
+  });
+
+// add feeship
+  $(document).on('click', '#btn-add-feeship', function (e) {
+    e.preventDefault();
+    let province_code = $('#province').val();
+    let district_code = $('#district').val();
+    let ward_code = $('#ward').val();
+    let fee_ship = $('#fee_ship').val();
+    $.ajax({
+      url: 'store',
+      type: "POST",
+      data: ({ province_code: province_code, district_code:district_code,ward_code:ward_code,fee_ship:fee_ship, _token: $('meta[name="csrf-token"]').attr('content') }),
+    }).done(function (data) {
+      if(data.code == 200) {
+        alert(data.message);
+      }else{
+        alert(data.message);
+      }
     });
   });
 });
