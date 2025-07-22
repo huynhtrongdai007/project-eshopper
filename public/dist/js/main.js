@@ -33,7 +33,7 @@ function actionDelete(event) {
       });
 
     }
-  })
+  });
 }
 
 $(function () {
@@ -97,7 +97,7 @@ $(document).ready(function () {
     });
   });
 
-// add feeship
+  // add feeship
   $(document).on('click', '#btn-add-feeship', function (e) {
     e.preventDefault();
     let province_code = $('#province').val();
@@ -107,11 +107,11 @@ $(document).ready(function () {
     $.ajax({
       url: 'store',
       type: "POST",
-      data: ({ province_code: province_code, district_code:district_code,ward_code:ward_code,fee_ship:fee_ship, _token: $('meta[name="csrf-token"]').attr('content') }),
+      data: ({ province_code: province_code, district_code: district_code, ward_code: ward_code, fee_ship: fee_ship, _token: $('meta[name="csrf-token"]').attr('content') }),
     }).done(function (data) {
-      if(data.code == 200) {
+      if (data.code == 200) {
         alert(data.message);
-      }else{
+      } else {
         alert(data.message);
       }
     });

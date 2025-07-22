@@ -19,7 +19,8 @@ class FeeshipController extends Controller
      */
     public function index()
     {
-        return view('admin.modules.feeship.index');
+        $feeships = Feeship::orderBy('created_at')->get();
+        return view('admin.modules.feeship.index',compact('feeships'));
     }
 
     /**
@@ -63,7 +64,7 @@ class FeeshipController extends Controller
              Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
             return response()->json([
                  'code' => 500,
-                 'message' => 'fail'
+                 'message' => 'Lỗi xin hãy liên hệ với admin'
              ]);
         }
        

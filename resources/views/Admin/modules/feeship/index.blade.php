@@ -24,33 +24,23 @@
 <table id="example2" class="table table-bordered table-hover text-center">
 <thead>
    <tr>
-      <th>#</th>
-      <th>Name Category</th>
-      <th>Status</th>
-      <th>Actions</th>
+      <th>Name Provinces</th>
+      <th>Name District</th>
+      <th>Name Ward</th>
+      <th>FeeShip</th>
    </tr>
 </thead>
 <tbody>
-  @foreach ($brand as $items)
-     <tr>
-      <td>{{$items->id}}</td>
-        <td>
-           {{$items->name}}
-       </td>
-    
-      <td>
-        @if($items->status==1)
-       <input type="checkbox" class="status_off " data-id="{{$items->id}}" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-       @else
-        <input type="checkbox" class="status_on " data-id="{{$items->id}}" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
-       @endif
-       </td>
-      <td><a class="btn btn-info" href="{{ route('admin.brand.edit',['id'=>$items->id]) }}">Edit</a> |
-         <a class="btn btn-danger action_delete" data-url="{{ route('admin.brand.destroy',['id'=>$items->id]) }}">Delete</a></td>
-   </tr>
-  @endforeach
-  
-  
+    @foreach ($feeships as $item)
+
+    <tr>
+        <td>{{$item->province->full_name}}</td>
+        <td>{{$item->district->full_name}}</td>
+        <td>{{$item->ward->full_name}}</td>
+        <td>{{number_format($item->fee_ship).'đ'}}</td>
+    </tr>
+    @endforeach
+</tbody>  
 
 </table>
 
