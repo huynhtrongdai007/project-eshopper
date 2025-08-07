@@ -8,6 +8,10 @@ use App\Models\Shipping;
 use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Orderdetail;
+use App\Models\Provinces;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\Feeship;
 use Session;
 use DateTime;
 use DB;
@@ -78,6 +82,42 @@ class CheckoutController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Message:'.$exception->getMessage().'  Line : ' . $exception->getLine());
+        }
+    }
+
+    public function select_delivery(Request $request)
+    {
+        $data = $request->all();
+        if ($data['action']) {
+            $output = '';
+           if($data['action'] == 'province') {
+                $select_districts = District::where('province_code',$data['code'])->get();
+                $output.='<option value="">--- Choose ---</option>';
+                foreach ($select_districts as $item) {   
+                  $output .='<option value="'.$item['code'].'">'.$item['full_name'].'</option>';
+                }
+            }else{
+                $select_wards = Ward::where('district_code',$data['code'])->get();
+                $output.='<option value="">--- Choose ---</option>';
+                foreach ($select_wards as $item) {
+                    $output .='<option value="'.$item['code'].'">'.$item['full_name'].'</option>';
+                }
+            }
+        }
+        return $output;
+    }
+
+    public function calculatorFeeship(Request $request){
+        $data = $request->all();
+        if ($data['province_code']) {
+           $feeship = Feeship::where('province_code',$data['province_code'])->where('district_code',$data['district_code'])->where('ward_code',$data['ward_code'])->first();
+           Session::put('feeship',$feeship->fee_ship);
+           if(Session::has('feeship')) {
+                return 'find feeship';
+           }else{
+             return 'No feeship';
+           }
+        
         }
     }
 }

@@ -27,10 +27,10 @@
                         @foreach (Session::get('Cart')->products as $item)
                             <tr>
                                 <td class="cart_product">
-                                    <a href=""><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt=""></a>
+                                    <a href="{{ route('product-details', ['slug'=>$item['productInfo']->slug,'id'=>$item['productInfo']->id]) }}"><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt="{{$item['productInfo']->name}}"></a>
                                 </td>
                                 <td width="20%" class="cart_description">
-                                    <a href="">{{$item['productInfo']->name}}</a>
+                                    <a href="{{ route('product-details', ['slug'=>$item['productInfo']->slug,'id'=>$item['productInfo']->id]) }}">{{$item['productInfo']->name}}</a>
                                 </td>
                                 <td class="cart_price">
                                     <p>{{number_format($item['productInfo']->price)}}</p>
@@ -65,7 +65,7 @@
                 <input type="text" name="coupon_code" class="mr-2" placeholder="Nhập mã khuyến mãi" required>
                 <button type="submit" class="btn btn-default">Tính mã giảm giá</button>
                 @php
-                     $message = Session::get('message');
+                    $message = Session::get('message');
                     if($message=='success')
                     {
                         echo"<div class='alert alert-success'>Thêm mã giảm giá thành công</div>";
@@ -73,11 +73,9 @@
                     }else{
                         echo"<div class='alert alert-danger'> Mã giảm giá không đúng hoặc đã hết hạn</div>";
                         Session::put('message',null);
-                    }
-                    
+                    }   
                 @endphp
             </form>
-   
         </div>
     </div>
 </section> <!--/#cart_items-->
@@ -99,6 +97,7 @@
                 </div>
             </div>
             @endif
+            @if (Session::has('coupon'))
             <div class="col-sm-6">
                 <div class="total_area">
                     @foreach (Session::get('coupon') as $item)
@@ -106,7 +105,7 @@
                         <ul>
                             <li>Coupon Code <span> {{$item['coupon_code']}}</span></li>
                             <li>Coupon <span> {{ number_format($item['coupon_number']).' đ'}}</span></li>
-                            <li>Total <span>$ {{number_format(Session::get('Cart')->totalPrice -  $item['coupon_number']) }}</span></li>
+                            <li>Total <span>$ {{number_format(Session::get('Cart')->totalPrice - $item['coupon_number']) }}</span></li>
                         </ul>
                     @else
                     <ul>
@@ -122,6 +121,7 @@
 
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>

@@ -31,9 +31,7 @@ class FeeshipController extends Controller
     public function create()
     {
         $provinces = provinces::all();
-        $districts = District::all();
-        $wards = Ward::all();
-        return view('admin.modules.feeship.create',compact('provinces','districts','wards'));
+        return view('admin.modules.feeship.create',compact('provinces'));
     }
 
     /**

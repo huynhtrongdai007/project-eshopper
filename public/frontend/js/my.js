@@ -174,12 +174,6 @@ $('document').ready(function () {
     });
 });
 
-//============================show-products====================================
-
-
-
-
-
 
 //============================checkout===========================================
 $('document').ready(function () {
@@ -229,34 +223,34 @@ $('document').ready(function () {
                     let method = $('#method').val();
                     let total = $("#total").val();
                     var _token = $("meta[name='csrf-token']").attr("content");
-                    
-                    if(method == 'cash') {
+
+                    if (method == 'cash') {
                         console.log('cash');
                         return false;
-                    }else{
+                    } else {
                         $.ajax({
-                        url: '/vn_pay',
-                        type: 'POST',
-                        data: {
-                            lastname: lastname, middlename: middlename,
-                            firstname: firstname, phone: phone, email: email, address: address,
-                            note: note, method: method, customer_id: customer_id, total: total, _token: _token
-                        },
-                    }).done(function (response) {
-                        console.log(response);
+                            url: '/vn_pay',
+                            type: 'POST',
+                            data: {
+                                lastname: lastname, middlename: middlename,
+                                firstname: firstname, phone: phone, email: email, address: address,
+                                note: note, method: method, customer_id: customer_id, total: total, _token: _token
+                            },
+                        }).done(function (response) {
+                            console.log(response);
 
-                        Swal.fire({
-                            title: "Good job!",
-                            text: `${response}`,
-                            icon: "success"
+                            Swal.fire({
+                                title: "Good job!",
+                                text: `${response}`,
+                                icon: "success"
+                            });
+                            // setTimeout(function () {
+                            //     location.reload();
+                            // }, 1000);
+                        }).fail(function (x) {
+                            console.error(x);
+
                         });
-                        // setTimeout(function () {
-                        //     location.reload();
-                        // }, 1000);
-                    }).fail(function (x) {
-                        console.error(x);
-
-                    });
                         return false;
                     }
 
@@ -506,5 +500,47 @@ $(".delete-wishlist").click(function () {
         success: function () {
             row.parent().parent().remove();
         }
+    });
+});
+
+
+// FeeShip
+$(document).ready(function () {
+    $(".choose").on('change', function () {
+        let action = $(this).attr('id');
+        let code = $(this).val();
+        let _token = $("meta[name='csrf-token']").attr("content");
+        let result = '';
+
+        if (action == 'province') {
+            result = 'district';
+        } else {
+            result = 'ward';
+        }
+        $.ajax({
+            url: 'select-delivery',
+            type: "GET",
+            data: ({ action: action, code: code, _token: _token }),
+        }).done(function (data) {
+            $('#' + result).html(data);
+        });
+    });
+
+
+    $("#btn-calculator-feeship").on('click', function (e) {
+        e.preventDefault();
+        let province_code = $("#province").val();
+        let district_code = $("#district").val();
+        let ward_code = $("#ward").val();
+        let _token = $("meta[name='csrf-token']").attr("content");
+        $.ajax({
+            url: 'calculator-feeship',
+            type: "POST",
+            data: ({ province_code: province_code, district_code: district_code, ward_code: ward_code, _token: _token }),
+        }).done(function (data) {
+            // location.reload();
+            console.log(data);
+            
+        });
     });
 });

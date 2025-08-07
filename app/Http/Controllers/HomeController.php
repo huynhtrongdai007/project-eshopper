@@ -11,6 +11,10 @@ use App\Models\ProductTag;
 use App\Models\Menu;
 use App\Models\Review;
 use App\Models\Wishlist;
+use App\Models\Provinces;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\Feeship;
 use DB;
 use Session;
 class HomeController extends Controller
@@ -45,7 +49,8 @@ class HomeController extends Controller
     }
 
     public function checkout() {
-        return view('pages.checkout');
+        $provinces = provinces::all();
+        return view('pages.checkout', compact('provinces'));
     }
 
     public function storeCheckOut(Request $request) {

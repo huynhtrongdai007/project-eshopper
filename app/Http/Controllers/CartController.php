@@ -77,9 +77,10 @@ class CartController extends Controller
                 'coupon_condition' => $coupon->coupon_condition,
                 'coupon_number' =>  $coupon->coupon_number,
             ];
-             Session::save();
+            Session::save();
             Session::put('coupon', $cou);
            }
+           return redirect()->back()->with('message', 'success');
         }else{
             return redirect()->back()->with('message', 'error');
         }

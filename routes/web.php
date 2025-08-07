@@ -55,6 +55,8 @@ Route::post('/check-coupon','CartController@check_coupon')->name('check_coupon')
 /*--------------------------------- phần Checkout------------------------------------------*/
 Route::post('storecheckout','CheckoutController@storeCheckOut');
 Route::post('/vn_payment','PaymentController@vnpay_payment');
+Route::get('select-delivery','CheckoutController@select_delivery');
+Route::post('calculator-feeship','CheckoutController@calculatorFeeship');
 
 /*--------------------------------- phần Comment------------------------------------------*/
 
@@ -243,7 +245,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('update/{id}','FeeshipController@update')->name('update');
         Route::get('destroy/{id}','FeeshipController@destroy')->name('destroy');
         Route::get('select-delivery','FeeshipController@select_delivery');
-        
     });
  });
 });

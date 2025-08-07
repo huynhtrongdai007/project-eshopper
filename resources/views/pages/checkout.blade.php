@@ -47,7 +47,31 @@
                       
                     </div>
                 </div>	
-               			
+                <div class="col-md-5">
+                      <div class="shopper-info">
+                        <form action="" method="post">
+                            @csrf
+                            <div class="mb-3" class="form-group">
+                            <label class="form-label" for="province">Province Name</label>
+                                <select name="province_code" id="province" class="form-control choose">
+                                    <option value="">--Choose--</option>
+                                    @foreach ($provinces as $item)
+                                    <option value="{{$item->code}}">{{$item->full_name}}</option>                        
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3" class="form-group">
+                                <label class="form-label" for="district_name">Province Name</label>
+                                <select name="district_code" id="district" class="form-control choose"></select>
+                            </div>
+                            <div class="mb-3" class="form-group">
+                                <label class="form-label" for="ward_name">Ward Name</label>
+                                <select name="ward_code" id="ward" class="form-control"></select>
+                            </div>
+                            <button type="submit" id="btn-calculator-feeship" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div>
+                </div>
             </div>
         </div>
         <div class="review-payment">
@@ -75,8 +99,8 @@
                         <td class="cart_product">
                             <a href=""><img width="80" src="{{$item['productInfo']->feature_image_path}}" alt=""></a>
                         </td>
-                        <td class="cart_description">
-                            <h4><a href="">{{$item['productInfo']->name}}</a></h4>
+                        <td width="20%" class="cart_description">
+                            <a href="">{{$item['productInfo']->name}}</a>
                         </td>
                         <td class="cart_price">
                             <p>{{number_format($item['productInfo']->price)}}</p>
@@ -89,7 +113,7 @@
                             </div>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price">{{number_format($item['price'])}}</p>
+                            <p class="cart_total_price">{{number_format($item['price']).'đ'}}</p>
                         </td>
                         <td>
                             <i style="font-size: 20px;" onclick="SaveListItemCart({{$item['productInfo']->id}});" id="Save-cart-item-{{$item['productInfo']->id}}" class="fa fa-save"></i>
@@ -101,16 +125,28 @@
                     </tr>
                     @endforeach
                     @endif
-                    
-                   
                 </tbody>
-            
             </table>
-            @if (Session::has('Cart')!=null)
-            <input type="text" disabled="" id="total" value="{{number_format(Session::get('Cart')->totalPrice)}}">
-            @else
-                <input type="text" id="total" value="0">
-            @endif
+            <div class="total-check">
+                <ul>
+                    <li>Tổng tiền: {{number_format(Session::get('Cart')->totalPrice).'đ'}}</li>
+                    @foreach (Session::get('coupon') as $item)
+                    <li>Mã giảm: {{number_format($item['coupon_number'])}}</li>
+                    @endforeach
+                    @if (Session::has('feeship'))
+                        <li>Phí vận chuyển: <span>{{number_format(Session::get('feeship'))}}</span></li>
+                    @endif
+                      {{-- @if ($item['coupon_condition'] == 1)
+                        <li>Tổng giảm: <span>{{number_format(Session::get('Cart')->totalPrice - $item['coupon_number']) }}</span></li>
+                      @else
+                        <li>Tổng giảm: <span>{{number_format(Session::get('Cart')->totalPrice - $item['coupon_number']) }}</span></li>
+                      @endif --}}
+                </ul>
+                @if (Session::has('Cart')!=null)
+                @else
+                    <input type="text" id="total" value="0">
+                @endif
+            </div>
         </div>
         {{-- <div class="payment-options">
                 <span>
@@ -122,9 +158,9 @@
             </div> --}}
     </div>
 </form>
-                         <form action="{{url('/vn_payment')}}" method="post">
-                            @csrf
-                            <button type="submit" name="redirect">VN PAY</button>
-                        </form>
+    {{-- <form action="{{url('/vn_payment')}}" method="post">
+        @csrf
+        <button type="submit" name="redirect">VN PAY</button>
+    </form> --}}
 </section> <!--/#cart_items-->
 @endsection
